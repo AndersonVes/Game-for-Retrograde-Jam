@@ -1,10 +1,13 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="Classes/ScenaryObject.js"></script>
+
+
     <link href="https://fonts.googleapis.com/css2?family=MuseoModerno:wght@100;200;300;400;500;531;600;700;800;900&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
@@ -23,15 +26,23 @@
 
 
     <script>
+
+        // Cross-browser support for requestAnimationFrame
+        var w = window;
+        requestAnimationFrame = w.requestAnimationFrame || w.webkitRequestAnimationFrame || w.msRequestAnimationFrame || w.mozRequestAnimationFrame;
+
         function play() {
             ctx.mozImageSmoothingEnabled = false;
             ctx.webkitImageSmoothingEnabled = false;
             //"ImageSmoothingEnabled = false" for the pixels not to be smoothed
-
             $('canvas').css("display", "block");
             $('#menu').css("display", "none");
             main();
         }
+
+        /* Canvas variables */
+        var canvasHeight = 224;
+        var canvasWidth = 256;
 
         var canvas = document.createElement("canvas");
         var ctx = canvas.getContext("2d");
@@ -49,17 +60,39 @@
         $('canvas').css("display", "none");
 
 
+        /* GAME MAIN VARIABLES */
+        var dinoSpeed = 10;
+
+        var tree = CreateNewScenaryObject(30, 30, 30, 30, "src/charteste.png", canvasWidth );
+
+
+
         var render = function() {
             ctx.mozImageSmoothingEnabled = false;
             ctx.webkitImageSmoothingEnabled = false;
 
             ctx.drawImage(bgImage, 0, 0);
+            tree.move(1);
+            tree.render(ctx);
+
+     
+
         };
 
-        var main = function() {
+
+
+        var main = function () {
+
+        
+
             render();
 
+            // Request to do this again ASAP
+            window.requestAnimationFrame(main);
+
         };
+
+
     </script>
 
 
