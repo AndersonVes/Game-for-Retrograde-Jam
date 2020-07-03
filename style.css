@@ -1,0 +1,32 @@
+* {
+    font-family: MuseoModerno;
+}
+
+body {
+    margin: 0;
+    background: linear-gradient(45deg, #e52090, #ce1818);
+    height: 100vh;
+}
+
+.rodape-total {
+    bottom: 0;
+    position: fixed;
+    z-index: 999999;
+    width: 100%;
+    padding: 20px 0;
+    background: linear-gradient(45deg, #ce1818, #2056e5);
+}
+
+.creditos {
+    width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-around;
+}
+
+.creditos a {
+    color: #ddf7f6;
+    text-decoration: none;
+    font-size: 20px;
+    text-shadow: 1px 1px 5px aliceblue;
+}
