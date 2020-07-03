@@ -1,10 +1,22 @@
-* {
+.rodape-total a {
     font-family: MuseoModerno;
 }
 
+h1,
+button {
+    font-family: 'Press Start 2P';
+}
+
 body {
+    background-image: url(./src/flag.png);
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     margin: 0;
-    background: linear-gradient(45deg, #e52090, #ce1818);
     height: 100vh;
 }
 
@@ -31,13 +43,37 @@ body {
     text-shadow: 1px 1px 5px aliceblue;
 }
 
-.page-content {
-    background-image: url(./src/flag.png);
+canvas {
+    width: 512px;
+    height: 448px;
+    image-rendering: -moz-crisp-edges;
+    image-rendering: -webkit-crisp-edges;
+    image-rendering: pixelated;
+    image-rendering: crisp-edges;
+}
+
+div#menu button {
     width: 100%;
-    height: 100%;
-    background-size: cover;
-    background-position: center;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    margin: 10px 0;
+}
+
+h1 {
+    color: #a93786;
+    text-decoration: none;
+    font-size: 60px;
+    text-shadow: 3px 7px 5px #e084c4;
+    text-align: center;
+    margin: 0;
+}
+
+#menu button {
+    background: #90a60d;
+    color: red;
+    height: 40px;
+    cursor: pointer;
+}
+
+#menu button:hover {
+    background: #dbef6a;
+    transition: 0.3s;
 }

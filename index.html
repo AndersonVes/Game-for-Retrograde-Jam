@@ -4,55 +4,64 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> 
-    <link href="https://fonts.googleapis.com/css2?family=MuseoModerno:wght@100;200;300;400;500;531;600;700;800;900&display=swap" rel="stylesheet">-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=MuseoModerno:wght@100;200;300;400;500;531;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 
     <title>Game Jam</title>
 
-    
-
-
-    
-
 </head>
 
 <body>
-<!--
-    <div class="page-content">
-        <canvas id="myCanvas"style="border:1px solid #000000;"></canvas>>
+
+    <div id="menu">
+        <h1>Dino Jogo</h1>
+        <button type="button" onclick="inicio()">Play</button>
+        <button type="button">Info</button>
     </div>
 
--->
-<script>
 
-var canvas = document.createElement("canvas");
-var ctx = canvas.getContext("2d");
-canvas.width = 512;
-canvas.height = 480;
-document.body.appendChild(canvas);
+    <script>
+        function inicio() {
+            ctx.mozImageSmoothingEnabled = false;
+            ctx.webkitImageSmoothingEnabled = false;
 
-var bgReady = false;
-var bgImage = new Image();
-bgImage.onload = function () {
-	bgReady = true;
-};
-bgImage.src = "Images/charteste.png";
+            $('canvas').css("display", "block");
+            $('#menu').css("display", "none");
+            main();
+        }
+
+        var canvas = document.createElement("canvas");
+        var ctx = canvas.getContext("2d");
+        canvas.width = 256;
+        canvas.height = 224;
+        document.body.appendChild(canvas);
+
+        var bgReady = false;
+        var bgImage = new Image();
+        bgImage.onload = function() {
+            bgReady = true;
+        };
+        bgImage.src = "src/bg.jpg";
+
+        $('canvas').css("display", "none");
 
 
+        var render = function() {
+            ctx.mozImageSmoothingEnabled = false;
+            ctx.webkitImageSmoothingEnabled = false;
 
-var render = function () {
-		ctx.drawImage(bgImage, 0, 0);
-};
+            ctx.drawImage(bgImage, 0, 0);
+        };
 
-var main = function () {
-	render();
+        var main = function() {
+            render();
 
-};
+        };
+    </script>
 
-main();
 
-</script>
 
 
     <div class="rodape-total">
