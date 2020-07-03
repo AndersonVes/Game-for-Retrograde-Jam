@@ -1,15 +1,15 @@
 //This type of object won't collide with anything in the game
 
-
 function CreateNewScenaryObject(posX, posY,sizeX, sizeY, imagePath, canvasWidth) {
 
-    const obj = {}
+    var obj = {}
 
     obj.sizeX = sizeX;
     obj.sizeY = sizeY;
 
-    objImage = new Image();
-    objImage.src = imagePath;
+    obj.objImage = new Image();
+    obj.objImage.src = imagePath;
+
 
     obj.posX = posX;
     obj.posY = posY;
@@ -26,7 +26,7 @@ function CreateNewScenaryObject(posX, posY,sizeX, sizeY, imagePath, canvasWidth)
 
         
         if (posX < -sizeX) {
-            posX = canvasWidth + Math.floor(Math.random() * 100);  
+            posX = canvasWidth ;//+ Math.floor(Math.random() * 100);  
         }
 
     }
@@ -37,8 +37,8 @@ function CreateNewScenaryObject(posX, posY,sizeX, sizeY, imagePath, canvasWidth)
      */
     obj.render = function (ctx) {
 
- 
-        ctx.drawImage(objImage, posX, posY);
+        
+        ctx.drawImage(obj.objImage, posX, posY);
 
     }
 

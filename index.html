@@ -65,15 +65,32 @@
 
         var tree = CreateNewScenaryObject(30, 30, 30, 30, "src/charteste.png", canvasWidth );
 
-
+        var mountain1 = CreateNewScenaryObject(0, 107, 107, 30, "sprites/mountain1.png", canvasWidth );
+        var mountain2 = CreateNewScenaryObject(107, 107, 106, 30, "sprites/mountain1.png", canvasWidth );
+        var mountain3 = CreateNewScenaryObject(107  * 2, 107, 107, 30, "sprites/mountain1.png", canvasWidth );
 
         var render = function() {
             ctx.mozImageSmoothingEnabled = false;
             ctx.webkitImageSmoothingEnabled = false;
 
-            ctx.drawImage(bgImage, 0, 0);
+            //Background solid colors
+            ctx.fillStyle = "#e45c10"; // orange
+            ctx.fillRect(0, 0, canvas.width, 136);
+
+            ctx.fillStyle = "#005800"; // green
+            ctx.fillRect(0, 136, canvas.width, 89);
+
+          //  ctx.drawImage(bgImage, 0, 0);
             tree.move(1);
             tree.render(ctx);
+
+mountain1.move(1);
+mountain2.move(1);
+mountain3.move(1);
+
+            mountain1.render(ctx);
+            mountain2.render(ctx);
+            mountain3.render(ctx);
 
      
 
