@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <title>Testes</title>
+</head>
+
+<body>
+    <div>
+        <p id="campo"></p>
+    </div>
+    <script>
+        tecla = "";
+
+        document.addEventListener('keydown', (event) => {
+            const keyCode = event.keyCode;
+            switch (keyCode) {
+                case 87:
+                    $('#campo').html("cima");
+                    break;
+
+                case 83:
+                    $('#campo').html("baixo");
+                    break;
+
+                case 65:
+                    $('#campo').html("esquerda");
+                    break;
+
+                case 68:
+                    $('#campo').html("direita");
+                    break;
+
+                default:
+                    $('#campo').html("");
+                    break;
+            }
+
+
+
+        });
+    </script>
+</body>
+
+</html>
