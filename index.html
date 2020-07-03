@@ -4,18 +4,56 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=MuseoModerno:wght@100;200;300;400;500;531;600;700;800;900&display=swap" rel="stylesheet">
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> 
+    <link href="https://fonts.googleapis.com/css2?family=MuseoModerno:wght@100;200;300;400;500;531;600;700;800;900&display=swap" rel="stylesheet">-->
     <link rel="stylesheet" href="style.css">
 
     <title>Game Jam</title>
+
+    
+
+
+    
+
 </head>
 
 <body>
-
+<!--
     <div class="page-content">
-        <canvas id="myCanvas" width="200" height="100" style="border:1px solid #000000;"></canvas>>
+        <canvas id="myCanvas"style="border:1px solid #000000;"></canvas>>
     </div>
+
+-->
+<script>
+
+var canvas = document.createElement("canvas");
+var ctx = canvas.getContext("2d");
+canvas.width = 512;
+canvas.height = 480;
+document.body.appendChild(canvas);
+
+var bgReady = false;
+var bgImage = new Image();
+bgImage.onload = function () {
+	bgReady = true;
+};
+bgImage.src = "Images/charteste.png";
+
+
+
+var render = function () {
+		ctx.drawImage(bgImage, 0, 0);
+};
+
+var main = function () {
+	render();
+
+};
+
+main();
+
+</script>
+
 
     <div class="rodape-total">
         <div class="creditos">
@@ -24,17 +62,6 @@
         </div>
     </div>
 
-
-
-
-
-    <script>
-        var c = document.getElementById("myCanvas");
-        var ctx = c.getContext("2d");
-        ctx.moveTo(0, 0);
-        ctx.lineTo(200, 100);
-        ctx.stroke();
-    </script>
 </body>
 
 </html>
