@@ -16,13 +16,17 @@
 <body>
 
     <div id="menu">
-        <h1>Dino Game</h1>
+        <h1>Game Title</h1>
         <button type="button" onclick="play()">Play</button>
         <button class="btn btn-success" onclick=" window.open('https://github.com/Vesguerber/GameJam','_blank')">Info</button>
     </div>
 
 
     <script>
+        window.onload = function() {
+            play();
+        }; //will be removed in the final version
+
         function play() {
             ctx.mozImageSmoothingEnabled = false;
             ctx.webkitImageSmoothingEnabled = false;
@@ -68,7 +72,7 @@
     <div class="bottom-total">
         <div class="credits">
             <a href="https://github.com/vesguerber" target="_blank">Anderson Vesguerber</a>
-            <a href="https://github.com/brunop98" target="_blank">Bruno "vonPotato" Poor</a>
+            <a href="https://github.com/brunop98" target="_blank">Bruno "vonPotato" Poór</a>
         </div>
     </div>
 
