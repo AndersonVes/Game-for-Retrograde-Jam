@@ -1,4 +1,4 @@
-.rodape-total a {
+.bottom-total a {
     font-family: MuseoModerno;
 }
 
@@ -20,7 +20,7 @@ body {
     height: 100vh;
 }
 
-.rodape-total {
+.bottom-total {
     bottom: 0;
     position: fixed;
     z-index: 999999;
@@ -29,14 +29,14 @@ body {
     background: linear-gradient(45deg, #ce1818, #2056e5);
 }
 
-.creditos {
+.credits {
     width: 1200px;
     margin: 0 auto;
     display: flex;
     justify-content: space-around;
 }
 
-.creditos a {
+.credits a {
     color: #ddf7f6;
     text-decoration: none;
     font-size: 20px;

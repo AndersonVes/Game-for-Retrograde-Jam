@@ -9,23 +9,24 @@
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 
-    <title>Game Jam</title>
+    <title>Retrograde Jam</title>
 
 </head>
 
 <body>
 
     <div id="menu">
-        <h1>Dino Jogo</h1>
-        <button type="button" onclick="inicio()">Play</button>
+        <h1>Dino Game</h1>
+        <button type="button" onclick="play()">Play</button>
         <button type="button">Info</button>
     </div>
 
 
     <script>
-        function inicio() {
+        function play() {
             ctx.mozImageSmoothingEnabled = false;
             ctx.webkitImageSmoothingEnabled = false;
+            //"ImageSmoothingEnabled = false" for the pixels not to be smoothed
 
             $('canvas').css("display", "block");
             $('#menu').css("display", "none");
@@ -64,8 +65,8 @@
 
 
 
-    <div class="rodape-total">
-        <div class="creditos">
+    <div class="bottom-total">
+        <div class="credits">
             <a href="https://github.com/vesguerber" target="_blank">Anderson Vesguerber</a>
             <a href="https://github.com/brunop98" target="_blank">Bruno "vonPotato" Poor</a>
         </div>
