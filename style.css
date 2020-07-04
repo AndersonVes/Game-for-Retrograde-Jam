@@ -54,6 +54,7 @@ canvas {
 div#menu button {
     width: 100%;
     margin: 10px auto;
+    outline: none;
 }
 
 h1 {
