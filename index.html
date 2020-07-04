@@ -23,13 +23,29 @@
         <h1>Game Title</h1>
         <button type="button" onclick="play()">Play</button>
         <button class="btn btn-success" onclick=" window.open('https://github.com/Vesguerber/GameJam','_blank')">Info</button>
+        <button type="button" onclick="$('#howtoplay').css('display','flex');">How to Play</button>
+        <div class="info" id="howtoplay">
+
+            <p>This game was developed for the game jam "<a target="_blank" href="https://itch.io/jam/retrograde-jam">Retrograde Jam</a>". And it aims to provide an SNES game experience.</p>
+
+            <p>You are a dinosaur and must escape from a meteor shower. That's it, good luck. Ammunition is on us.</p>
+
+            <p>The game's resolution is 256x224, for a more nostalgic experience. And the music, mechanics, programming and sprites are 100% produced by Anderson and Bruno.</p>
+
+            <p>We hope you enjoy the game! A hug from Brazil</p>
+
+            <p>:)</p>
+
+            <img src="./src/controls.png" alt="">
+        </div>
     </div>
 
 
     <script>
         window.onload = function() {
-            play();
-        }; //will be removed in the final version
+            // play(); //will be removed in the final version
+            $('#howtoplay').css('display', 'none');
+        };
 
         // Cross-browser support for requestAnimationFrame
         var w = window;

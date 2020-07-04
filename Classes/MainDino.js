@@ -1,5 +1,4 @@
-
-function CreateNewDino(){
+function CreateNewDino() {
 
 
     var obj = {};
@@ -11,8 +10,7 @@ function CreateNewDino(){
     obj.posY = 140;
 
     obj.animation = CreateNewAnimation(
-        ["sprites/dino/dinoframe2.png","sprites/dino/dinoframe1.png","sprites/dino/dinoframe2.png","sprites/dino/dinoframe3.png"],
-        [.1,.03,.1,.03]);
+        ["sprites/dino/dinoframe2.png", "sprites/dino/dinoframe1.png", "sprites/dino/dinoframe2.png", "sprites/dino/dinoframe3.png"], [.1, .03, .1, .03]);
 
     obj.imgJumping = new Image();
     obj.imgJumping.src = "sprites/dino/dinoframe2.png";
@@ -74,7 +72,7 @@ function CreateNewDino(){
 
     }
 
-    obj.render = function(ctx ,delta){
+    obj.render = function(ctx, delta) {
 
         if (obj.state == "running" || obj.state == "jumping"){
             
@@ -120,6 +118,11 @@ function CreateNewDino(){
 
 
     
+
+        ctx.drawImage(obj.animation.getAnimationFrame(delta / 1000), 40, 135);
+
+    }
+
 
     return obj;
 
