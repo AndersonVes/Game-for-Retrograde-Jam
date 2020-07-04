@@ -50,6 +50,7 @@
         /* Speeds */
 
         var mountainSpeed = 30;
+        var cloudSpeed = 50;
 
         /* Positions */
 
@@ -79,6 +80,12 @@
         var mountain3 = CreateNewScenaryObject(107 * 2, moutainYpos, 107, 30, ["sprites/mountain1.png", "sprites/mountain2.png"], canvasWidth, canvasHeight);
         var mountain4 = CreateNewScenaryObject(107 * 3, moutainYpos, 107, 30, ["sprites/mountain1.png", "sprites/mountain2.png"], canvasWidth, canvasHeight);
 
+        var cloud1 = CreateNewScenaryObject(400, 150, 107, 30, ["sprites/cloud1.png", "sprites/cloud2.png"], canvasWidth, canvasHeight);
+        var cloud3 = CreateNewScenaryObject(150, 120, 107, 30, ["sprites/cloud1.png", "sprites/cloud2.png"], canvasWidth, canvasHeight);
+        var cloud4 = CreateNewScenaryObject(200, 140, 107, 30, ["sprites/cloud1.png", "sprites/cloud2.png"], canvasWidth, canvasHeight);
+        var cloud5 = CreateNewScenaryObject(350, 95, 107, 30, ["sprites/cloud1.png", "sprites/cloud2.png"], canvasWidth, canvasHeight);
+        var cloud2 = CreateNewScenaryObject(50, 110, 107, 30, ["sprites/cloud1.png", "sprites/cloud2.png"], canvasWidth, canvasHeight);
+
         var render = function(delta) {
 
             ctx.mozImageSmoothingEnabled = false;
@@ -107,10 +114,24 @@
             mountain3.move(mountainSpeed, delta);
             mountain4.move(mountainSpeed, delta);
 
+            cloud1.move(cloudSpeed, delta);
+            cloud2.move(cloudSpeed, delta);
+            cloud3.move(cloudSpeed, delta);
+            cloud4.move(cloudSpeed, delta);
+            cloud5.move(cloudSpeed, delta);
+
+            cloud1.render(ctx);
+            cloud2.render(ctx);
+            cloud3.render(ctx);
+            cloud4.render(ctx);
+            cloud5.render(ctx);
+
             mountain1.render(ctx);
             mountain2.render(ctx);
             mountain3.render(ctx);
             mountain4.render(ctx);
+
+
 
 
 
