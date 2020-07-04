@@ -20,10 +20,10 @@
 <body>
 
     <div id="menu">
-        <h1>Game Title</h1>
-        <button type="button" onclick="play()">Play</button>
-        <button class="btn btn-success" onclick=" window.open('https://github.com/Vesguerber/GameJam','_blank')">Info</button>
-        <button type="button" onclick="$('#howtoplay').css('display','flex');">How to Play</button>
+        <h1>T-rex of Fire</h1>
+        <div class="button-icon"><img src="sprites/dino/ak47.png" alt=""><button type="button" onclick="play()">Play</button></div>
+        <div class="button-icon"><img src="sprites/dino/ak47.png" alt=""><button class="btn btn-success" onclick=" window.open('https://github.com/Vesguerber/GameJam','_blank')">Info</button></div>
+        <div class="button-icon"><img src="sprites/dino/ak47.png" alt=""><button type="button" onclick="$('#howtoplay').css('display','flex');">How to Play</button></div>
         <div class="info" id="howtoplay">
 
             <p>This game was developed for the game jam "<a target="_blank" href="https://itch.io/jam/retrograde-jam">Retrograde Jam</a>". And it aims to provide an SNES game experience.</p>
@@ -105,9 +105,10 @@
         var cloud5 = CreateNewScenaryObject(350, 95, 107, 30, ["sprites/cloud1.png", "sprites/cloud2.png"], canvasWidth, canvasHeight);
         var cloud2 = CreateNewScenaryObject(50, 110, 107, 30, ["sprites/cloud1.png", "sprites/cloud2.png"], canvasWidth, canvasHeight);
 
-        var Input = function(){
+        var Input = function() {
 
             document.addEventListener('keydown', (event) => {
+
             const keyCode = event.keyCode;
             switch (keyCode) {
                 case 32:
@@ -125,7 +126,8 @@
 
 
 
-        });
+
+            });
         }
 
 

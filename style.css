@@ -9,17 +9,13 @@ button,
 }
 
 body {
-    background-image: url(./src/flag.png);
     width: 100%;
-    height: 100%;
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
     display: flex;
     align-items: center;
     justify-content: center;
     margin: 0;
     height: 100vh;
+    background: #003a6d;
 }
 
 .bottom-total {
@@ -57,29 +53,31 @@ canvas {
 
 div#menu button {
     width: 100%;
-    margin: 10px 0;
+    margin: 10px auto;
+    outline: none;
 }
 
 h1 {
-    color: #a93786;
+    color: #f9fd0a;
     text-decoration: none;
     font-size: 60px;
     text-shadow: 3px 7px 5px #e084c4;
     text-align: center;
     margin: 0;
-    padding-top: 30px;
+    padding: 30px 0;
 }
 
 #menu button {
-    background: #bddc01;
-    color: #0c5f1a;
+    background: transparent;
+    color: #fff3f3;
     height: 40px;
     cursor: pointer;
+    border: none;
+    text-shadow: 2px 3px 2px #ef07a8;
 }
 
 #menu button:hover {
-    background: #dbef6a;
-    transition: 0.3s;
+    background: transparent;
 }
 
 .info p {
@@ -97,6 +95,7 @@ h1 {
     flex-wrap: wrap;
     justify-content: center;
     align-items: flex-start;
+    margin: 0 auto;
     margin-bottom: 120px;
     padding-bottom: 35px;
 }
@@ -107,4 +106,22 @@ div#menu {
 
 .info p a {
     color: #e466ec;
+}
+
+.button-icon {
+    display: flex;
+    width: 410px;
+    align-items: center;
+    margin: 0 auto;
+}
+
+.button-icon img {
+    position: absolute;
+    image-rendering: pixelated;
+    width: 50px;
+    display: none;
+}
+
+.button-icon:hover img {
+    display: block;
 }
