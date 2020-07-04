@@ -1,6 +1,6 @@
 # Retrograde Jam
 
-This game was developed for the game jam "[Retrograde Jam](https://itch.io/jam/retrograde-jam)". And it aims to provide an SNES game experience.
+This game was developed for the game jam "[Retrograde Jam](https://itch.io/jam/retrograde-jam){:target="_blank"}". And it aims to provide an SNES game experience.
 
 You are a dinosaur and must escape from a meteor shower. That's it, good luck. Ammunition is on us.
 
