@@ -87,16 +87,22 @@ h1 {
     text-align: center;
     color: white;
     line-height: 22px;
+    width: 100%;
 }
 
 .info {
     max-width: 600px;
     background: #00000094;
     padding: 10px;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: flex-start;
+    margin-bottom: 120px;
+    padding-bottom: 35px;
 }
 
 div#menu {
-    padding: 260px 0;
+    height: 100%;
 }
 
 .info p a {
