@@ -3,7 +3,8 @@
 }
 
 h1,
-button {
+button,
+.info p {
     font-family: 'Press Start 2P';
 }
 
@@ -13,6 +14,7 @@ body {
     height: 100%;
     background-size: cover;
     background-position: center;
+    background-attachment: fixed;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -22,6 +24,7 @@ body {
 
 .bottom-total {
     bottom: 0;
+    padding-top: 100px;
     position: fixed;
     z-index: 999999;
     width: 100%;
@@ -64,11 +67,12 @@ h1 {
     text-shadow: 3px 7px 5px #e084c4;
     text-align: center;
     margin: 0;
+    padding-top: 30px;
 }
 
 #menu button {
-    background: #90a60d;
-    color: red;
+    background: #bddc01;
+    color: #0c5f1a;
     height: 40px;
     cursor: pointer;
 }
@@ -76,4 +80,25 @@ h1 {
 #menu button:hover {
     background: #dbef6a;
     transition: 0.3s;
+}
+
+.info p {
+    font-size: 13px;
+    text-align: center;
+    color: white;
+    line-height: 22px;
+}
+
+.info {
+    max-width: 600px;
+    background: #00000094;
+    padding: 10px;
+}
+
+div#menu {
+    padding: 260px 0;
+}
+
+.info p a {
+    color: #e466ec;
 }
