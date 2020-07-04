@@ -63,11 +63,11 @@
         /* GAME MAIN VARIABLES */
         var dinoSpeed = 10;
 
-        var tree = CreateNewScenaryObject(30, 30, 30, 30, "src/charteste.png", canvasWidth );
+        var tree = CreateNewScenaryObject(30, 30, 30, 30, ["src/charteste.png"], canvasWidth );
 
-        var mountain1 = CreateNewScenaryObject(0, 107, 107, 30, "sprites/mountain1.png", canvasWidth );
-        var mountain2 = CreateNewScenaryObject(107, 107, 106, 30, "sprites/mountain1.png", canvasWidth );
-        var mountain3 = CreateNewScenaryObject(107  * 2, 107, 107, 30, "sprites/mountain1.png", canvasWidth );
+        var mountain1 = CreateNewScenaryObject(0, 107, 107, 30, ["sprites/mountain1.png","sprites/mountain2.png" ], canvasWidth );
+        var mountain2 = CreateNewScenaryObject(107, 107, 106, 30, ["sprites/mountain1.png","sprites/mountain2.png" ], canvasWidth );
+        var mountain3 = CreateNewScenaryObject(107  * 2, 107, 107, 30, ["sprites/mountain1.png","sprites/mountain2.png" ], canvasWidth );
 
         var render = function() {
             ctx.mozImageSmoothingEnabled = false;

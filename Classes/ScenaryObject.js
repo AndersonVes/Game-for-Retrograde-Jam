@@ -7,9 +7,18 @@ function CreateNewScenaryObject(posX, posY,sizeX, sizeY, imagePath, canvasWidth)
     obj.sizeX = sizeX;
     obj.sizeY = sizeY;
 
-    obj.objImage = new Image();
-    obj.objImage.src = imagePath;
+    
+    obj.objImage = [];
+    obj.objImage.length = imagePath.length;
 
+    for (var i = 0; i < imagePath.length; i++ ){
+        obj.objImage[i] = new Image();
+        obj.objImage[i].src = imagePath[i];
+    }
+
+    obj.imageIndex = Math.floor(Math.random() * imagePath.length);  
+
+alert(obj.objImage[obj.imageIndex].src);
 
     obj.posX = posX;
     obj.posY = posY;
@@ -27,6 +36,7 @@ function CreateNewScenaryObject(posX, posY,sizeX, sizeY, imagePath, canvasWidth)
         
         if (posX < -sizeX) {
             posX = canvasWidth ;//+ Math.floor(Math.random() * 100);  
+            obj.imageIndex = Math.floor(Math.random() * imagePath.length);  
         }
 
     }
@@ -38,7 +48,7 @@ function CreateNewScenaryObject(posX, posY,sizeX, sizeY, imagePath, canvasWidth)
     obj.render = function (ctx) {
 
         
-        ctx.drawImage(obj.objImage, posX, posY);
+        ctx.drawImage(obj.objImage[obj.imageIndex], posX, posY);
 
     }
 
