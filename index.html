@@ -68,6 +68,7 @@
 
         var mountainSpeed = 30;
         var cloudSpeed = 50;
+        var grassSpeed= 150;
 
         /* Positions */
 
@@ -104,6 +105,15 @@
         var cloud4 = CreateNewScenaryObject(200, 140, 107, 30, ["sprites/cloud1.png", "sprites/cloud2.png"], canvasWidth, canvasHeight);
         var cloud5 = CreateNewScenaryObject(350, 95, 107, 30, ["sprites/cloud1.png", "sprites/cloud2.png"], canvasWidth, canvasHeight);
         var cloud2 = CreateNewScenaryObject(50, 110, 107, 30, ["sprites/cloud1.png", "sprites/cloud2.png"], canvasWidth, canvasHeight);
+
+        var grass1 = CreateNewScenaryObject(100, 38, 12, 14, ["sprites/grama.png"], canvasWidth, canvasHeight);
+        var grass2 = CreateNewScenaryObject(40, 36, 12, 14, ["sprites/grama.png"], canvasWidth, canvasHeight);
+        var grass3 = CreateNewScenaryObject(63, 37, 12, 14, ["sprites/grama.png"], canvasWidth, canvasHeight);
+        var grass4 = CreateNewScenaryObject(150, 39, 12, 14, ["sprites/grama.png"], canvasWidth, canvasHeight);
+        var grass5 = CreateNewScenaryObject(82, 40, 12, 14, ["sprites/grama.png"], canvasWidth, canvasHeight);
+
+
+
 
         var Input = function() {
 
@@ -147,7 +157,7 @@
             ctx.fillRect(0, 127, canvas.width, 13);
 
             ctx.fillStyle = "#503000"; // brown
-            ctx.fillRect(0, 160, canvas.width, 40);
+            ctx.fillRect(0, 160, canvas.width, 25);
 
             mountain1.move(mountainSpeed, delta);
             mountain2.move(mountainSpeed, delta);
@@ -160,11 +170,26 @@
             cloud4.move(cloudSpeed, delta);
             cloud5.move(cloudSpeed, delta);
 
+
+            grass1.move(grassSpeed, delta);
+            grass2.move(grassSpeed, delta);
+            grass3.move(grassSpeed, delta);
+            grass4.move(grassSpeed, delta);
+            grass5.move(grassSpeed, delta);
+
             cloud1.render(ctx);
             cloud2.render(ctx);
             cloud3.render(ctx);
             cloud4.render(ctx);
             cloud5.render(ctx);
+
+            grass1.render(ctx);
+            grass2.render(ctx);
+            grass3.render(ctx);
+            grass4.render(ctx);
+            grass5.render(ctx);
+
+
 
             mountain1.render(ctx);
             mountain2.render(ctx);

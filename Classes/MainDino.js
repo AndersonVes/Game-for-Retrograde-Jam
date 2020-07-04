@@ -7,7 +7,7 @@ function CreateNewDino() {
     obj.state = "running";
 
     obj.posX = 40;
-    obj.posY = 140;
+    obj.posY = 135;
 
     obj.animation = CreateNewAnimation(
         ["sprites/dino/dinoframe2.png", "sprites/dino/dinoframe1.png", "sprites/dino/dinoframe2.png", "sprites/dino/dinoframe3.png"], [.1, .03, .1, .03]);
