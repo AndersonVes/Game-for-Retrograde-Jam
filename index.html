@@ -6,7 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="Classes/ScenaryObject.js"></script>
-
+    <script src="Classes/animation.js"></script>
+    <script src="Classes/MainDino.js"></script>
 
     <link href="https://fonts.googleapis.com/css2?family=MuseoModerno:wght@100;200;300;400;500;531;600;700;800;900&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
@@ -80,6 +81,8 @@
         var mountain3 = CreateNewScenaryObject(107 * 2, moutainYpos, 107, 30, ["sprites/mountain1.png", "sprites/mountain2.png"], canvasWidth, canvasHeight);
         var mountain4 = CreateNewScenaryObject(107 * 3, moutainYpos, 107, 30, ["sprites/mountain1.png", "sprites/mountain2.png"], canvasWidth, canvasHeight);
 
+        var dino = CreateNewDino();
+
         var cloud1 = CreateNewScenaryObject(400, 150, 107, 30, ["sprites/cloud1.png", "sprites/cloud2.png"], canvasWidth, canvasHeight);
         var cloud3 = CreateNewScenaryObject(150, 120, 107, 30, ["sprites/cloud1.png", "sprites/cloud2.png"], canvasWidth, canvasHeight);
         var cloud4 = CreateNewScenaryObject(200, 140, 107, 30, ["sprites/cloud1.png", "sprites/cloud2.png"], canvasWidth, canvasHeight);
@@ -130,6 +133,8 @@
             mountain2.render(ctx);
             mountain3.render(ctx);
             mountain4.render(ctx);
+
+            dino.render(ctx, delta);
 
 
 
