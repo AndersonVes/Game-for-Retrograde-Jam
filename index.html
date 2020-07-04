@@ -110,27 +110,17 @@
             document.addEventListener('keydown', (event) => {
             const keyCode = event.keyCode;
             switch (keyCode) {
-                case 87:
+                case 32:
                     $('#campo').html("cima");
                     dino.jump();
                     break;
 
-                case 83:
-                    $('#campo').html("baixo");
-                    break;
 
-                case 65:
-                    $('#campo').html("esquerda");
-                    break;
-
-                case 68:
+                case 69:
                     $('#campo').html("direita");
                     dino.shot();
                     break;
 
-                default:
-                    $('#campo').html("");
-                    break;
             }
 
 

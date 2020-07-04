@@ -37,18 +37,13 @@ function CreateNewDino() {
     /* Jump Vars */
 
     obj.velocityY = 0.0;
-    obj.gravity = 1;
+    obj.gravity = 40;
     obj.onGround = true;
 
     obj.update = function(delta) {
 
         if (obj.state == "jumping") {
 
-            obj.velocityY += obj.gravity * delta / 1000;
-            obj.velocityY += obj.gravity * delta / 1000;
-            obj.velocityY += obj.gravity * delta / 1000;
-            obj.velocityY += obj.gravity * delta / 1000;
-            obj.velocityY += obj.gravity * delta / 1000;
             obj.velocityY += obj.gravity * delta / 1000;
 
 
@@ -103,7 +98,7 @@ function CreateNewDino() {
         if (obj.state != "jumping") {
 
             obj.state = "jumping";
-            obj.velocityY = -4.0;
+            obj.velocityY = -10.0;
 
         }
     }
@@ -111,13 +106,7 @@ function CreateNewDino() {
     obj.shot = function() {
 
         obj.shotSpriteTimeCounter = obj.shotSpriteTime;
-
-
-
-
-
-
-        ctx.drawImage(obj.animation.getAnimationFrame(delta / 1000), 40, 135);
+        
 
     }
 
