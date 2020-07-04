@@ -119,20 +119,18 @@
 
             document.addEventListener('keydown', (event) => {
 
-            const keyCode = event.keyCode;
-            switch (keyCode) {
-                case 32:
-                    $('#campo').html("cima");
-                    dino.jump();
-                    break;
+                const keyCode = event.keyCode;
+                switch (keyCode) {
+                    case 32:
+                        dino.jump();
+                        break;
 
 
-                case 69:
-                    $('#campo').html("direita");
-                    dino.shot();
-                    break;
+                    case 69:
+                        dino.shot();
+                        break;
 
-            }
+                }
 
 
 

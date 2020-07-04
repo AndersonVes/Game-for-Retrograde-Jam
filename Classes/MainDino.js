@@ -106,7 +106,7 @@ function CreateNewDino() {
     obj.shot = function() {
 
         obj.shotSpriteTimeCounter = obj.shotSpriteTime;
-        
+
 
     }
 
