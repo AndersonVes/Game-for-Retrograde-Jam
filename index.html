@@ -47,6 +47,14 @@
         var canvasHeight = 224;
         var canvasWidth = 256;
 
+        /* Speeds */
+
+        var mountainSpeed = 30;
+
+        /* Positions */
+
+        var moutainYpos = 90;
+
         var canvas = document.createElement("canvas");
         var ctx = canvas.getContext("2d");
         canvas.width = 256;
@@ -66,23 +74,13 @@
         /* GAME MAIN VARIABLES */
         var dinoSpeed = 10;
 
+        var mountain1 = CreateNewScenaryObject(0, moutainYpos, 107, 30, ["sprites/mountain1.png", "sprites/mountain2.png"], canvasWidth, canvasHeight);
+        var mountain2 = CreateNewScenaryObject(107, moutainYpos, 106, 30, ["sprites/mountain1.png", "sprites/mountain2.png"], canvasWidth, canvasHeight);
+        var mountain3 = CreateNewScenaryObject(107 * 2, moutainYpos, 107, 30, ["sprites/mountain1.png", "sprites/mountain2.png"], canvasWidth, canvasHeight);
+        var mountain4 = CreateNewScenaryObject(107 * 3, moutainYpos, 107, 30, ["sprites/mountain1.png", "sprites/mountain2.png"], canvasWidth, canvasHeight);
 
-        var tree = CreateNewScenaryObject(30, 30, 30, 30, ["src/charteste.png"], canvasWidth);
+        var render = function(delta) {
 
-        var mountain1 = CreateNewScenaryObject(0, 107, 107, 30, ["sprites/mountain1.png", "sprites/mountain2.png"], canvasWidth);
-        var mountain2 = CreateNewScenaryObject(107, 107, 106, 30, ["sprites/mountain1.png", "sprites/mountain2.png"], canvasWidth);
-        var mountain3 = CreateNewScenaryObject(107 * 2, 107, 107, 30, ["sprites/mountain1.png", "sprites/mountain2.png"], canvasWidth);
-
-        var tree = CreateNewScenaryObject(30, 30, 30, 30, "src/charteste.png", canvasWidth);
-
-        var mountain1 = CreateNewScenaryObject(0, 107, 107, 30, "sprites/mountain1.png", canvasWidth);
-        var mountain2 = CreateNewScenaryObject(107, 107, 106, 30, "sprites/mountain1.png", canvasWidth);
-        var mountain3 = CreateNewScenaryObject(107 * 2, 107, 107, 30, "sprites/mountain1.png", canvasWidth);
-
-
-
-
-        var render = function() {
             ctx.mozImageSmoothingEnabled = false;
             ctx.webkitImageSmoothingEnabled = false;
 
@@ -93,29 +91,43 @@
             ctx.fillStyle = "#005800"; // green
             ctx.fillRect(0, 136, canvas.width, 89);
 
-            //  ctx.drawImage(bgImage, 0, 0);
-            tree.move(1);
-            tree.render(ctx);
+            ctx.fillStyle = "#000000"; // black
+            ctx.fillRect(0, 127, canvas.width, 13);
 
-            mountain1.move(1);
-            mountain2.move(1);
-            mountain3.move(1);
+            ctx.fillStyle = "#503000"; // brown
+            ctx.fillRect(0, 160, canvas.width, 40);
+
+
+
+
+
+
+            mountain1.move(mountainSpeed, delta);
+            mountain2.move(mountainSpeed, delta);
+            mountain3.move(mountainSpeed, delta);
+            mountain4.move(mountainSpeed, delta);
 
             mountain1.render(ctx);
             mountain2.render(ctx);
             mountain3.render(ctx);
+            mountain4.render(ctx);
+
 
 
 
         };
 
 
+        var then = Date.now();
 
         var main = function() {
 
+            var now = Date.now();
+            var delta = now - then;
 
+            render(delta);
 
-            render();
+            then = now;
 
             // Request to do this again ASAP
             window.requestAnimationFrame(main);
