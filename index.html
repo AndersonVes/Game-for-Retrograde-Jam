@@ -42,6 +42,9 @@
         </div>
     </div>
 
+    <audio id="jumpAudio" src="sounds/jump.ogg"></audio>
+    <audio id="shootAudio" src="sounds/shoot.ogg"></audio>
+    <audio id="bgAudio" src="sounds/bg.ogg"></audio>
 
     <script>
         window.onload = function() {
@@ -49,16 +52,19 @@
             $('#howtoplay').css('display', 'none');
         };
 
+        //jump audio variable
+        var jumpAudio = document.getElementById("jumpAudio");
+        var shootAudio = document.getElementById("shootAudio");
+        var bgAudio = document.getElementById("bgAudio");
+
         // Cross-browser support for requestAnimationFrame
         var w = window;
         requestAnimationFrame = w.requestAnimationFrame || w.webkitRequestAnimationFrame || w.msRequestAnimationFrame || w.mozRequestAnimationFrame;
 
         function play() {
-            ctx.mozImageSmoothingEnabled = false;
-            ctx.webkitImageSmoothingEnabled = false;
-            //"ImageSmoothingEnabled = false" for the pixels not to be smoothed
             $('canvas').css("display", "block");
             $('#menu').css("display", "none");
+            bgAudio.play();
             main();
         }
 
@@ -114,11 +120,11 @@
         var grass4 = CreateNewScenaryObject(150, 39, 12, 14, ["sprites/grama.png"], canvasWidth, canvasHeight);
         var grass5 = CreateNewScenaryObject(82, 40, 12, 14, ["sprites/grama.png"], canvasWidth, canvasHeight);
 
-        var tree1 = CreateNewScenaryObject(82, 74, 29 +30, 51, ["sprites/tree1.png"], canvasWidth, canvasHeight);
-        var tree2 = CreateNewScenaryObject(182, 70, 29 +30 + 100, 51, ["sprites/tree1.png"], canvasWidth, canvasHeight);
+        var tree1 = CreateNewScenaryObject(82, 74, 29 + 30, 51, ["sprites/tree1.png"], canvasWidth, canvasHeight);
+        var tree2 = CreateNewScenaryObject(182, 70, 29 + 30 + 100, 51, ["sprites/tree1.png"], canvasWidth, canvasHeight);
 
 
-        var hearts = createNewHearts(4 );
+        var hearts = createNewHearts(4);
 
         var Input = function() {
 
@@ -128,11 +134,13 @@
                 switch (keyCode) {
                     case 32:
                         dino.jump();
+                        jumpAudio.play();
                         break;
 
 
                     case 69:
                         dino.shot();
+                        shootAudio.play();
                         break;
 
                 }
@@ -221,6 +229,11 @@
         var then = Date.now();
 
         var main = function() {
+
+
+            ctx.mozImageSmoothingEnabled = false;
+            ctx.webkitImageSmoothingEnabled = false;
+            //"ImageSmoothingEnabled = false" for the pixels not to be smoothed
 
             var now = Date.now();
             var delta = now - then;
