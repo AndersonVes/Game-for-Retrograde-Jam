@@ -46,6 +46,8 @@
     <audio id="shootAudio" src="sounds/shoot.ogg"></audio>
     <audio id="bgAudio" src="sounds/bg.ogg"></audio>
 
+    <button onclick="hitTaken()" style="position: absolute; top: 0;">ouch</button>
+
     <script>
         window.onload = function() {
             // play(); //will be removed in the final version
@@ -59,6 +61,7 @@
 
         // Cross-browser support for requestAnimationFrame
         var w = window;
+        var lives;
         requestAnimationFrame = w.requestAnimationFrame || w.webkitRequestAnimationFrame || w.msRequestAnimationFrame || w.mozRequestAnimationFrame;
 
         function play() {
@@ -66,6 +69,9 @@
             $('#menu').css("display", "none");
             bgAudio.play();
             main();
+
+            lives = 4;
+
         }
 
         /* Canvas variables */
@@ -126,6 +132,7 @@
 
         var hearts = createNewHearts(4);
 
+
         var Input = function() {
 
             document.addEventListener('keydown', (event) => {
@@ -142,6 +149,8 @@
                         dino.shot();
                         shootAudio.play();
                         break;
+
+
 
                 }
 
@@ -218,10 +227,7 @@
             grass5.render(ctx);
 
 
-
-
-            hearts.render(ctx, 3);
-
+            hearts.render(ctx, lives);
 
         };
 
@@ -247,6 +253,41 @@
             window.requestAnimationFrame(main);
 
         };
+
+        function hitTaken() {
+
+
+            setTimeout(function() {
+                $('canvas').css('margin-left', '30px');
+            }, 0);
+            setTimeout(function() {
+                $('canvas').css('margin-left', '0px');
+
+                $('canvas').css('margin-right', '30px');
+            }, 100);
+            setTimeout(function() {
+                $('canvas').css('margin-right', '0px');
+            }, 100);
+            setTimeout(function() {
+                $('canvas').css('margin-left', '30px');
+            }, 100);
+            setTimeout(function() {
+                $('canvas').css('margin-left', '0px');
+
+                $('canvas').css('margin-right', '30px');
+            }, 100);
+            setTimeout(function() {
+                $('canvas').css('margin-right', '0px');
+            }, 100);
+
+            lives--;
+
+            if (lives <= 0) {
+                alert("morreu");
+            }
+
+
+        }
     </script>
 
 
