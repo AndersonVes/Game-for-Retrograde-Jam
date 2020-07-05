@@ -8,6 +8,8 @@
     <script src="Classes/ScenaryObject.js"></script>
     <script src="Classes/animation.js"></script>
     <script src="Classes/MainDino.js"></script>
+    <script src="Classes/hearts.js"></script>
+    <script src="Classes/CollisionObject.js"></script>
 
     <link href="https://fonts.googleapis.com/css2?family=MuseoModerno:wght@100;200;300;400;500;531;600;700;800;900&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
@@ -112,8 +114,11 @@
         var grass4 = CreateNewScenaryObject(150, 39, 12, 14, ["sprites/grama.png"], canvasWidth, canvasHeight);
         var grass5 = CreateNewScenaryObject(82, 40, 12, 14, ["sprites/grama.png"], canvasWidth, canvasHeight);
 
+        var tree1 = CreateNewScenaryObject(82, 74, 29 +30, 51, ["sprites/tree1.png"], canvasWidth, canvasHeight);
+        var tree2 = CreateNewScenaryObject(182, 70, 29 +30 + 100, 51, ["sprites/tree1.png"], canvasWidth, canvasHeight);
 
 
+        var hearts = createNewHearts(4 );
 
         var Input = function() {
 
@@ -168,6 +173,9 @@
             cloud4.move(cloudSpeed, delta);
             cloud5.move(cloudSpeed, delta);
 
+            tree1.move(grassSpeed - 10, delta);
+            tree2.move(grassSpeed - 10, delta);
+
 
             grass1.move(grassSpeed, delta);
             grass2.move(grassSpeed, delta);
@@ -181,6 +189,21 @@
             cloud4.render(ctx);
             cloud5.render(ctx);
 
+
+
+            mountain1.render(ctx);
+            mountain2.render(ctx);
+            mountain3.render(ctx);
+            mountain4.render(ctx);
+
+
+            tree1.render(ctx);
+            tree2.render(ctx);
+
+            dino.update(delta);
+            dino.render(ctx, delta);
+
+            
             grass1.render(ctx);
             grass2.render(ctx);
             grass3.render(ctx);
@@ -189,17 +212,8 @@
 
 
 
-            mountain1.render(ctx);
-            mountain2.render(ctx);
-            mountain3.render(ctx);
-            mountain4.render(ctx);
 
-            dino.update(delta);
-            dino.render(ctx, delta);
-
-
-
-
+            hearts.render(ctx, 3);
 
 
         };

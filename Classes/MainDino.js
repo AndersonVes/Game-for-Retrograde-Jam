@@ -48,13 +48,7 @@ function CreateNewDino() {
 
 
             obj.posY += obj.velocityY;
-
-
-            console.log()
-
-
-
-
+            
             if (obj.posY > 140.0) {
                 obj.posY = 140.0;
                 obj.velocityY = 0.0;
