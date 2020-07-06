@@ -47,8 +47,8 @@
         </div>
     </div>
 
-    <audio id="jumpAudio" src="sounds/jump.ogg"></audio>
-    <audio id="shootAudio" src="sounds/shoot.ogg"></audio>
+    <audio id="jumpAudio" src="sounds/jump.wav"></audio>
+    <audio id="shootAudio" src="sounds/shot.wav"></audio>
     <audio id="bgAudio" src="sounds/bg.ogg"></audio>
 
     <button type="button" onclick="hitTaken()" style="position: absolute; top: 0;">ouch</button>
@@ -147,12 +147,14 @@
                     case 32:
                         jumpAudio.play();
                         dino.jump();
+
                         break;
 
 
                     case 69:
                         shootAudio.play();
                         dino.shot();
+
                         break;
 
 
