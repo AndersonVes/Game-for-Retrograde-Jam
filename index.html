@@ -4,12 +4,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js" integrity="sha256-eGE6blurk5sHj+rmkfsGYeKyZx3M4bG+ZlFyA7Kns7E=" crossorigin="anonymous"></script>
+
     <script src="Classes/ScenaryObject.js"></script>
     <script src="Classes/animation.js"></script>
     <script src="Classes/MainDino.js"></script>
+
     <script src="Classes/hearts.js"></script>
+    <script src="Classes/collisions.js"></script>
     <script src="Classes/CollisionObject.js"></script>
+   
 
     <link href="https://fonts.googleapis.com/css2?family=MuseoModerno:wght@100;200;300;400;500;531;600;700;800;900&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
@@ -46,6 +53,8 @@
     <audio id="shootAudio" src="sounds/shot.wav"></audio>
     <audio id="bgAudio" src="sounds/bg.ogg"></audio>
 
+    <button type="button" onclick="hitTaken()" style="position: absolute; top: 0;">ouch</button>
+
     <script>
         window.onload = function() {
             // play(); //will be removed in the final version
@@ -59,6 +68,9 @@
 
         // Cross-browser support for requestAnimationFrame
         var w = window;
+        const livesTotal = 4;
+        var lives;
+
         requestAnimationFrame = w.requestAnimationFrame || w.webkitRequestAnimationFrame || w.msRequestAnimationFrame || w.mozRequestAnimationFrame;
 
         function play() {
@@ -66,6 +78,7 @@
             $('#menu').css("display", "none");
             bgAudio.play();
             main();
+            lives = livesTotal;
         }
 
         /* Canvas variables */
@@ -122,7 +135,11 @@
         var tree1 = CreateNewScenaryObject(82, 74, 29 + 30, 51, ["sprites/tree1.png"], canvasWidth, canvasHeight);
         var tree2 = CreateNewScenaryObject(182, 70, 29 + 30 + 100, 51, ["sprites/tree1.png"], canvasWidth, canvasHeight);
 
-        var hearts = createNewHearts(4);
+        var pedra1 = CreateNewCollisionObject(50, 18, 10, canvasWidth, "sprites/pedra.png");
+
+        var hearts = createNewHearts(livesTotal);
+        var grass6 = CreateNewScenaryObject(82, 40, 122, 14, ["sprites/pedra.png"], canvasWidth, canvasHeight);
+
 
         var Input = function() {
 
@@ -132,20 +149,14 @@
                 switch (keyCode) {
                     case 32:
                         jumpAudio.play();
-                        dino.jump();                        
+                        dino.jump();     
                         break;
 
                     case 69:
                         shootAudio.play();
                         dino.shot();
-                        
                         break;
-
                 }
-
-
-
-
             });
         }
 
@@ -216,10 +227,14 @@
             grass5.render(ctx);
 
 
+            hearts.render(ctx, lives);
 
+            pedra1.move(12, delta);
+            pedra1.checkColision(dino.posX, dino.posY, dino.width , dino.height);
+            pedra1.render(ctx);
 
-            hearts.render(ctx, 3);
-
+            grass6.move(12, delta);
+            grass6.render(ctx);
 
         };
 
@@ -245,6 +260,18 @@
             window.requestAnimationFrame(main);
 
         };
+
+        function hitTaken() {
+            $('canvas').effect('shake', {
+                distance: 10
+            }, 100);
+
+            lives--;
+
+            if (lives <= 0) {
+                alert("morreu");
+            }
+        }
     </script>
 
 
