@@ -4,10 +4,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js" integrity="sha256-eGE6blurk5sHj+rmkfsGYeKyZx3M4bG+ZlFyA7Kns7E=" crossorigin="anonymous"></script>
+
     <script src="Classes/ScenaryObject.js"></script>
     <script src="Classes/animation.js"></script>
     <script src="Classes/MainDino.js"></script>
+    <script src="Classes/gameHelper.js"></script>
     <script src="Classes/hearts.js"></script>
     <script src="Classes/CollisionObject.js"></script>
 
@@ -46,7 +51,7 @@
     <audio id="shootAudio" src="sounds/shoot.ogg"></audio>
     <audio id="bgAudio" src="sounds/bg.ogg"></audio>
 
-    <button onclick="hitTaken()" style="position: absolute; top: 0;">ouch</button>
+    <button type="button" onclick="hitTaken()" style="position: absolute; top: 0;">ouch</button>
 
     <script>
         window.onload = function() {
@@ -140,14 +145,14 @@
                 const keyCode = event.keyCode;
                 switch (keyCode) {
                     case 32:
-                        dino.jump();
                         jumpAudio.play();
+                        dino.jump();
                         break;
 
 
                     case 69:
-                        dino.shot();
                         shootAudio.play();
+                        dino.shot();
                         break;
 
 
@@ -255,29 +260,8 @@
         };
 
         function hitTaken() {
-
-
-            setTimeout(function() {
-                $('canvas').css('margin-left', '30px');
-            }, 0);
-            setTimeout(function() {
-                $('canvas').css('margin-left', '0px');
-
-                $('canvas').css('margin-right', '30px');
-            }, 100);
-            setTimeout(function() {
-                $('canvas').css('margin-right', '0px');
-            }, 100);
-            setTimeout(function() {
-                $('canvas').css('margin-left', '30px');
-            }, 100);
-            setTimeout(function() {
-                $('canvas').css('margin-left', '0px');
-
-                $('canvas').css('margin-right', '30px');
-            }, 100);
-            setTimeout(function() {
-                $('canvas').css('margin-right', '0px');
+            $('canvas').effect('shake', {
+                distance: 10
             }, 100);
 
             lives--;
@@ -285,8 +269,6 @@
             if (lives <= 0) {
                 alert("morreu");
             }
-
-
         }
     </script>
 
