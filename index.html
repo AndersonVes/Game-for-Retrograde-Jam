@@ -12,7 +12,6 @@
     <script src="Classes/ScenaryObject.js"></script>
     <script src="Classes/animation.js"></script>
     <script src="Classes/MainDino.js"></script>
-    <script src="Classes/gameHelper.js"></script>
     <script src="Classes/hearts.js"></script>
     <script src="Classes/CollisionObject.js"></script>
 
@@ -67,7 +66,7 @@
         // Cross-browser support for requestAnimationFrame
         var w = window;
         const livesTotal = 4;
-        var lives;
+        var livesCurrent;
         requestAnimationFrame = w.requestAnimationFrame || w.webkitRequestAnimationFrame || w.msRequestAnimationFrame || w.mozRequestAnimationFrame;
 
         function play() {
@@ -76,7 +75,7 @@
             bgAudio.play();
             main();
 
-            lives = livesTotal;
+            livesCurrent = livesTotal;
 
         }
 
@@ -235,7 +234,7 @@
             grass5.render(ctx);
 
 
-            hearts.render(ctx, lives);
+            hearts.render(ctx, livesCurrent);
 
         };
 
@@ -267,9 +266,9 @@
                 distance: 10
             }, 100);
 
-            lives--;
+            livesCurrent--;
 
-            if (lives <= 0) {
+            if (livesCurrent <= 0) {
                 alert("morreu");
             }
         }
