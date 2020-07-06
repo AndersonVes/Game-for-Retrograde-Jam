@@ -8,10 +8,8 @@ function CreateNewCollisionObject( postionY, width, height,  canvasWidth, imageP
     obj.posX =  canvasWidth;
     obj.posY = postionY;
 
-
     obj.sizeX = width;
     obj.canRespawn = false;
-
 
     obj.image = new Image();
     obj.image.src = imagePath;
@@ -34,15 +32,16 @@ function CreateNewCollisionObject( postionY, width, height,  canvasWidth, imageP
 
         if (obj.canRespawn == false){
 
-                if (colidiu){
+            if (RectCollide({x = dinoPosX, y = dinoPosY, width = dinoWidth, height = dinoWidth},
+                            {x = obj.posX, y = obj.posY, width = obj.width, height = obj.height })){
 
-                obj.posX = -100;
-                obj.canRespawn = true;
-
+                console.log("Dino colidiu");
+                return true;
             }
 
+            return false;
+
         }
-        
 
     }
 

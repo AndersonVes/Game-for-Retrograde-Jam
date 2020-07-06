@@ -73,7 +73,6 @@
         var canvasWidth = 256;
 
         /* Speeds */
-
         var mountainSpeed = 30;
         var cloudSpeed = 50;
         var grassSpeed = 150;
@@ -123,7 +122,6 @@
         var tree1 = CreateNewScenaryObject(82, 74, 29 + 30, 51, ["sprites/tree1.png"], canvasWidth, canvasHeight);
         var tree2 = CreateNewScenaryObject(182, 70, 29 + 30 + 100, 51, ["sprites/tree1.png"], canvasWidth, canvasHeight);
 
-
         var hearts = createNewHearts(4);
 
         var Input = function() {
@@ -134,10 +132,8 @@
                 switch (keyCode) {
                     case 32:
                         jumpAudio.play();
-                        dino.jump();
-                        
+                        dino.jump();                        
                         break;
-
 
                     case 69:
                         shootAudio.play();
