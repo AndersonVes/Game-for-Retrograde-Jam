@@ -13,7 +13,9 @@
     <script src="Classes/animation.js"></script>
     <script src="Classes/MainDino.js"></script>
     <script src="Classes/hearts.js"></script>
+    <script src="Classes/collisions.js"></script>
     <script src="Classes/CollisionObject.js"></script>
+
 
     <link href="https://fonts.googleapis.com/css2?family=MuseoModerno:wght@100;200;300;400;500;531;600;700;800;900&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
@@ -84,7 +86,6 @@
         var canvasWidth = 256;
 
         /* Speeds */
-
         var mountainSpeed = 30;
         var cloudSpeed = 50;
         var grassSpeed = 150;
@@ -134,8 +135,10 @@
         var tree1 = CreateNewScenaryObject(82, 74, 29 + 30, 51, ["sprites/tree1.png"], canvasWidth, canvasHeight);
         var tree2 = CreateNewScenaryObject(182, 70, 29 + 30 + 100, 51, ["sprites/tree1.png"], canvasWidth, canvasHeight);
 
+        var pedra1 = CreateNewCollisionObject(50, 18, 10, canvasWidth, "sprites/pedra.png");
 
         var hearts = createNewHearts(livesTotal);
+        var grass6 = CreateNewScenaryObject(82, 40, 122, 14, ["sprites/pedra.png"], canvasWidth, canvasHeight);
 
 
         var Input = function() {
@@ -147,23 +150,13 @@
                     case 32:
                         jumpAudio.play();
                         dino.jump();
-
                         break;
-
 
                     case 69:
                         shootAudio.play();
                         dino.shot();
-
                         break;
-
-
-
                 }
-
-
-
-
             });
         }
 
@@ -235,6 +228,13 @@
 
 
             hearts.render(ctx, livesCurrent);
+
+            pedra1.move(12, delta);
+            pedra1.checkColision(dino.posX, dino.posY, dino.width, dino.height);
+            pedra1.render(ctx);
+
+            grass6.move(12, delta);
+            grass6.render(ctx);
 
         };
 

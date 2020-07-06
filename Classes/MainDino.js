@@ -4,6 +4,7 @@ function CreateNewDino() {
     var obj = {};
 
     obj.height = 36;
+    obj.width = 36;
     obj.state = "running";
 
     obj.posX = 40;

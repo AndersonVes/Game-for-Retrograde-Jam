@@ -1,30 +1,30 @@
-//For the rocks
 
 
 function CreateNewCollisionObject( postionY, width, height,  canvasWidth, imagePath ){
+
 
     obj = {};
 
     obj.posX =  canvasWidth;
     obj.posY = postionY;
 
-
     obj.sizeX = width;
+    obj.sizeY = height;
     obj.canRespawn = false;
-
 
     obj.image = new Image();
     obj.image.src = imagePath;
+    alert(obj.image.src);
 
 
 
     obj.move = function(speed, delta) {
 
         if (obj.canRespawn){
-            posX -= speed * delta / 1000;
-
-            if (posX < -sizeX) {
-             obj.canRespawn = true;   
+            obj.posX -= speed * delta / 1000;
+            console.log(obj.posY + " " + obj.posX)
+            if (obj.posX < -obj.sizeX) {
+               obj.canRespawn = true;   
             }
         }
 
@@ -33,33 +33,29 @@ function CreateNewCollisionObject( postionY, width, height,  canvasWidth, imageP
     obj.checkColision = function(dinoPosX, dinoPosY, dinoWidth, dinoHeight){
 
         if (obj.canRespawn == false){
+            
+            if (dinoPosX < obj.posX + obj.sizeX &&
+                dinoPosX + dinoWidth > obj.posX &&
+                dinoPosY < obj.posY + obj.sizeY  &&
+                dinoPosY + dinoHeight > obj.posY) {
 
-                if (colidiu){
-
-                obj.posX = -100;
-                obj.canRespawn = true;
-
+                console.log("Dino colidiu");
+                return true;
             }
 
+            return false;
+
         }
-        
 
     }
 
 
-    obj.render = function(ctx, delta){
-        if (canRespawn == false){
+    obj.render = function(ctx){
+
+        //if (obj.canRespawn == false){
             ctx.drawImage(obj.image, obj.posX, obj.posY);
-        }
+       // }
     }
-
-
-
 
     return obj;
-
-    
-
-
-
 }
