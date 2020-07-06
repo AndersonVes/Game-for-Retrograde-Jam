@@ -66,6 +66,7 @@
 
         // Cross-browser support for requestAnimationFrame
         var w = window;
+        const livesTotal = 4;
         var lives;
         requestAnimationFrame = w.requestAnimationFrame || w.webkitRequestAnimationFrame || w.msRequestAnimationFrame || w.mozRequestAnimationFrame;
 
@@ -75,7 +76,7 @@
             bgAudio.play();
             main();
 
-            lives = 4;
+            lives = livesTotal;
 
         }
 
@@ -135,7 +136,7 @@
         var tree2 = CreateNewScenaryObject(182, 70, 29 + 30 + 100, 51, ["sprites/tree1.png"], canvasWidth, canvasHeight);
 
 
-        var hearts = createNewHearts(4);
+        var hearts = createNewHearts(livesTotal);
 
 
         var Input = function() {
