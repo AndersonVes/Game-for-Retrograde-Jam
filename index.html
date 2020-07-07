@@ -50,9 +50,8 @@
 
     <audio id="jumpAudio" src="sounds/jump.wav"></audio>
     <audio id="shootAudio" src="sounds/shot.wav"></audio>
+    <audio id="collisionAudio" src="sounds/collision.wav"></audio>
     <audio id="bgAudio" src="sounds/bg.ogg"></audio>
-
-    <button type="button" onclick="hitTaken()" style="position: absolute; top: 0;">ouch</button>
 
     <script>
         window.onload = function() {
@@ -64,6 +63,7 @@
         var jumpAudio = document.getElementById("jumpAudio");
         var shootAudio = document.getElementById("shootAudio");
         var bgAudio = document.getElementById("bgAudio");
+        var collisionAudio = document.getElementById("collisionAudio");
 
         // Cross-browser support for requestAnimationFrame
         var w = window;
@@ -135,10 +135,9 @@
         var tree1 = CreateNewScenaryObject(82, 74, 29 + 30, 51, ["sprites/tree1.png"], canvasWidth, canvasHeight);
         var tree2 = CreateNewScenaryObject(182, 70, 29 + 30 + 100, 51, ["sprites/tree1.png"], canvasWidth, canvasHeight);
 
-        var pedra1 = CreateNewCollisionObject(50, 18, 10, canvasWidth, "sprites/pedra.png");
+        var rock = CreateNewCollisionObject(165, 18, 10, 500, "sprites/pedra.png", 7);
 
         var hearts = createNewHearts(livesTotal);
-        var grass6 = CreateNewScenaryObject(82, 40, 122, 14, ["sprites/pedra.png"], canvasWidth, canvasHeight);
 
 
         var Input = function() {
@@ -206,7 +205,7 @@
             cloud4.render(ctx);
             cloud5.render(ctx);
 
-
+            hearts.render(ctx, livesCurrent);
 
             mountain1.render(ctx);
             mountain2.render(ctx);
@@ -216,6 +215,10 @@
 
             tree1.render(ctx);
             tree2.render(ctx);
+
+            rock.move(150, delta);
+            rock.checkColision(dino.posX, dino.posY, dino.width, dino.height);
+            rock.render(ctx);
 
             dino.update(delta);
             dino.render(ctx, delta);
@@ -227,14 +230,11 @@
             grass5.render(ctx);
 
 
-            hearts.render(ctx, livesCurrent);
-            /*
-                        pedra1.move(12, delta);
-                        pedra1.checkColision(dino.posX, dino.posY, dino.width, dino.height);
-                        pedra1.render(ctx);
 
-                        grass6.move(12, delta);
-                        grass6.render(ctx);*/
+
+
+
+
 
         };
 

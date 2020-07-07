@@ -1,62 +1,63 @@
-function CreateNewCollisionObject(postionY, width, height, canvasWidth, imagePath) {
-
+function CreateNewCollisionObject(postionY, width, height, canvasWidth, imagePath, randomIndex) {
 
     obj = {};
 
-    obj.posX = canvasWidth;
-    obj.posY = postionY;
 
-    obj.sizeX = width;
-    obj.sizeY = height;
-    obj.canRespawn = false;
+    posX = canvasWidth + 200;
+    posY = postionY;
 
-    obj.image = new Image();
-    obj.image.src = imagePath;
+    sizeX = width;
+    sizeY = height;
+    canRespawn = true;
+
+    collided = false;
+
+    imageObj = new Image();
+    imageObj.src = imagePath;
 
 
 
 
     obj.move = function(speed, delta) {
 
-        if (obj.canRespawn) {
-            obj.posX -= speed * delta / 1000;
-            console.log(obj.posY + " " + obj.posX)
-            if (obj.posX < -obj.sizeX) {
-                obj.canRespawn = true;
+        if (canRespawn) {
+            posX -= speed * delta / 1000;
+            if (posX < -sizeX) {
+                canRespawn = true;
             }
+        }
+
+        if (posX < -sizeX) {
+            posX = canvasWidth + (Math.floor(Math.random() * randomIndex) * 10);
+            collided = false;
         }
 
     }
 
     obj.checkColision = function(dinoPosX, dinoPosY, dinoWidth, dinoHeight) {
 
-        if (obj.canRespawn == false) {
 
-            if (dinoPosX < obj.posX + obj.sizeX &&
-                dinoPosX + dinoWidth > obj.posX &&
-                dinoPosY < obj.posY + obj.sizeY &&
-                dinoPosY + dinoHeight > obj.posY) {
 
-                console.log("Dino colidiu");
-                return true;
-            }
-
-            return false;
-
+        if ((dinoPosX + 10) < posX + sizeX &&
+            (dinoPosX + 10) + dinoWidth > posX &&
+            dinoPosY < posY + sizeY &&
+            dinoPosY + dinoHeight > posY &&
+            !collided) {
+            collided = true;
+            hitTaken();
+            collisionAudio.play();
+            return true;
         }
+
+        return false;
 
     }
 
 
+
+
     obj.render = function(ctx) {
-
-        //if (obj.canRespawn == false){
-
-            obj.newImage = new Image();
-            obj.newImage.src = "sprites/pedra.png";
-       //     ctx.drawImage(obj.img, obj.posX, obj.posY);
-       // }
-
+        ctx.drawImage(imageObj, posX, posY);
     }
 
     return obj;
