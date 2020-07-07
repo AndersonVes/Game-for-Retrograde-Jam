@@ -10,11 +10,10 @@
     <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js" integrity="sha256-eGE6blurk5sHj+rmkfsGYeKyZx3M4bG+ZlFyA7Kns7E=" crossorigin="anonymous"></script>
 
     <script src="Classes/ScenaryObject.js"></script>
-    <script src="Classes/animation.js"></script>
+    <script src="Classes/Animation.js"></script>
     <script src="Classes/MainDino.js"></script>
-    <script src="Classes/hearts.js"></script>
-    <script src="Classes/collisions.js"></script>
-    <script src="Classes/CollisionObject.js"></script>
+    <script src="Classes/Hearts.js"></script>
+    <script src="Classes/Rock.js"></script>
 
 
     <link href="https://fonts.googleapis.com/css2?family=MuseoModerno:wght@100;200;300;400;500;531;600;700;800;900&display=swap" rel="stylesheet">
@@ -67,7 +66,7 @@
 
         // Cross-browser support for requestAnimationFrame
         var w = window;
-        const livesTotal = 4;
+        const livesTotal = 100;
         var livesCurrent;
         requestAnimationFrame = w.requestAnimationFrame || w.webkitRequestAnimationFrame || w.msRequestAnimationFrame || w.mozRequestAnimationFrame;
 
@@ -221,7 +220,8 @@
             rock.render(ctx);
 
             dino.update(delta);
-            dino.render(ctx, delta);
+            dino.render(ctx, delta, hitFrames);
+            hitFrames--;
 
             grass1.render(ctx);
             grass2.render(ctx);
@@ -262,6 +262,8 @@
         };
 
         function hitTaken() {
+            hitFrames = 10;
+
             $('canvas').effect('shake', {
                 distance: 10
             }, 100);
