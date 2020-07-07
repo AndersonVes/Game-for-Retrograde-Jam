@@ -4,12 +4,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js" integrity="sha256-eGE6blurk5sHj+rmkfsGYeKyZx3M4bG+ZlFyA7Kns7E=" crossorigin="anonymous"></script>
+
     <script src="Classes/ScenaryObject.js"></script>
-    <script src="Classes/animation.js"></script>
+    <script src="Classes/Animation.js"></script>
     <script src="Classes/MainDino.js"></script>
-    <script src="Classes/hearts.js"></script>
-    <script src="Classes/CollisionObject.js"></script>
+    <script src="Classes/Hearts.js"></script>
+    <script src="Classes/Rock.js"></script>
+
 
     <link href="https://fonts.googleapis.com/css2?family=MuseoModerno:wght@100;200;300;400;500;531;600;700;800;900&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
@@ -42,6 +47,10 @@
         </div>
     </div>
 
+    <audio id="jumpAudio" src="sounds/jump.wav"></audio>
+    <audio id="shootAudio" src="sounds/shot.wav"></audio>
+    <audio id="collisionAudio" src="sounds/collision.wav"></audio>
+    <audio id="bgAudio" src="sounds/bg.ogg"></audio>
 
     <script>
         window.onload = function() {
@@ -49,17 +58,26 @@
             $('#howtoplay').css('display', 'none');
         };
 
+        //jump audio variable
+        var jumpAudio = document.getElementById("jumpAudio");
+        var shootAudio = document.getElementById("shootAudio");
+        var bgAudio = document.getElementById("bgAudio");
+        var collisionAudio = document.getElementById("collisionAudio");
+
         // Cross-browser support for requestAnimationFrame
         var w = window;
+        const livesTotal = 4;
+        var livesCurrent;
         requestAnimationFrame = w.requestAnimationFrame || w.webkitRequestAnimationFrame || w.msRequestAnimationFrame || w.mozRequestAnimationFrame;
 
         function play() {
-            ctx.mozImageSmoothingEnabled = false;
-            ctx.webkitImageSmoothingEnabled = false;
-            //"ImageSmoothingEnabled = false" for the pixels not to be smoothed
             $('canvas').css("display", "block");
             $('#menu').css("display", "none");
+            bgAudio.play();
             main();
+
+            livesCurrent = livesTotal;
+
         }
 
         /* Canvas variables */
@@ -67,7 +85,6 @@
         var canvasWidth = 256;
 
         /* Speeds */
-
         var mountainSpeed = 30;
         var cloudSpeed = 50;
         var grassSpeed = 150;
@@ -114,11 +131,13 @@
         var grass4 = CreateNewScenaryObject(150, 39, 12, 14, ["sprites/grama.png"], canvasWidth, canvasHeight);
         var grass5 = CreateNewScenaryObject(82, 40, 12, 14, ["sprites/grama.png"], canvasWidth, canvasHeight);
 
-        var tree1 = CreateNewScenaryObject(82, 74, 29 +30, 51, ["sprites/tree1.png"], canvasWidth, canvasHeight);
-        var tree2 = CreateNewScenaryObject(182, 70, 29 +30 + 100, 51, ["sprites/tree1.png"], canvasWidth, canvasHeight);
+        var tree1 = CreateNewScenaryObject(82, 74, 29 + 30, 51, ["sprites/tree1.png"], canvasWidth, canvasHeight);
+        var tree2 = CreateNewScenaryObject(182, 70, 29 + 30 + 100, 51, ["sprites/tree1.png"], canvasWidth, canvasHeight);
 
+        var rock = CreateNewCollisionObject(165, 18, 10, 500, "sprites/pedra.png", 7);
 
-        var hearts = createNewHearts(4 );
+        var hearts = createNewHearts(livesTotal);
+
 
         var Input = function() {
 
@@ -127,19 +146,15 @@
                 const keyCode = event.keyCode;
                 switch (keyCode) {
                     case 32:
+                        jumpAudio.play();
                         dino.jump();
                         break;
 
-
                     case 69:
+                        shootAudio.play();
                         dino.shot();
                         break;
-
                 }
-
-
-
-
             });
         }
 
@@ -189,7 +204,7 @@
             cloud4.render(ctx);
             cloud5.render(ctx);
 
-
+            hearts.render(ctx, livesCurrent);
 
             mountain1.render(ctx);
             mountain2.render(ctx);
@@ -199,6 +214,10 @@
 
             tree1.render(ctx);
             tree2.render(ctx);
+
+            rock.move(150, delta);
+            rock.checkColision(dino.posX, dino.posY, dino.width, dino.height)
+            rock.render(ctx);
 
             dino.update(delta);
             dino.render(ctx, delta);
@@ -212,7 +231,8 @@
 
 
 
-            hearts.render(ctx, 3);
+
+
 
 
         };
@@ -221,6 +241,11 @@
         var then = Date.now();
 
         var main = function() {
+
+
+            ctx.mozImageSmoothingEnabled = false;
+            ctx.webkitImageSmoothingEnabled = false;
+            //"ImageSmoothingEnabled = false" for the pixels not to be smoothed
 
             var now = Date.now();
             var delta = now - then;
@@ -234,6 +259,20 @@
             window.requestAnimationFrame(main);
 
         };
+
+        function hitTaken() {
+            $('canvas').effect('shake', {
+                distance: 10
+            }, 100);
+
+            livesCurrent--;
+
+            dino.takeDamage();
+
+            if (livesCurrent <= 0) {
+                alert("morreu");
+            }
+        }
     </script>
 
 

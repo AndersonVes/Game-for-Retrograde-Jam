@@ -44,9 +44,6 @@ function CreateNewScenaryObject(posX, posY, sizeX, sizeY, imagePath, canvasWidth
      * @param {any} ctx The canvas to render
      */
     obj.render = function(ctx) {
-
-
-
         ctx.drawImage(obj.objImage[obj.imageIndex], posX, -sizeY + canvasHeight - posY);
 
     }
