@@ -66,7 +66,7 @@
 
         // Cross-browser support for requestAnimationFrame
         var w = window;
-        const livesTotal = 100;
+        const livesTotal = 4;
         var livesCurrent;
         requestAnimationFrame = w.requestAnimationFrame || w.webkitRequestAnimationFrame || w.msRequestAnimationFrame || w.mozRequestAnimationFrame;
 
@@ -216,12 +216,11 @@
             tree2.render(ctx);
 
             rock.move(150, delta);
-            rock.checkColision(dino.posX, dino.posY, dino.width, dino.height);
+            rock.checkColision(dino.posX, dino.posY, dino.width, dino.height)
             rock.render(ctx);
 
             dino.update(delta);
-            dino.render(ctx, delta, hitFrames);
-            hitFrames--;
+            dino.render(ctx, delta);
 
             grass1.render(ctx);
             grass2.render(ctx);
@@ -269,6 +268,8 @@
             }, 100);
 
             livesCurrent--;
+
+            dino.takeDamage();
 
             if (livesCurrent <= 0) {
                 alert("morreu");
