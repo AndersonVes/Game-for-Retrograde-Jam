@@ -12,9 +12,10 @@ function CreateNewCollisionObject( postionY, width, height,  canvasWidth, imageP
     obj.sizeY = height;
     obj.canRespawn = false;
 
-    obj.image = new Image();
-    obj.image.src = imagePath;
-    alert(obj.image.src);
+    obj.img = new Image();
+    //obj.img.src = imagePath;
+    obj.img.src = imagePath;
+    alert(obj.img.src);
 
 
 
@@ -53,7 +54,9 @@ function CreateNewCollisionObject( postionY, width, height,  canvasWidth, imageP
     obj.render = function(ctx){
 
         //if (obj.canRespawn == false){
-            ctx.drawImage(obj.image, obj.posX, obj.posY);
+            obj.newImage = new Image();
+            obj.newImage.src = "sprites/pedra.png";
+       //     ctx.drawImage(obj.img, obj.posX, obj.posY);
        // }
     }
 
