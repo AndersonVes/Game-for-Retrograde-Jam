@@ -12,11 +12,10 @@
     <script src="Classes/ScenaryObject.js"></script>
     <script src="Classes/animation.js"></script>
     <script src="Classes/MainDino.js"></script>
-
     <script src="Classes/hearts.js"></script>
     <script src="Classes/collisions.js"></script>
     <script src="Classes/CollisionObject.js"></script>
-   
+
 
     <link href="https://fonts.googleapis.com/css2?family=MuseoModerno:wght@100;200;300;400;500;531;600;700;800;900&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
@@ -69,8 +68,7 @@
         // Cross-browser support for requestAnimationFrame
         var w = window;
         const livesTotal = 4;
-        var lives;
-
+        var livesCurrent;
         requestAnimationFrame = w.requestAnimationFrame || w.webkitRequestAnimationFrame || w.msRequestAnimationFrame || w.mozRequestAnimationFrame;
 
         function play() {
@@ -78,7 +76,9 @@
             $('#menu').css("display", "none");
             bgAudio.play();
             main();
-            lives = livesTotal;
+
+            livesCurrent = livesTotal;
+
         }
 
         /* Canvas variables */
@@ -149,7 +149,7 @@
                 switch (keyCode) {
                     case 32:
                         jumpAudio.play();
-                        dino.jump();     
+                        dino.jump();
                         break;
 
                     case 69:
@@ -227,14 +227,14 @@
             grass5.render(ctx);
 
 
-            hearts.render(ctx, lives);
+            hearts.render(ctx, livesCurrent);
+            /*
+                        pedra1.move(12, delta);
+                        pedra1.checkColision(dino.posX, dino.posY, dino.width, dino.height);
+                        pedra1.render(ctx);
 
-            pedra1.move(12, delta);
-            pedra1.checkColision(dino.posX, dino.posY, dino.width , dino.height);
-            pedra1.render(ctx);
-
-            grass6.move(12, delta);
-            grass6.render(ctx);
+                        grass6.move(12, delta);
+                        grass6.render(ctx);*/
 
         };
 
@@ -266,9 +266,9 @@
                 distance: 10
             }, 100);
 
-            lives--;
+            livesCurrent--;
 
-            if (lives <= 0) {
+            if (livesCurrent <= 0) {
                 alert("morreu");
             }
         }
