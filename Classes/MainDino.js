@@ -68,8 +68,6 @@ function CreateNewDino() {
             obj.frame = obj.animation.getAnimationFrame(delta / 1000);
             ctx.drawImage(obj.frame, obj.posX, obj.posY);
 
-
-
             //alert(obj.frame.src);
 
             if (obj.frame.src.includes("prites/dino/dinoframe2.png")) {
