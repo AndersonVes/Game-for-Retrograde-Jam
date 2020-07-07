@@ -66,7 +66,7 @@
 
         // Cross-browser support for requestAnimationFrame
         var w = window;
-        const livesTotal = 100;
+        const livesTotal = 4;
         var livesCurrent;
         requestAnimationFrame = w.requestAnimationFrame || w.webkitRequestAnimationFrame || w.msRequestAnimationFrame || w.mozRequestAnimationFrame;
 
@@ -220,8 +220,7 @@
             rock.render(ctx);
 
             dino.update(delta);
-            dino.render(ctx, delta, hitFrames);
-            hitFrames--;
+            dino.render(ctx, delta);
 
             grass1.render(ctx);
             grass2.render(ctx);
@@ -262,8 +261,6 @@
         };
 
         function hitTaken() {
-            hitFrames = 10;
-
             $('canvas').effect('shake', {
                 distance: 10
             }, 100);

@@ -1,5 +1,6 @@
 function CreateNewAnimation(frames, duration) {
 
+
     var obj = {};
 
     obj.frames = [];
