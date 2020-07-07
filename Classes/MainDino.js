@@ -10,11 +10,8 @@ function CreateNewDino() {
     obj.damageTime = 0.5;
     obj.damageTimeCounter = 0;
 
-    wasHit = "";
-
     obj.posX = 40;
     obj.posY = 135;
-    spritePath = "sprites/dino/dinoframe";
 
     obj.animation = CreateNewAnimation(
         ["sprites/dino/dinoframe2.png", "sprites/dino/dinoframe1.png", "sprites/dino/dinoframe2.png", "sprites/dino/dinoframe3.png"], [.1, .03, .1, .03]);
@@ -29,7 +26,7 @@ function CreateNewDino() {
     obj.dinoRed3.src = "sprites/dino/dinoframe3red.png";
 
     obj.imgJumping = new Image();
-    obj.imgJumping.src = spritePath + "2" + wasHit + ".png";
+    obj.imgJumping.src = "sprites/dino/dinoframe2.png";
 
     obj.jumpforce = 20;
     obj.currentJumpForce = 0;
