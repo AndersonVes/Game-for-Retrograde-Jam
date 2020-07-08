@@ -14,7 +14,8 @@ function CreateNewDino() {
     obj.posY = 135;
 
     obj.animation = CreateNewAnimation(
-        ["sprites/dino/dinoframe2.png", "sprites/dino/dinoframe1.png", "sprites/dino/dinoframe2.png", "sprites/dino/dinoframe3.png"], [.1, .03, .1, .03]);
+        ["sprites/dino/dinoframe2.png", "sprites/dino/dinoframe1.png", "sprites/dino/dinoframe2.png", "sprites/dino/dinoframe3.png"],
+        [.1, .03, .1, .03]);
 
     obj.dinoRed1 = new Image();
     obj.dinoRed1.src = "sprites/dino/dinoframe1red.png";

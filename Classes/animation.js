@@ -6,7 +6,7 @@ function CreateNewAnimation(frames, duration) {
     obj.frames = [];
     obj.frames.length = frames.length;
 
-    if (obj.frames.length != duration.length) alert(233);
+    if (obj.frames.length != duration.length) alert("Animation error: frames and duration are diferent size");
 
     for (var i = 0; i < frames.length; i++) {
         obj.frames[i] = new Image();
@@ -34,11 +34,7 @@ function CreateNewAnimation(frames, duration) {
 
     obj.getAnimationFrame = function(deltaTime) {
 
-
         obj.time += deltaTime;
-
-
-
 
         if (obj.time > obj.duration[obj.imgIndex]) {
 
@@ -52,11 +48,9 @@ function CreateNewAnimation(frames, duration) {
 
         }
 
+        console.log(obj.frames[obj.imgIndex].src + " " + obj.imgIndex);
 
-
-        //  alert( Math.floor( obj.time / obj.AnimationDuration * obj.frames.length));
-        //return obj.frames[ Math.floor( obj.time / obj.AnimationDuration * obj.frames.length)];
-        return obj.frames[Math.floor(obj.imgIndex)];
+        return obj.frames[obj.imgIndex];
 
     }
 
