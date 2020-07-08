@@ -67,14 +67,16 @@
 
         // Cross-browser support for requestAnimationFrame
         var w = window;
-        const livesTotal = 4;
+        const livesTotal = 100;
         var livesCurrent;
         requestAnimationFrame = w.requestAnimationFrame || w.webkitRequestAnimationFrame || w.msRequestAnimationFrame || w.mozRequestAnimationFrame;
 
         function play() {
             $('canvas').css("display", "block");
             $('#menu').css("display", "none");
+            bgAudio.loop = true;
             bgAudio.play();
+
             main();
 
             livesCurrent = livesTotal;
