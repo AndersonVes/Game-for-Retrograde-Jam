@@ -143,9 +143,7 @@ function CreateNewEnemy(posY, isGrounded, enemyType, sizeX, sizeY, canvasWidth, 
         if (obj.isAlive && obj.hitDino == false) {
 
             if (dinoPosX < obj.posX + obj.sizeX &&
-                dinoPosX + dinoWidth > obj.posX &&
-                dinoPosY < obj.posY + obj.sizeY &&
-                dinoPosY + dinoHeight > obj.posY) {
+                dinoPosX + dinoWidth > obj.posX) {
 
                 obj.hitDino = true;
                 collisionAudio.play();
