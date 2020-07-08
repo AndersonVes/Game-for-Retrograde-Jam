@@ -74,7 +74,9 @@
         function play() {
             $('canvas').css("display", "block");
             $('#menu').css("display", "none");
+            bgAudio.loop = true;
             bgAudio.play();
+
             main();
 
             livesCurrent = livesTotal;
