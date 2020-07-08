@@ -142,7 +142,8 @@
         var hearts = createNewHearts(livesTotal);
 
         var enemy1 = CreateNewEnemy(140,true,1,10,30,30,canvasWidth);
-        var enemy2 = CreateNewEnemy(90,true,2,10,30,30,canvasWidth);
+        var enemy2 = CreateNewEnemy(90,false,2,10,30,30,canvasWidth);
+        var shotDown = false;
 
         var Input = function() {
 
@@ -157,9 +158,24 @@
 
                     case 69:
                         shootAudio.play();
-                        dino.shot();
-                        enemy1.takeShot(dino.state);
-                        enemy2.takeShot(dino.state);
+                        dino.shot();                        
+                        if (!shotDown) {
+                            shootAudio.play();
+                            dino.shot();
+                            enemy1.takeShot(dino.state, dino.posX);
+                            enemy2.takeShot(dino.state, dino.posX);
+                            shotDown = true;
+                        }
+                        break;
+                }
+            });
+
+            document.addEventListener('keyup', (event) => {
+
+                const keyCode = event.keyCode;
+                switch (keyCode) {
+                    case 69:
+                        shotDown = false;
                         break;
                 }
             });
@@ -223,13 +239,15 @@
             tree2.render(ctx);
 
             rock.move(150, delta);
-            rock.checkColision(dino.posX, dino.posY, dino.width, dino.height)
+            rock.checkColision(dino.posX, dino.posY, dino.width, dino.height);
             rock.render(ctx);
 
-            enemy1.update(delta, 10 );
+            enemy1.update(delta, 40);
+            enemy1.checkColision(dino.posX, dino.posY, dino.width, dino.height);
             enemy1.render(ctx, delta);
 
-            enemy2.update(delta, 10 );
+            enemy2.update(delta, 40 );
+            enemy2.checkColision(dino.posX, dino.posY, dino.width, dino.height);
             enemy2.render(ctx, delta);
 
             dino.update(delta);
@@ -241,7 +259,7 @@
             grass4.render(ctx);
             grass5.render(ctx);
 
-           
+
 
 
 
@@ -276,11 +294,11 @@
         };
 
         function hitTaken() {
+
             $('canvas').effect('shake', {
                 distance: 10
             }, 100);
-
-
+            
             livesCurrent--;
 
             dino.takeDamage();
