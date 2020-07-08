@@ -3,7 +3,7 @@ function CreateNewCollisionObject(postionY, width, height, canvasWidth, imagePat
     obj = {};
 
 
-    posX = canvasWidth + 200;
+    posX = canvasWidth + (Math.floor(Math.random() * randomIndex) * 10) + 200;
     posY = postionY;
 
     sizeX = width;

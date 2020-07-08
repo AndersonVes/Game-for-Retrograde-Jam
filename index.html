@@ -141,9 +141,10 @@
 
         var hearts = createNewHearts(livesTotal);
 
-        var enemy1 = CreateNewEnemy(140,true,1,10,30,30,canvasWidth);
-        var enemy2 = CreateNewEnemy(90,false,2,10,30,30,canvasWidth);
+
         var shotDown = false;
+        var enemy1 = CreateNewEnemy(140, true, 1, 30, 30, canvasWidth, 1);
+        var enemy2 = CreateNewEnemy(90, false, 2, 30, 30, canvasWidth, 1);
 
         var Input = function() {
 
@@ -158,7 +159,7 @@
 
                     case 69:
                         shootAudio.play();
-                        dino.shot();                        
+                        dino.shot();
                         if (!shotDown) {
                             shootAudio.play();
                             dino.shot();
@@ -246,7 +247,7 @@
             enemy1.checkColision(dino.posX, dino.posY, dino.width, dino.height);
             enemy1.render(ctx, delta);
 
-            enemy2.update(delta, 40 );
+            enemy2.update(delta, 40);
             enemy2.checkColision(dino.posX, dino.posY, dino.width, dino.height);
             enemy2.render(ctx, delta);
 
@@ -258,16 +259,6 @@
             grass3.render(ctx);
             grass4.render(ctx);
             grass5.render(ctx);
-
-
-
-
-
-
-
-
-
-
         };
 
 
@@ -298,7 +289,7 @@
             $('canvas').effect('shake', {
                 distance: 10
             }, 100);
-            
+
             livesCurrent--;
 
             dino.takeDamage();
