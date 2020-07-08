@@ -141,7 +141,9 @@
 
         var hearts = createNewHearts(livesTotal);
 
-        var enemy1 = CreateNewEnemy(140,true,1,10,30,30,canvasWidth);
+        var enemy1 = CreateNewEnemy(140, true, 1, 10, 30, 30, canvasWidth);
+
+        var shotDown = false;
 
         var Input = function() {
 
@@ -155,9 +157,22 @@
                         break;
 
                     case 69:
-                        shootAudio.play();
-                        dino.shot();
-                        enemy1.takeShot(dino.state);
+                        if (!shotDown) {
+                            shootAudio.play();
+                            dino.shot();
+                            enemy1.takeShot(dino.state);
+                            shotDown = true;
+                        }
+                        break;
+                }
+            });
+
+            document.addEventListener('keyup', (event) => {
+
+                const keyCode = event.keyCode;
+                switch (keyCode) {
+                    case 69:
+                        shotDown = false;
                         break;
                 }
             });
@@ -224,7 +239,7 @@
             rock.checkColision(dino.posX, dino.posY, dino.width, dino.height)
             rock.render(ctx);
 
-            enemy1.update(delta, 10 );
+            enemy1.update(delta, 10);
             enemy1.render(ctx, delta);
 
             dino.update(delta);
@@ -236,7 +251,7 @@
             grass4.render(ctx);
             grass5.render(ctx);
 
-           
+
 
 
 
