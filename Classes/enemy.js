@@ -4,6 +4,7 @@ function CreateNewEnemy(posY, isGrounded, enemyType, lives , sizeX, sizeY, canva
     var obj = {};
 
     obj.isAlive = true;
+    obj.hitDino = false;
 
     //Can cause damage to player
     obj.canCauseDamage = true;
@@ -92,38 +93,41 @@ function CreateNewEnemy(posY, isGrounded, enemyType, lives , sizeX, sizeY, canva
     }
 
     //Take shot from dino
-    obj.takeShot = function(dinoState){
+    obj.takeShot = function(dinoState, dinoX){
 
-        if (obj.isGrounded && dinoState == "running"){
-            obj.lives--;    
-            obj.damageTimeCurrent = obj.damageTime;        
-        } else 
-        if (!obj.isGrounded && dinoState == "jumping"){
-            obj.lives--;   
-            obj.damageTimeCurrent = obj.damageTime;
-        }
+        if (dinoX < obj.posX){
+            if (obj.isGrounded && dinoState == "running"){
+                obj.lives--;    
+                obj.damageTimeCurrent = obj.damageTime;        
+            } else
 
-        if (obj.lives == 0) {
-            obj.isAlive = false;
+            if (!obj.isGrounded && dinoState == "jumping"){
+                obj.lives--;   
+                obj.damageTimeCurrent = obj.damageTime;
+            }
+
+            if (obj.lives == 0) {
+                obj.isAlive = false;
+            }
         }
     }
 
     //Check collision with main dino
     obj.checkColision = function(dinoPosX, dinoPosY, dinoWidth, dinoHeight) {
 
-        if ( obj.isAlive ) {
+        if ( obj.isAlive && obj.hitDino == false ) {
 
             if (dinoPosX < obj.posX + obj.sizeX &&
                 dinoPosX + dinoWidth > obj.posX &&
                 dinoPosY < obj.posY + obj.sizeY &&
                 dinoPosY + dinoHeight > obj.posY) {
 
-                console.log("Dino colidiu");
-                return true;
+                    obj.hitDino = true;
+                hitTaken() 
             }
         }
 
-        return false;
+     
 
     }
 

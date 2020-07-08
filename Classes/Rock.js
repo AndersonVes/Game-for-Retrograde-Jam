@@ -36,8 +36,6 @@ function CreateNewCollisionObject(postionY, width, height, canvasWidth, imagePat
 
     obj.checkColision = function(dinoPosX, dinoPosY, dinoWidth, dinoHeight) {
 
-
-
         if ((dinoPosX + 10) < posX + sizeX &&
             (dinoPosX + 10) + dinoWidth > posX &&
             dinoPosY < posY + sizeY &&
@@ -46,11 +44,7 @@ function CreateNewCollisionObject(postionY, width, height, canvasWidth, imagePat
             collided = true;
             hitTaken();
             collisionAudio.play();
-            return true;
         }
-
-        return false;
-
     }
 
 
