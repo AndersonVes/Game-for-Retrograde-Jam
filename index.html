@@ -142,6 +142,7 @@
         var hearts = createNewHearts(livesTotal);
 
         var enemy1 = CreateNewEnemy(140,true,1,10,30,30,canvasWidth);
+        var enemy2 = CreateNewEnemy(90,true,2,10,30,30,canvasWidth);
 
         var Input = function() {
 
@@ -158,6 +159,7 @@
                         shootAudio.play();
                         dino.shot();
                         enemy1.takeShot(dino.state);
+                        enemy2.takeShot(dino.state);
                         break;
                 }
             });
@@ -226,6 +228,9 @@
 
             enemy1.update(delta, 10 );
             enemy1.render(ctx, delta);
+
+            enemy2.update(delta, 10 );
+            enemy2.render(ctx, delta);
 
             dino.update(delta);
             dino.render(ctx, delta);

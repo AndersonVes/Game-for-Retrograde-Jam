@@ -33,6 +33,18 @@ function CreateNewEnemy(posY, isGrounded, enemyType, lives , sizeX, sizeY, canva
         obj.frameRed2.src = "sprites/villain/villain1red.png";
     }
 
+    else if (enemyType == 2){
+        obj.animationFrames = ["sprites/airvillan/airvillan1.png","sprites/airvillan/airvillan2.png"]   
+        obj.animationDuration = [0.3,0.3];   
+
+        obj.frameRed1 = new Image();
+        obj.frameRed1.src = "sprites/airvillan/airvillan1red.png";
+
+        obj.frameRed2 = new Image();
+        obj.frameRed2.src = "sprites/airvillan/airvillan2red.png";
+    } else {
+        alert("invalid enemy type");
+    }
 
     obj.animation = CreateNewAnimation(obj.animationFrames, obj.animationDuration);
    
@@ -61,12 +73,20 @@ function CreateNewEnemy(posY, isGrounded, enemyType, lives , sizeX, sizeY, canva
                 ctx.drawImage(obj.frame, obj.posX, obj.posY);    
             } else {
 
-                if (obj.frame.src.includes("sprites/villain/villain1.png")){
-                    ctx.drawImage(obj.frameRed1, obj.posX, obj.posY);    
+                if (obj.enemyType == 1){
+                    if (obj.frame.src.includes("sprites/villain/villain1.png")){
+                        ctx.drawImage(obj.frameRed1, obj.posX, obj.posY);    
+                    } else {
+                        ctx.drawImage(obj.frameRed2, obj.posX, obj.posY);    
+                    }
                 } else {
-                    ctx.drawImage(obj.frameRed2, obj.posX, obj.posY);    
-                }
 
+                    if (obj.frame.src.includes("sprites/airvillan/airvillan1.png")){
+                        ctx.drawImage(obj.frameRed1, obj.posX, obj.posY);    
+                    } else {
+                        ctx.drawImage(obj.frameRed2, obj.posX, obj.posY);    
+                    }
+                }
             }
         }
     }
