@@ -113,6 +113,7 @@ function CreateNewEnemy(posY, isGrounded, enemyType, sizeX, sizeY, canvasWidth, 
         obj.restartLives();
         obj.posX = canvasWidth + (Math.floor(Math.random() * randomIndex) * 10);
         obj.isAlive = true;
+        obj.hitDino = false;
     }
 
     //Take shot from dino
@@ -147,6 +148,7 @@ function CreateNewEnemy(posY, isGrounded, enemyType, sizeX, sizeY, canvasWidth, 
                 dinoPosY + dinoHeight > obj.posY) {
 
                 obj.hitDino = true;
+                collisionAudio.play();
                 hitTaken();
             }
         }

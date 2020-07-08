@@ -143,8 +143,8 @@
 
 
         var shotDown = false;
-        var enemy1 = CreateNewEnemy(140, true, 1, 30, 30, canvasWidth, 1);
-        var enemy2 = CreateNewEnemy(90, false, 2, 30, 30, canvasWidth, 1);
+        var enemy1 = CreateNewEnemy(140, true, 1, 30, 30, canvasWidth, 15);
+        var enemy2 = CreateNewEnemy(90, false, 2, 30, 30, canvasWidth, 15);
 
         var Input = function() {
 
@@ -247,7 +247,7 @@
             enemy1.checkColision(dino.posX, dino.posY, dino.width, dino.height);
             enemy1.render(ctx, delta);
 
-            enemy2.update(delta, 40);
+            enemy2.update(delta, 80);
             enemy2.checkColision(dino.posX, dino.posY, dino.width, dino.height);
             enemy2.render(ctx, delta);
 
@@ -295,7 +295,10 @@
             dino.takeDamage();
 
             if (livesCurrent <= 0) {
-                alert("morreu");
+                setTimeout(function() {
+                    alert("morreu");
+                    location.reload();
+                }, 500)
             }
         }
     </script>

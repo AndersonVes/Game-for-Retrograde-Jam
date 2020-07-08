@@ -35,7 +35,7 @@ function CreateNewCollisionObject(postionY, width, height, canvasWidth, imagePat
                 dinoPosY < obj.posY + obj.sizeY &&
                 dinoPosY + dinoHeight > obj.posY) {
 
-                console.log("Dino colidiu");
+
                 return true;
             }
 
@@ -50,10 +50,10 @@ function CreateNewCollisionObject(postionY, width, height, canvasWidth, imagePat
 
         //if (obj.canRespawn == false){
 
-            obj.newImage = new Image();
-            obj.newImage.src = "sprites/pedra.png";
-       //     ctx.drawImage(obj.img, obj.posX, obj.posY);
-       // }
+        obj.newImage = new Image();
+        obj.newImage.src = "sprites/pedra.png";
+        //     ctx.drawImage(obj.img, obj.posX, obj.posY);
+        // }
 
     }
 

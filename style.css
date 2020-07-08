@@ -16,6 +16,8 @@ body {
     margin: 0;
     height: 100vh;
     background: #003a6d;
+    background-image: url('sprites/dino/dinoFrame1.png');
+    background-blend-mode: color-burn;
 }
 
 .bottom-total {
