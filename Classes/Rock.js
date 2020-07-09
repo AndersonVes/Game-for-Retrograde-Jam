@@ -1,57 +1,60 @@
-function CreateNewCollisionObject(postionY, width, height, canvasWidth, imagePath, randomIndex) {
+function CreateNewCollisionObject(postionY, width, height, canvasWidth, imagePath) {
 
     obj = {};
 
 
-    posX = canvasWidth + (Math.floor(Math.random() * randomIndex) * 10) + 200;
-    posY = postionY;
+    obj.posX = canvasWidth; //+ (Math.floor(Math.random() * randomIndex) * 10) + 200;
+    obj.posY = postionY;
 
-    sizeX = width;
-    sizeY = height;
-    canRespawn = true;
+    obj.sizeX = width;
+    obj.sizeY = height;
+    obj.isOnScreen = true;
 
-    collided = false;
+    obj.collided = false;
 
-    imageObj = new Image();
-    imageObj.src = imagePath;
-
+    obj.imageObj = new Image();
+    obj.imageObj.src = imagePath;
 
 
 
     obj.move = function(speed, delta) {
 
-        if (canRespawn) {
-            posX -= speed * delta / 1000;
-            if (posX < -sizeX) {
-                canRespawn = true;
+        if (obj.isOnScreen) {
+
+            obj.posX -= speed * delta / 1000;
+
+            if (obj.posX < -obj.sizeX) {
+                obj.isOnScreen = false;
             }
+
         }
 
-        if (posX < -sizeX) {
-            posX = canvasWidth + (Math.floor(Math.random() * randomIndex) * 10);
-            collided = false;
+        /*
+        if (obj.posX < -obj.sizeX) {
+            obj.posX = canvasWidth + (Math.floor(Math.random() * randomIndex) * 10);
+            obj.collided = false;
         }
-
+        */
     }
 
     obj.checkColision = function(dinoPosX, dinoPosY, dinoWidth, dinoHeight) {
 
-        if ((dinoPosX + 10) < posX + sizeX &&
-            (dinoPosX + 10) + dinoWidth > posX &&
-            dinoPosY < posY + sizeY &&
-            dinoPosY + dinoHeight > posY &&
-            !collided) {
-            collided = true;
-            hitTaken();
-            collisionAudio.play();
+        if ((dinoPosX + 10) < obj.posX + obj.sizeX &&
+            (dinoPosX + 10) + dinoWidth > obj.posX &&
+            dinoPosY < obj.posY + obj.sizeY &&
+            dinoPosY + dinoHeight > obj.posY &&
+            !obj.collided) {
+            
+                obj.collided = true;
+                hitTaken();
+                collisionAudio.play();
         }
     }
 
-
-
-
     obj.render = function(ctx) {
-        ctx.drawImage(imageObj, posX, posY);
+        if (obj.isOnScreen){
+            ctx.drawImage(obj.imageObj, obj.posX, obj.posY);
+        }
     }
 
     return obj;

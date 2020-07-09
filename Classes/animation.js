@@ -48,8 +48,6 @@ function CreateNewAnimation(frames, duration) {
 
         }
 
-        console.log(obj.frames[obj.imgIndex].src + " " + obj.imgIndex);
-
         return obj.frames[obj.imgIndex];
 
     }

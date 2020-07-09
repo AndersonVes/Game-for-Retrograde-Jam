@@ -14,18 +14,12 @@ function createNewHearts(maxLifes) {
     obj.render = function(ctx, currentLifes) {
 
         for (var i = 1; i <= maxLifes; i++) {
-
             ctx.drawImage(obj.imageOutline, (heatsWidth + 3) * i, 10);
-
         }
 
         for (var i = 1; i <= currentLifes; i++) {
-
             ctx.drawImage(obj.imageFill, (heatsWidth + 3) * i + 1, 11);
-
         }
-
-
     }
 
     return obj;
