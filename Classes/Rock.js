@@ -1,61 +1,56 @@
 function CreateNewCollisionObject(postionY, width, height, canvasWidth, imagePath) {
 
-    obj = {};
+    rock = {};
 
 
-    obj.posX = canvasWidth; //+ (Math.floor(Math.random() * randomIndex) * 10) + 200;
-    obj.posY = postionY;
+    rock.posX = canvasWidth; //+ (Math.floor(Math.random() * randomIndex) * 10) + 200;
+    rock.posY = postionY;
 
-    obj.sizeX = width;
-    obj.sizeY = height;
-    obj.isOnScreen = true;
+    rock.sizeX = width;
+    rock.sizeY = height;
+    rock.isOnScreen = true;
 
-    obj.collided = false;
+    rock.collided = false;
 
-    obj.imageObj = new Image();
-    obj.imageObj.src = imagePath;
+    rock.imageObj = new Image();
+    rock.imageObj.src = imagePath;
 
 
 
-    obj.move = function(speed, delta) {
+    rock.move = function(speed, delta) {
 
-        if (obj.isOnScreen) {
+        if (rock.isOnScreen) {
 
-            obj.posX -= speed * delta / 1000;
+            rock.posX -= speed * delta / 1000;
 
-            if (obj.posX < -obj.sizeX) {
-                obj.isOnScreen = false;
+            if (rock.posX < -rock.sizeX) {
+                rock.isOnScreen = false;
             }
 
         }
 
-        /*
-        if (obj.posX < -obj.sizeX) {
-            obj.posX = canvasWidth + (Math.floor(Math.random() * randomIndex) * 10);
-            obj.collided = false;
-        }
-        */
+        
     }
 
-    obj.checkColision = function(dinoPosX, dinoPosY, dinoWidth, dinoHeight) {
+    rock.checkColision = function(dinoPosX, dinoPosY, dinoWidth, dinoHeight) {
 
-        if ((dinoPosX + 10) < obj.posX + obj.sizeX &&
-            (dinoPosX + 10) + dinoWidth > obj.posX &&
-            dinoPosY < obj.posY + obj.sizeY &&
-            dinoPosY + dinoHeight > obj.posY &&
-            !obj.collided) {
+        if ((dinoPosX + 10) < rock.posX + rock.sizeX &&
+            (dinoPosX + 10) + dinoWidth > rock.posX &&
+            dinoPosY < rock.posY + rock.sizeY &&
+            dinoPosY + dinoHeight > rock.posY &&
+            !rock.collided) {
             
-                obj.collided = true;
+                rock.collided = true;
                 hitTaken();
                 collisionAudio.play();
         }
     }
 
-    obj.render = function(ctx) {
-        if (obj.isOnScreen){
-            ctx.drawImage(obj.imageObj, obj.posX, obj.posY);
+    rock.render = function(ctx) {
+        if (rock.isOnScreen){
+            ctx.drawImage(rock.imageObj, rock.posX, rock.posY);
         }
     }
 
-    return obj;
+    return rock;
 }

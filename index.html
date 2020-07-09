@@ -93,7 +93,7 @@
         var livesCurrent;
 
         /* Speeds */
-        var gameSpeed = 2;
+        var gameSpeed = 1;
         var mountainSpeed = 30;
         var cloudSpeed = 50;
         var grassSpeed = 150;
@@ -135,7 +135,7 @@
         var tree2 = CreateNewScenaryObject(182, 70, 29 + 30 + 100, 51, ["sprites/tree1.png"], canvasWidth, canvasHeight);
 
          /* Rocks */
-        var scenaryObjectsCollider = [];
+        var rocks = [];
         var timeToInstantiateScenaryObject = [1,2,3,4,5,6,9];
 
         /* Enemies */
@@ -206,7 +206,7 @@
         }
 
         function InstantiateRock() {
-            scenaryObjectsCollider.push(CreateNewCollisionObject(164, 18, 10, canvasWidth, "sprites/pedra.png"));                
+            rocks.push( CreateNewCollisionObject(164, 18, 10, canvasWidth, "sprites/pedra.png" ) ) ;                
         }
 
         var update = function (delta) {
@@ -237,17 +237,19 @@
 
 
             //Scenary objects with collision
-/*
+
             if (timeToInstantiateScenaryObject.length >= 1 && totalTime > timeToInstantiateScenaryObject[0]){
                console.log("Instanciou pedra "  + timeToInstantiateScenaryObject.length);
                InstantiateRock();
                timeToInstantiateScenaryObject.shift();
             }
 
-            for(i = 0; i < scenaryObjectsCollider.length; i++){
-                scenaryObjectsCollider[i].move( rockSpeed , delta);
-                scenaryObjectsCollider[i].checkColision(dino.posX, dino.posY, dino.width, dino.height);
-            }*/
+            for(j = 0; j < rocks.length; j++){
+                console.log(j + " " + rocks.length);
+                rocks[j].move( rockSpeed , delta);
+                rocks[j].checkColision(dino.posX, dino.posY, dino.width, dino.height);
+            }
+            console.log("Saiu do for");
 
 
             //Enemies
@@ -315,8 +317,8 @@
                 enemies[i].render(ctx, delta);
             }
 
-            for(i = 0; i < scenaryObjectsCollider.length; i++){
-                scenaryObjectsCollider[i].render(ctx);    
+            for(i = 0; i < rocks.length; i++){
+                rocks[i].render(ctx);    
             }
 
             grass1.render(ctx);
