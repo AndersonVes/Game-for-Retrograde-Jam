@@ -5,8 +5,6 @@ function CreateNewEnemy(posY, isGrounded, enemyType, sizeX, sizeY, colliderOffse
 
     var obj = {};
 
-
-
     obj.isAlive = true;
     obj.hitDino = false;
 

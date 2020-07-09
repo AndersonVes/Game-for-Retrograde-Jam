@@ -89,13 +89,15 @@
         var totalTime = 0;
 
         /* Lifes */
-        const livesTotal = 4;
+        const livesTotal = 6;
         var livesCurrent;
 
         /* Speeds */
+        var gameSpeed = 2;
         var mountainSpeed = 30;
         var cloudSpeed = 50;
         var grassSpeed = 150;
+        var treeSpeed = grassSpeed - 20;
         var rockSpeed = 100;
         var dinossaurSpeed = 100;
 
@@ -213,25 +215,25 @@
                 return;
             }
 
-            mountain1.move(mountainSpeed, delta);
-            mountain2.move(mountainSpeed, delta);
-            mountain3.move(mountainSpeed, delta);
-            mountain4.move(mountainSpeed, delta);
+            mountain1.move(mountainSpeed * gameSpeed , delta);
+            mountain2.move(mountainSpeed * gameSpeed , delta);
+            mountain3.move(mountainSpeed * gameSpeed , delta);
+            mountain4.move(mountainSpeed * gameSpeed , delta);
 
-            cloud1.move(cloudSpeed, delta);
-            cloud2.move(cloudSpeed, delta);
-            cloud3.move(cloudSpeed, delta);
-            cloud4.move(cloudSpeed, delta);
-            cloud5.move(cloudSpeed, delta);
+            cloud1.move(cloudSpeed * gameSpeed , delta);
+            cloud2.move(cloudSpeed * gameSpeed , delta);
+            cloud3.move(cloudSpeed * gameSpeed , delta);
+            cloud4.move(cloudSpeed * gameSpeed , delta);
+            cloud5.move(cloudSpeed * gameSpeed , delta);
 
-            tree1.move(grassSpeed - 10, delta);
-            tree2.move(grassSpeed - 10, delta);
+            tree1.move(treeSpeed * gameSpeed , delta);
+            tree2.move(treeSpeed * gameSpeed , delta);
 
-            grass1.move(grassSpeed, delta);
-            grass2.move(grassSpeed, delta);
-            grass3.move(grassSpeed, delta);
-            grass4.move(grassSpeed, delta);
-            grass5.move(grassSpeed, delta);
+            grass1.move(grassSpeed * gameSpeed , delta);
+            grass2.move(grassSpeed * gameSpeed , delta);
+            grass3.move(grassSpeed * gameSpeed , delta);
+            grass4.move(grassSpeed * gameSpeed , delta);
+            grass5.move(grassSpeed * gameSpeed , delta);
 
 
             //Scenary objects with collision
@@ -256,7 +258,7 @@
             }
 
             for(i = 0; i < enemies.length; i++){
-                enemies[i].update(delta, dinossaurSpeed);
+                enemies[i].update(delta, dinossaurSpeed * gameSpeed );
                 enemies[i].checkColision(dino.posX, dino.posY, dino.width, dino.height);
             }
             
