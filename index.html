@@ -14,6 +14,7 @@
     <script src="Classes/MainDino.js"></script>
     <script src="Classes/Hearts.js"></script>
     <script src="Classes/Rock.js"></script>
+    <script src="Classes/enemy.js"></script>
 
 
     <link href="https://fonts.googleapis.com/css2?family=MuseoModerno:wght@100;200;300;400;500;531;600;700;800;900&display=swap" rel="stylesheet">
@@ -50,7 +51,7 @@
     <audio id="jumpAudio" src="sounds/jump.wav"></audio>
     <audio id="shootAudio" src="sounds/shot.wav"></audio>
     <audio id="collisionAudio" src="sounds/collision.wav"></audio>
-    <audio id="bgAudio" src="sounds/bg.ogg"></audio>
+    <audio id="bgAudio" src="sounds/dinoSong.mp3"></audio>
 
     <script>
         window.onload = function() {
@@ -73,7 +74,9 @@
         function play() {
             $('canvas').css("display", "block");
             $('#menu').css("display", "none");
+            bgAudio.loop = true;
             bgAudio.play();
+
             main();
 
             livesCurrent = livesTotal;
@@ -139,6 +142,10 @@
         var hearts = createNewHearts(livesTotal);
 
 
+        var shotDown = false;
+        var enemy1 = CreateNewEnemy(140, true, 1, 30, 30, canvasWidth, 15);
+        var enemy2 = CreateNewEnemy(90, false, 2, 30, 30, canvasWidth, 15);
+
         var Input = function() {
 
             document.addEventListener('keydown', (event) => {
@@ -153,6 +160,23 @@
                     case 69:
                         shootAudio.play();
                         dino.shot();
+                        if (!shotDown) {
+                            shootAudio.play();
+                            dino.shot();
+                            enemy1.takeShot(dino.state, dino.posX);
+                            enemy2.takeShot(dino.state, dino.posX);
+                            shotDown = true;
+                        }
+                        break;
+                }
+            });
+
+            document.addEventListener('keyup', (event) => {
+
+                const keyCode = event.keyCode;
+                switch (keyCode) {
+                    case 69:
+                        shotDown = false;
                         break;
                 }
             });
@@ -216,8 +240,16 @@
             tree2.render(ctx);
 
             rock.move(150, delta);
-            rock.checkColision(dino.posX, dino.posY, dino.width, dino.height)
+            rock.checkColision(dino.posX, dino.posY, dino.width, dino.height);
             rock.render(ctx);
+
+            enemy1.update(delta, 40);
+            enemy1.checkColision(dino.posX, dino.posY, dino.width, dino.height);
+            enemy1.render(ctx, delta);
+
+            enemy2.update(delta, 80);
+            enemy2.checkColision(dino.posX, dino.posY, dino.width, dino.height);
+            enemy2.render(ctx, delta);
 
             dino.update(delta);
             dino.render(ctx, delta);
@@ -227,14 +259,6 @@
             grass3.render(ctx);
             grass4.render(ctx);
             grass5.render(ctx);
-
-
-
-
-
-
-
-
         };
 
 
@@ -261,6 +285,7 @@
         };
 
         function hitTaken() {
+
             $('canvas').effect('shake', {
                 distance: 10
             }, 100);
@@ -270,7 +295,10 @@
             dino.takeDamage();
 
             if (livesCurrent <= 0) {
-                alert("morreu");
+                setTimeout(function() {
+                    alert("morreu");
+                    location.reload();
+                }, 500)
             }
         }
     </script>
