@@ -52,14 +52,28 @@
     <audio id="enemyDieAudio" src="sounds/enemyDie.wav"></audio>
 
     <script>
-
         window.onload = function() {
             // play(); //will be removed in the final version
             $('#howtoplay').css('display', 'none');
+
+            var inTab = true;
+            document.addEventListener("visibilitychange", function() {
+                if (!document.hidden) {
+                    if (!inTab)
+                        alert('voltou');
+                    inTab = true;
+                } else {
+                    inTab = false;
+                }
+            });
+
+
         };
 
         /* Input Controll */
         var shotDown = false;
+
+        var canvasShaking = false;
 
         /* Audio */
         var jumpAudio = document.getElementById("jumpAudio");
@@ -69,7 +83,7 @@
         var collisionAudio = document.getElementById("collisionAudio");
 
         // Cross-browser support for requestAnimationFrame
-        var w = window;        
+        var w = window;
         requestAnimationFrame = w.requestAnimationFrame || w.webkitRequestAnimationFrame || w.msRequestAnimationFrame || w.mozRequestAnimationFrame;
 
         /* canvas */
@@ -85,11 +99,11 @@
         /* Game */
         // p -> playing
         // g -> gameover
-        var gameState = "p" ;
+        var gameState = "p";
         var totalTime = 0;
 
         /* Lifes */
-        const livesTotal = 6;
+        const livesTotal = 1000;
         var livesCurrent;
 
         /* Speeds */
@@ -102,11 +116,11 @@
         var dinossaurSpeed = 100;
 
         /* Positions */
-        var moutainYpos = 90;        
+        var moutainYpos = 90;
 
-        /* Game objects */     
-        
-        
+        /* Game objects */
+
+
         /* Moutains */
         var mountain1 = CreateNewScenaryObject(0, moutainYpos, 107, 30, ["sprites/mountain1.png", "sprites/mountain2.png"], canvasWidth, canvasHeight);
         var mountain2 = CreateNewScenaryObject(107, moutainYpos, 106, 30, ["sprites/mountain1.png", "sprites/mountain2.png"], canvasWidth, canvasHeight);
@@ -134,13 +148,13 @@
         var tree1 = CreateNewScenaryObject(82, 74, 29 + 30, 51, ["sprites/tree1.png"], canvasWidth, canvasHeight);
         var tree2 = CreateNewScenaryObject(182, 70, 29 + 30 + 100, 51, ["sprites/tree1.png"], canvasWidth, canvasHeight);
 
-         /* Rocks */
+        /* Rocks */
         var rocks = [];
-        var timeToInstantiateScenaryObject = [1,2,3,4,5,6,9];
+        var timeToInstantiateScenaryObject = [1, 2, 3, 4, 5, 6, 9];
 
         /* Enemies */
         var enemies = [];
-        var timeToInstantiateEnemy = [1,2,3,4,5,6,7,8,9,10];
+        var timeToInstantiateEnemy = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
         /* UI */
         var hearts = createNewHearts(livesTotal);
@@ -159,6 +173,10 @@
 
         var Input = function() {
 
+
+
+
+
             document.addEventListener('keydown', (event) => {
 
                 const keyCode = event.keyCode;
@@ -173,12 +191,12 @@
                             shootAudio.play();
                             dino.shot();
 
-                            for(i = 0; i < enemies.length; i++){         
-                                
-                                 if (enemies[i].takeShot(dino.state, dino.posX)){
-                                      break;
-                                 }
-                            }        
+                            for (i = 0; i < enemies.length; i++) {
+
+                                if (enemies[i].takeShot(dino.state, dino.posX)) {
+                                    break;
+                                }
+                            }
 
                             shotDown = true;
                         }
@@ -197,7 +215,7 @@
         }
 
         function InstantiateEnemy(type) {
-            if (type == 1){
+            if (type == 1) {
                 enemies.push(CreateNewEnemy(150, true, 1, 30, 30, 5, canvasWidth, 15));
 
             } else if (type == 2) {
@@ -206,64 +224,64 @@
         }
 
         function InstantiateRock() {
-            rocks.push( CreateNewCollisionObject(164, 18, 10, canvasWidth, "sprites/pedra.png" ) ) ;                
+            rocks.push(CreateNewCollisionObject(164, 18, 10, canvasWidth, "sprites/pedra.png"));
         }
 
-        var update = function (delta) {
+        var update = function(delta) {
 
-            if(gameState == "g"){
+            if (gameState == "g") {
                 return;
             }
 
-            mountain1.move(mountainSpeed * gameSpeed , delta);
-            mountain2.move(mountainSpeed * gameSpeed , delta);
-            mountain3.move(mountainSpeed * gameSpeed , delta);
-            mountain4.move(mountainSpeed * gameSpeed , delta);
+            mountain1.move(mountainSpeed * gameSpeed, delta);
+            mountain2.move(mountainSpeed * gameSpeed, delta);
+            mountain3.move(mountainSpeed * gameSpeed, delta);
+            mountain4.move(mountainSpeed * gameSpeed, delta);
 
-            cloud1.move(cloudSpeed * gameSpeed , delta);
-            cloud2.move(cloudSpeed * gameSpeed , delta);
-            cloud3.move(cloudSpeed * gameSpeed , delta);
-            cloud4.move(cloudSpeed * gameSpeed , delta);
-            cloud5.move(cloudSpeed * gameSpeed , delta);
+            cloud1.move(cloudSpeed * gameSpeed, delta);
+            cloud2.move(cloudSpeed * gameSpeed, delta);
+            cloud3.move(cloudSpeed * gameSpeed, delta);
+            cloud4.move(cloudSpeed * gameSpeed, delta);
+            cloud5.move(cloudSpeed * gameSpeed, delta);
 
-            tree1.move(treeSpeed * gameSpeed , delta);
-            tree2.move(treeSpeed * gameSpeed , delta);
+            tree1.move(treeSpeed * gameSpeed, delta);
+            tree2.move(treeSpeed * gameSpeed, delta);
 
-            grass1.move(grassSpeed * gameSpeed , delta);
-            grass2.move(grassSpeed * gameSpeed , delta);
-            grass3.move(grassSpeed * gameSpeed , delta);
-            grass4.move(grassSpeed * gameSpeed , delta);
-            grass5.move(grassSpeed * gameSpeed , delta);
+            grass1.move(grassSpeed * gameSpeed, delta);
+            grass2.move(grassSpeed * gameSpeed, delta);
+            grass3.move(grassSpeed * gameSpeed, delta);
+            grass4.move(grassSpeed * gameSpeed, delta);
+            grass5.move(grassSpeed * gameSpeed, delta);
 
 
             //Scenary objects with collision
 
-            if (timeToInstantiateScenaryObject.length >= 1 && totalTime > timeToInstantiateScenaryObject[0]){
-               console.log("Instanciou pedra "  + timeToInstantiateScenaryObject.length);
-               InstantiateRock();
-               timeToInstantiateScenaryObject.shift();
+            if (timeToInstantiateScenaryObject.length >= 1 && totalTime > timeToInstantiateScenaryObject[0]) {
+                console.log("Instanciou pedra " + timeToInstantiateScenaryObject.length);
+                InstantiateRock();
+                timeToInstantiateScenaryObject.shift();
             }
 
-            for(j = 0; j < rocks.length; j++){
+            for (j = 0; j < rocks.length; j++) {
                 console.log(j + " " + rocks.length);
-                rocks[j].move( rockSpeed , delta);
+                rocks[j].move(rockSpeed, delta);
                 rocks[j].checkColision(dino.posX, dino.posY, dino.width, dino.height);
             }
             console.log("Saiu do for");
 
 
             //Enemies
-            
-            if (timeToInstantiateEnemy.length >= 1 && totalTime > timeToInstantiateEnemy[0]){
-                InstantiateEnemy( (Math.floor(Math.random() * 2) + 1 ));
+
+            if (timeToInstantiateEnemy.length >= 1 && totalTime > timeToInstantiateEnemy[0]) {
+                InstantiateEnemy((Math.floor(Math.random() * 2) + 1));
                 timeToInstantiateEnemy.shift();
             }
 
-            for(i = 0; i < enemies.length; i++){
-                enemies[i].update(delta, dinossaurSpeed * gameSpeed );
+            for (i = 0; i < enemies.length; i++) {
+                enemies[i].update(delta, dinossaurSpeed * gameSpeed);
                 enemies[i].checkColision(dino.posX, dino.posY, dino.width, dino.height);
             }
-            
+
 
             dino.update(delta);
 
@@ -272,7 +290,7 @@
         var render = function(delta) {
 
             //If Game over
-            if(gameState == "g"){
+            if (gameState == "g") {
 
                 ctx.fillStyle = "#000000"; // black
                 ctx.fillRect(0, 0, canvas.width, canvasWidth.height);
@@ -309,16 +327,16 @@
             mountain4.render(ctx);
 
             tree1.render(ctx);
-            tree2.render(ctx);               
-            
+            tree2.render(ctx);
+
             dino.render(ctx, delta);
 
-            for(i = 0; i < enemies.length; i++){
+            for (i = 0; i < enemies.length; i++) {
                 enemies[i].render(ctx, delta);
             }
 
-            for(i = 0; i < rocks.length; i++){
-                rocks[i].render(ctx);    
+            for (i = 0; i < rocks.length; i++) {
+                rocks[i].render(ctx);
             }
 
             grass1.render(ctx);
@@ -341,18 +359,28 @@
             update(delta);
             render(delta);
             totalTime += delta / 1000;
-           // console.log(totalTime);
+            // console.log(totalTime);
             then = now;
 
             // Request to do this again ASAP (Game loop)
             window.requestAnimationFrame(main);
         };
 
+        function shakeCanvas() {
+            if (!canvasShaking) {
+                $('canvas').effect('shake', {
+                    distance: 10
+                }, 100);
+                canvasShaking = true;
+                setTimeout(function() {
+                    canvasShaking = false;
+                }, 2000);
+            }
+        }
+
         function hitTaken() {
 
-            $('canvas').effect('shake', {
-                distance: 10
-            }, 100);
+            shakeCanvas();
 
             livesCurrent--;
 
@@ -360,11 +388,11 @@
 
             if (livesCurrent <= 0) {
                 setTimeout(function() {
-                   // alert("morreu");
-                   gameState = "g";
-                   bgAudio.stop();
+                    // alert("morreu");
+                    gameState = "g";
+                    bgAudio.stop();
 
-                  //  location.reload();
+                    //  location.reload();
                 }, 3500)
             }
         }
