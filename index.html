@@ -14,6 +14,7 @@
     <script src="Classes/Hearts.js"></script>
     <script src="Classes/Rock.js"></script>
     <script src="Classes/enemy.js"></script>
+    <script src="Helpers/Scenary.js"></script>
 
     <link href="https://fonts.googleapis.com/css2?family=MuseoModerno:wght@100;200;300;400;500;531;600;700;800;900&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
@@ -50,20 +51,21 @@
     <audio id="collisionAudio" src="sounds/collision.wav"></audio>
     <audio id="bgAudio" src="sounds/dinoSong.mp3"></audio>
     <audio id="enemyDieAudio" src="sounds/enemyDie.wav"></audio>
-
+    <audio id="playerDieAudio" src="sounds/dinodead.mp3"></audio>
     <script>
+        var reloadScenary = false;
         window.onload = function() {
             // play(); //will be removed in the final version
             $('#howtoplay').css('display', 'none');
 
-            var inTab = true;
+
             document.addEventListener("visibilitychange", function() {
                 if (!document.hidden) {
-                    if (!inTab)
-                        alert('voltou');
-                    inTab = true;
-                } else {
-                    inTab = false;
+                    reloadScenary = true;
+                    setTimeout(function() {
+                        destroyScenary();
+                        createScenary();
+                    }, 100)
                 }
             });
 
@@ -78,7 +80,8 @@
         /* Audio */
         var jumpAudio = document.getElementById("jumpAudio");
         var shootAudio = document.getElementById("shootAudio");
-        var enemyDieAudio = document.getElementById("shootAudio");
+        var enemyDieAudio = document.getElementById("enemyDieAudio");
+        var playerDieAudio = document.getElementById("playerDieAudio");
         var bgAudio = document.getElementById("bgAudio");
         var collisionAudio = document.getElementById("collisionAudio");
 
@@ -103,7 +106,7 @@
         var totalTime = 0;
 
         /* Lifes */
-        const livesTotal = 1000;
+        const livesTotal = 6;
         var livesCurrent;
 
         /* Speeds */
@@ -121,32 +124,29 @@
         /* Game objects */
 
 
-        /* Moutains */
-        var mountain1 = CreateNewScenaryObject(0, moutainYpos, 107, 30, ["sprites/mountain1.png", "sprites/mountain2.png"], canvasWidth, canvasHeight);
-        var mountain2 = CreateNewScenaryObject(107, moutainYpos, 106, 30, ["sprites/mountain1.png", "sprites/mountain2.png"], canvasWidth, canvasHeight);
-        var mountain3 = CreateNewScenaryObject(107 * 2, moutainYpos, 107, 30, ["sprites/mountain1.png", "sprites/mountain2.png"], canvasWidth, canvasHeight);
-        var mountain4 = CreateNewScenaryObject(107 * 3, moutainYpos, 107, 30, ["sprites/mountain1.png", "sprites/mountain2.png"], canvasWidth, canvasHeight);
+
 
         /* Playable dino */
         var dino = CreateNewDino();
 
-        /* Clouds */
-        var cloud1 = CreateNewScenaryObject(400, 150, 107, 30, ["sprites/cloud1.png", "sprites/cloud2.png"], canvasWidth, canvasHeight);
-        var cloud3 = CreateNewScenaryObject(150, 120, 107, 30, ["sprites/cloud1.png", "sprites/cloud2.png"], canvasWidth, canvasHeight);
-        var cloud4 = CreateNewScenaryObject(200, 140, 107, 30, ["sprites/cloud1.png", "sprites/cloud2.png"], canvasWidth, canvasHeight);
-        var cloud5 = CreateNewScenaryObject(350, 95, 107, 30, ["sprites/cloud1.png", "sprites/cloud2.png"], canvasWidth, canvasHeight);
-        var cloud2 = CreateNewScenaryObject(50, 110, 107, 30, ["sprites/cloud1.png", "sprites/cloud2.png"], canvasWidth, canvasHeight);
+        var mountain1 = "";
+        var mountain2 = "";
+        var mountain3 = "";
+        var mountain4 = "";
+        var cloud1 = "";
+        var cloud3 = "";
+        var cloud4 = "";
+        var cloud5 = "";
+        var cloud2 = "";
+        var grass1 = "";
+        var grass2 = "";
+        var grass3 = "";
+        var grass4 = "";
+        var grass5 = "";
+        var tree1 = "";
+        var tree2 = "";
 
-        /* Grasses */
-        var grass1 = CreateNewScenaryObject(100, 38, 12, 14, ["sprites/grama.png"], canvasWidth, canvasHeight);
-        var grass2 = CreateNewScenaryObject(40, 36, 12, 14, ["sprites/grama.png"], canvasWidth, canvasHeight);
-        var grass3 = CreateNewScenaryObject(63, 37, 12, 14, ["sprites/grama.png"], canvasWidth, canvasHeight);
-        var grass4 = CreateNewScenaryObject(150, 39, 12, 14, ["sprites/grama.png"], canvasWidth, canvasHeight);
-        var grass5 = CreateNewScenaryObject(82, 40, 12, 14, ["sprites/grama.png"], canvasWidth, canvasHeight);
-
-        /* Trees */
-        var tree1 = CreateNewScenaryObject(82, 74, 29 + 30, 51, ["sprites/tree1.png"], canvasWidth, canvasHeight);
-        var tree2 = CreateNewScenaryObject(182, 70, 29 + 30 + 100, 51, ["sprites/tree1.png"], canvasWidth, canvasHeight);
+        createScenary();
 
         /* Rocks */
         var rocks = [];
@@ -257,17 +257,17 @@
             //Scenary objects with collision
 
             if (timeToInstantiateScenaryObject.length >= 1 && totalTime > timeToInstantiateScenaryObject[0]) {
-                console.log("Instanciou pedra " + timeToInstantiateScenaryObject.length);
+                //console.log("Instanciou pedra " + timeToInstantiateScenaryObject.length);
                 InstantiateRock();
                 timeToInstantiateScenaryObject.shift();
             }
 
             for (j = 0; j < rocks.length; j++) {
-                console.log(j + " " + rocks.length);
+                //console.log(j + " " + rocks.length);
                 rocks[j].move(rockSpeed, delta);
                 rocks[j].checkColision(dino.posX, dino.posY, dino.width, dino.height);
             }
-            console.log("Saiu do for");
+            //console.log("Saiu do for");
 
 
             //Enemies
@@ -390,10 +390,11 @@
                 setTimeout(function() {
                     // alert("morreu");
                     gameState = "g";
-                    bgAudio.stop();
+                    bgAudio.pause();
+                    playerDieAudio.play();
 
                     //  location.reload();
-                }, 3500)
+                }, 0);
             }
         }
     </script>

@@ -1,6 +1,6 @@
 //This type of object won't collide with anything in the game
 
-function CreateNewScenaryObject(posX, posY, sizeX, sizeY, imagePath, canvasWidth, canvasHeight) {
+function CreateNewScenaryObject(scPosX, posY, sizeX, sizeY, imagePath, canvasWidth, canvasHeight) {
 
     var obj = {}
 
@@ -19,7 +19,7 @@ function CreateNewScenaryObject(posX, posY, sizeX, sizeY, imagePath, canvasWidth
     obj.imageIndex = Math.floor(Math.random() * imagePath.length);
 
 
-    obj.posX = posX;
+    obj.posX = scPosX;
     obj.posY = posY;
 
     obj.canvasWidth = canvasWidth;
@@ -30,10 +30,12 @@ function CreateNewScenaryObject(posX, posY, sizeX, sizeY, imagePath, canvasWidth
      */
     obj.move = function(speed, delta) {
 
-        posX -= speed * delta / 1000;
+        obj.posX -= speed * delta / 1000;
 
-        if (posX < -sizeX) {
-            posX = canvasWidth; //+ Math.floor(Math.random() * 100);  
+
+
+        if (obj.posX < -sizeX) {
+            obj.posX = canvasWidth; //+ Math.floor(Math.random() * 100);  
             obj.imageIndex = Math.floor(Math.random() * imagePath.length);
         }
 
@@ -44,7 +46,15 @@ function CreateNewScenaryObject(posX, posY, sizeX, sizeY, imagePath, canvasWidth
      * @param {any} ctx The canvas to render
      */
     obj.render = function(ctx) {
-        ctx.drawImage(obj.objImage[obj.imageIndex], posX, -sizeY + canvasHeight - posY);
+        if (!reloadScenary)
+            ctx.drawImage(obj.objImage[obj.imageIndex], obj.posX, -sizeY + canvasHeight - posY);
+        else {
+
+            ctx.drawImage(obj.objImage[obj.imageIndex], scPosX, -sizeY + canvasHeight - posY);
+            reloadScenary = false;
+            console.log(scPosX);
+
+        }
 
     }
 
