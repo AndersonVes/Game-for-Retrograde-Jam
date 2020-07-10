@@ -126,6 +126,8 @@ obj.jump = function () {
 
     if (obj.state != "jumping") {
 
+
+        jumpAudio.play();
         obj.state = "jumping";
         obj.velocityY = -10.0;
 
