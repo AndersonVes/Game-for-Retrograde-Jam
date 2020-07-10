@@ -23,6 +23,9 @@ function createScenary() {
     tree1 = CreateNewScenaryObject(82, 74, 29 + 30, 51, ["sprites/tree1.png"], canvasWidth, canvasHeight);
     tree2 = CreateNewScenaryObject(182, 70, 29 + 30 + 100, 51, ["sprites/tree1.png"], canvasWidth, canvasHeight);
 
+    //flag
+    flag = CreateNewScenaryObject(canvasWidth - 27, -28, 29 + 30 + 100, 51, ["sprites/brazilflag.png"], canvasWidth, canvasHeight);
+
 }
 
 function destroyScenary() {
@@ -49,5 +52,8 @@ function destroyScenary() {
     /* Trees */
     tree1 = null;
     tree2 = null;
+
+    //flag
+    flag = null;
 
 }

@@ -147,17 +147,19 @@
         var tree1 = "";
         var tree2 = "";
 
+        var flag = "";
+
         setTimeout(function() {
             createScenary();
         }, 100);
 
         /* Rocks */
         var rocks = [];
-        var timeToInstantiateScenaryObject = [3, 6, 9, 11, 11.1, 14, 16, 31,32,33,34,39,40,40.1,41,44,47,50];
+        var timeToInstantiateScenaryObject = [3, 6, 9, 11, 11.1, 14, 16, 31, 32, 33, 34, 39, 40, 40.1, 41, 44, 47, 50];
 
         /* Enemies */
         var enemies = [];
-        var timeToInstantiateEnemy = [ 18,21,24,26,27,28,29,30, 35,36,37,38,39, 44,45,46,47,48,49,50];
+        var timeToInstantiateEnemy = [18, 21, 24, 26, 27, 28, 29, 30, 35, 36, 37, 38, 39, 44, 45, 46, 47, 48, 49, 50];
 
         /* UI */
         var hearts = createNewHearts(livesTotal);
@@ -256,6 +258,8 @@
             grass4.move(grassSpeed * gameSpeed, delta);
             grass5.move(grassSpeed * gameSpeed, delta);
 
+            grass5.move(0, delta);
+
 
             //Scenary objects with collision
 
@@ -352,6 +356,8 @@
             grass5.render(ctx);
 
             hearts.render(ctx, livesCurrent);
+
+            flag.render(ctx);
         };
 
 
