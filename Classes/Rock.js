@@ -1,7 +1,6 @@
 function CreateNewCollisionObject(postionY, width, height, canvasWidth, imagePath) {
 
-    rock = {};
-
+    var rock = {};
 
     rock.posX = canvasWidth; //+ (Math.floor(Math.random() * randomIndex) * 10) + 200;
     rock.posY = postionY;
@@ -15,13 +14,15 @@ function CreateNewCollisionObject(postionY, width, height, canvasWidth, imagePat
     rock.imageObj = new Image();
     rock.imageObj.src = imagePath;
 
-
+  //  rock.updated = false;
+   // rock.checkedCollision = false;
 
     rock.move = function(speed, delta) {
 
-        if (rock.isOnScreen) {
+        if (!rock.updated && rock.isOnScreen) {
 
             rock.posX -= speed * delta / 1000;
+          //  rock.updated = true;
 
             if (rock.posX < -rock.sizeX) {
                 rock.isOnScreen = false;
@@ -34,15 +35,18 @@ function CreateNewCollisionObject(postionY, width, height, canvasWidth, imagePat
 
     rock.checkColision = function(dinoPosX, dinoPosY, dinoWidth, dinoHeight) {
 
-        if ((dinoPosX + 10) < rock.posX + rock.sizeX &&
-            (dinoPosX + 10) + dinoWidth > rock.posX &&
-            dinoPosY < rock.posY + rock.sizeY &&
-            dinoPosY + dinoHeight > rock.posY &&
-            !rock.collided) {
-            
-                rock.collided = true;
-                hitTaken();
-                collisionAudio.play();
+        if (!rock.checkedCollision){
+            if ((dinoPosX + 10) < rock.posX + rock.sizeX &&
+                (dinoPosX + 10) + dinoWidth > rock.posX &&
+                dinoPosY < rock.posY + rock.sizeY &&
+                dinoPosY + dinoHeight > rock.posY &&
+                !rock.collided) {
+                
+                    rock.collided = true;
+                    hitTaken();
+                    collisionAudio.play();
+            }
+         //   rock.checkedCollision = true;
         }
     }
 

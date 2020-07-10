@@ -116,15 +116,13 @@
         var cloudSpeed = 50;
         var grassSpeed = 150;
         var treeSpeed = grassSpeed - 20;
-        var rockSpeed = 100;
-        var dinossaurSpeed = 100;
+        var rockSpeed = grassSpeed - 5;
+        var dinossaurSpeed = rockSpeed + 20;
 
         /* Positions */
         var moutainYpos = 90;
 
         /* Game objects */
-
-
 
 
         /* Playable dino */
@@ -153,11 +151,11 @@
 
         /* Rocks */
         var rocks = [];
-        var timeToInstantiateScenaryObject = [1, 2, 3, 4, 5, 6, 9];
+        var timeToInstantiateScenaryObject = [3, 6, 9, 11, 11.1, 14, 16, 31,32,33,34,39,40,40.1,41,44,47,50];
 
         /* Enemies */
         var enemies = [];
-        var timeToInstantiateEnemy = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+        var timeToInstantiateEnemy = [ 18,21,24,26,27,28,29,30, 35,36,37,38,39, 44,45,46,47,48,49,50];
 
         /* UI */
         var hearts = createNewHearts(livesTotal);
@@ -179,10 +177,6 @@
         }
 
         var Input = function() {
-
-
-
-
 
             document.addEventListener('keydown', (event) => {
 
@@ -264,7 +258,6 @@
             //Scenary objects with collision
 
             if (timeToInstantiateScenaryObject.length >= 1 && totalTime > timeToInstantiateScenaryObject[0]) {
-                //console.log("Instanciou pedra " + timeToInstantiateScenaryObject.length);
                 InstantiateRock();
                 timeToInstantiateScenaryObject.shift();
             }
@@ -274,6 +267,10 @@
                 rocks[j].move(rockSpeed, delta);
                 rocks[j].checkColision(dino.posX, dino.posY, dino.width, dino.height);
             }
+            /*for (j = 0; j < rocks.length; j++) {
+                rocks[j].updated = false;
+                rocks[j].checkedCollision = false;
+            }*/
             //console.log("Saiu do for");
 
 
@@ -338,12 +335,12 @@
 
             dino.render(ctx, delta);
 
-            for (i = 0; i < enemies.length; i++) {
-                enemies[i].render(ctx, delta);
-            }
-
             for (i = 0; i < rocks.length; i++) {
                 rocks[i].render(ctx);
+            }
+
+            for (i = 0; i < enemies.length; i++) {
+                enemies[i].render(ctx, delta);
             }
 
             grass1.render(ctx);
