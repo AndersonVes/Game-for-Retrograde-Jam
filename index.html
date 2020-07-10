@@ -109,9 +109,10 @@
         /* Game */
         // p -> playing
         // g -> gameover
-        var gameState = "p";
+        var gameState = "n";
         var totalTime = 0;
         var dinosKilled = 0;
+
 
         /* Lifes */
         const livesTotal = 6;
@@ -205,8 +206,11 @@
             if (showWaveTextTimeCurrent > 0){
                 
                 showWaveTextTimeCurrent -= delta / 1000;
-                if (showWaveTextTimeCurrent < showWaveTextTime - 2)
+                if (showWaveTextTimeCurrent < showWaveTextTime - 2){
+                    ctx.font = "12px 'Press Start 2P'";
+                    ctx.fillStyle = 'white';
                     ctx.fillText("Wave " + waves, canvasWidth/2 - 30, 50 );
+                }
             }
             
         }
@@ -221,6 +225,7 @@
 
             bgAudio.loop = true;
             bgAudio.play();
+            gameState = "p";
 
             main();
             livesCurrent = livesTotal;
@@ -304,6 +309,10 @@
 
         
         var update = function(delta) {
+
+            if (gameState == "n"){
+                return;
+            }
 
             if (gameState == "g") {
                 return;
@@ -431,8 +440,7 @@
 
             hearts.render(ctx, livesCurrent);
 
-            ctx.font = "8px 'Press Start 2P'";
-            ctx.fillStyle = '#202020';
+            
 
 
 
@@ -468,7 +476,10 @@
                 */
 
 
+            ctx.font = "8px 'Press Start 2P'";
+            ctx.fillStyle = 'white';
             ctx.fillText((dinosKilled + "/" + dinosToAk), canvasWidth - 50, 20);
+
             flag.render(ctx);
 
             RenderWaveText(delta);
