@@ -80,11 +80,8 @@
 
         /* Input Controll */
         var shotDown = false;
-
         var newWaveTime = false;
-
         var canvasShaking = false;
-
         var dinosToAk = 20;
 
         /* Audio */
@@ -134,7 +131,8 @@
         var moutainYpos = 90;
 
         /* Game objects */
-
+        var akImage = new Image();
+        akImage.src = "sprites/dino/ak47.png";
 
         /* Playable dino */
         var dino = CreateNewDino();
@@ -166,7 +164,7 @@
 
         /* Rocks */
         var rocks = [];
-        var timeToInstantiateScenaryObject = [3, 6, 9, 11, 11.1, 14, 16, 31, 32, 33, 34, 39, 40, 40.1, 41, 44, 47, 50, 55, 56, 57, 58, 58.1, 55, 57, 59,
+        var timeToInstantiateScenaryObject = ['w',1,2,3, 6, 9, 11, 11.1, 14, 16, 31, 32, 33, 34, 39,'w', 40, 40.1, 41, 44, 47, 50, 55, 56, 57, 58, 58.1, 55, 57, 59, 
             65, 67, 68, 69, 70, 70.5, 71, 72, 74, 79, 83, 90, 90.1, 91, 91.1, 91.2, 93, 98, 99, 100, 100.1, 100.2, 101
 
         ];
@@ -177,14 +175,42 @@
             65, 66, 67, 70, 71, 72, 76, 77, 80, 81, 84, 84.5, 85, 86, 94, 95, 95.5, 95.8, 96
         ];
 
-        var enemiesLeft = timeToInstantiateEnemy.length;
-        var waves = enemiesLeft;
+        
 
-        if (enemiesLeft > 0)
-            waves = Math.ceil(enemiesLeft / 10);
-
-        /* Fisrt minute */
+        /* Wave system */
         var firstMinuteLoaded = false;
+        var enemiesLeft = timeToInstantiateEnemy.length;
+        var waves = 0;
+        var showWaveTextTime = 4;
+        var showWaveTextTimeCurrent = 0;
+
+        function CheckIfWaveFinished() {           
+
+            if (timeToInstantiateScenaryObject[0] == 'w') {
+                console.log("Wave finished"); 
+                waves++;
+                showWaveTextTimeCurrent = showWaveTextTime;
+                timeToInstantiateScenaryObject.shift();
+            } 
+
+            if (timeToInstantiateEnemy[0] == 'w') {
+                console.log("Wave finished"); 
+                if (showWaveTextTimeCurrent != showWaveTextTime) waves++;
+                showWaveTextTimeCurrent = showWaveTextTime;
+                timeToInstantiateEnemy.shift();
+            }
+        }
+
+        function RenderWaveText(delta) {
+
+            if (showWaveTextTimeCurrent > 0){
+                
+                showWaveTextTimeCurrent -= delta / 1000;
+                if (showWaveTextTimeCurrent < showWaveTextTime - 2)
+                    ctx.fillText("Wave " + waves, canvasWidth/2 - 30, 50 );
+            }
+            
+        }
 
 
         /* UI */
@@ -277,6 +303,7 @@
             rocks.push(CreateNewCollisionObject(164, 18, 10, canvasWidth, "sprites/pedra.png"));
         }
 
+        
         var update = function(delta) {
 
             if (gameState == "g") {
@@ -309,8 +336,10 @@
             //Scenary objects with collision
 
             if (timeToInstantiateScenaryObject.length >= 1 && totalTime > timeToInstantiateScenaryObject[0]) {
+
                 InstantiateRock();
                 timeToInstantiateScenaryObject.shift();
+
             }
 
             for (j = 0; j < rocks.length; j++) {
@@ -328,8 +357,10 @@
 
             for (i = 0; i < enemies.length; i++) {
                 enemies[i].update(delta, dinossaurSpeed * gameSpeed);
-                enemies[i].checkColision(dino.posX, dino.posY, dino.width, dino.height);
+                enemies[i].checkColision(dino.posX, dino.posY, dino.width, dino.height);                
             }
+
+            CheckIfWaveFinished();
 
             dino.update(delta);
 
@@ -339,8 +370,7 @@
 
         }
 
-        var akImage = new Image();
-        akImage.src = "sprites/dino/ak47.png";
+       
 
         var render = function(delta) {
 
@@ -406,6 +436,8 @@
             ctx.fillStyle = '#202020';
 
 
+
+            /*
             if (dinosKilled < dinosToAk)
                 ctx.fillText((dinosKilled + "/" + dinosToAk), canvasWidth - 50, 20);
             else
@@ -430,18 +462,17 @@
                 newWaveTime = true;
                 setTimeout(function() {
                     newWaveTime = false;
-                }, 2000 /*fx length*/ )
+                }, 2000 /*fx length )
             }
-
-
             if (waves <= 0)
                 alert('vc ganhou');
+                */
 
 
-
-
-
+            ctx.fillText((dinosKilled + "/" + dinosToAk), canvasWidth - 50, 20);
             flag.render(ctx);
+
+            RenderWaveText(delta);
         };
 
 
@@ -454,7 +485,10 @@
             Input();
             update(delta);
             render(delta);
-            totalTime += delta / 1000;
+
+            if (showWaveTextTimeCurrent <= 0)
+                totalTime += delta / 1000;
+
             // console.log(totalTime);
             then = now;
 
@@ -504,9 +538,6 @@
             }
         }
     </script>
-
-
-
 
     <div class="bottom-total">
         <div class="credits">
