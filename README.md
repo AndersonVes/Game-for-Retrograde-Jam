@@ -1,4 +1,4 @@
-# Retrograde Jam
+# T-rex of Fire
 
 This game was developed for the game jam "[Retrograde Jam](https://itch.io/jam/retrograde-jam)". And it aims to provide an SNES game experience.
 
