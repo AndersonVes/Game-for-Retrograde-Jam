@@ -1,11 +1,9 @@
-function CreateNewEnemy(posY, isGrounded, enemyType, sizeX, sizeY, canvasWidth, randomIndex) {
+function CreateNewEnemy(posY, isGrounded, enemyType, sizeX, sizeY, colliderOffsetX, canvasWidth, randomIndex) {
 
-    groundDinoLives = 7;
+    groundDinoLives = 4;
     airDinoLives = 2;
 
     var obj = {};
-
-
 
     obj.isAlive = true;
     obj.hitDino = false;
@@ -18,6 +16,7 @@ function CreateNewEnemy(posY, isGrounded, enemyType, sizeX, sizeY, canvasWidth, 
 
     obj.posX = canvasWidth;
     obj.posY = posY;
+    obj.colliderOffsetX = colliderOffsetX;
 
     obj.sizeX = sizeX;
     obj.sizeY = sizeY;
@@ -28,6 +27,7 @@ function CreateNewEnemy(posY, isGrounded, enemyType, sizeX, sizeY, canvasWidth, 
     obj.lives = 0;
 
     obj.restartLives = function() {
+
         if (enemyType == 1)
             obj.lives = groundDinoLives;
         else
@@ -35,7 +35,6 @@ function CreateNewEnemy(posY, isGrounded, enemyType, sizeX, sizeY, canvasWidth, 
     };
 
     obj.restartLives();
-
 
     if (enemyType == 1) {
 
@@ -47,7 +46,9 @@ function CreateNewEnemy(posY, isGrounded, enemyType, sizeX, sizeY, canvasWidth, 
 
         obj.frameRed2 = new Image();
         obj.frameRed2.src = "sprites/villain/villain1red.png";
+
     } else if (enemyType == 2) {
+
         obj.animationFrames = ["sprites/airvillan/airvillan1.png", "sprites/airvillan/airvillan2.png"]
         obj.animationDuration = [0.3, 0.3];
 
@@ -56,13 +57,14 @@ function CreateNewEnemy(posY, isGrounded, enemyType, sizeX, sizeY, canvasWidth, 
 
         obj.frameRed2 = new Image();
         obj.frameRed2.src = "sprites/airvillan/airvillan2red.png";
+
     } else {
+
         alert("invalid enemy type");
+
     }
 
     obj.animation = CreateNewAnimation(obj.animationFrames, obj.animationDuration);
-
-
 
     obj.update = function(delta, speed) {
 
@@ -73,12 +75,11 @@ function CreateNewEnemy(posY, isGrounded, enemyType, sizeX, sizeY, canvasWidth, 
                 obj.damageTimeCurrent -= delta / 1000;
             }
 
-            if (obj.posX < 1)
-                obj.respaw();
-
+            if (obj.posX < -40) {
+                obj.isAlive = false;
+                enemiesLeft--;
+            }
         }
-
-
     }
 
     obj.render = function(ctx, delta) {
@@ -108,33 +109,47 @@ function CreateNewEnemy(posY, isGrounded, enemyType, sizeX, sizeY, canvasWidth, 
         }
     }
 
-    obj.respaw = function() {
+    /*
+        obj.respaw = function() {
 
-        obj.restartLives();
-        obj.posX = canvasWidth + (Math.floor(Math.random() * randomIndex) * 10);
-        obj.isAlive = true;
-        obj.hitDino = false;
-    }
+            obj.restartLives();
+            obj.posX = canvasWidth + (Math.floor(Math.random() * randomIndex) * 10);
+            obj.isAlive = true;
+            obj.hitDino = false;
+        }*/
 
+    obj.shotTook = false;
     //Take shot from dino
     obj.takeShot = function(dinoState, dinoX) {
-
-        if (dinoX < obj.posX) {
+        obj.shotTook = false;;
+        if (obj.isAlive && dinoX < obj.posX) {
             if (obj.isGrounded && dinoState == "running") {
                 obj.lives--;
                 obj.damageTimeCurrent = obj.damageTime;
+                obj.shotTook = true;
             } else
 
             if (!obj.isGrounded && dinoState == "jumping") {
                 obj.lives--;
                 obj.damageTimeCurrent = obj.damageTime;
+                obj.shotTook = true;
             }
 
             if (obj.lives < 1) {
                 obj.isAlive = false;
-                obj.respaw();
+                dinosKilled++;
+                enemyDieAudio.play();
+
+                enemiesLeft--;
+
+
+                if (dinosKilled >= dinosToAk)
+                    switchToAk47();
             }
+
+
         }
+        return obj.shotTook;
     }
 
     //Check collision with main dino
@@ -142,17 +157,17 @@ function CreateNewEnemy(posY, isGrounded, enemyType, sizeX, sizeY, canvasWidth, 
 
         if (obj.isAlive && obj.hitDino == false) {
 
-            if (dinoPosX < obj.posX + obj.sizeX &&
-                dinoPosX + dinoWidth > obj.posX) {
+            if (dinoPosX < obj.posX + obj.sizeX + obj.colliderOffsetX &&
+                dinoPosX + dinoWidth > obj.posX &&
+                dinoPosY < obj.posY + obj.sizeY &&
+                dinoPosY + dinoHeight > obj.posY) {
 
+                enemiesLeft--;
                 obj.hitDino = true;
                 collisionAudio.play();
                 hitTaken();
             }
         }
-
-
-
     }
 
 

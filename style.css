@@ -46,11 +46,13 @@ body {
 
 canvas {
     width: 512px;
+    display: none;
     height: 448px;
     image-rendering: -moz-crisp-edges;
     image-rendering: -webkit-crisp-edges;
     image-rendering: pixelated;
     image-rendering: crisp-edges;
+    margin-bottom: 60px;
 }
 
 div#menu button {
@@ -61,6 +63,8 @@ div#menu button {
 
 h1 {
     color: #f9fd0a;
+    align-items: flex-end;
+    display: flex;
     text-decoration: none;
     font-size: 60px;
     text-shadow: 3px 7px 5px #e084c4;
@@ -126,4 +130,9 @@ div#menu {
 
 .button-icon:hover img {
     display: block;
+}
+
+h1 img {
+    width: 30px;
+    margin-left: 10px;
 }
