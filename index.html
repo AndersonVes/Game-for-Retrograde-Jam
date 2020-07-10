@@ -19,6 +19,7 @@
 
     <script src="Helpers/scenary.js"></script>
     <script src="Helpers/player.js"></script>
+    <script src="Helpers/animation.js"></script>
 
     <link href="https://fonts.googleapis.com/css2?family=MuseoModerno:wght@100;200;300;400;500;531;600;700;800;900&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
@@ -404,7 +405,6 @@
             ctx.fillStyle = '#202020';
 
 
-
             if (dinosKilled < dinosToAk)
                 ctx.fillText((dinosKilled + "/" + dinosToAk), canvasWidth - 50, 20);
             else
@@ -481,6 +481,8 @@
 
         function hitTaken() {
 
+
+
             shakeCanvas();
 
             livesCurrent--;
@@ -492,7 +494,9 @@
                     // alert("morreu");
                     gameState = "g";
                     bgAudio.pause();
+                    gameOverAnimation();
                     playerDieAudio.play();
+
 
                     //  location.reload();
                 }, 0);
