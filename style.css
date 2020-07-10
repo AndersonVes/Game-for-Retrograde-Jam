@@ -46,6 +46,7 @@ body {
 
 canvas {
     width: 512px;
+    display: none;
     height: 448px;
     image-rendering: -moz-crisp-edges;
     image-rendering: -webkit-crisp-edges;
