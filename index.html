@@ -18,6 +18,7 @@
     <script src="Classes/Enemy.js"></script>
 
     <script src="Helpers/scenary.js"></script>
+    <script src="Helpers/player.js"></script>
 
     <link href="https://fonts.googleapis.com/css2?family=MuseoModerno:wght@100;200;300;400;500;531;600;700;800;900&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
@@ -55,7 +56,7 @@
     <audio id="bgAudio" src="sounds/dinoSong.mp3"></audio>
     <audio id="enemyDieAudio" src="sounds/enemyDie.wav"></audio>
     <audio id="playerDieAudio" src="sounds/dinodead.mp3"></audio>
-    <button type="button" onclick="switchToAk47()">ak</button>
+    <audio id="wavePassed" src="sounds/dinodead.mp3"></audio>
     <script>
         var reloadScenary = false;
         window.onload = function() {
@@ -78,13 +79,18 @@
         /* Input Controll */
         var shotDown = false;
 
+        var newWaveTime = false;
+
         var canvasShaking = false;
+
+        var dinosToAk = 20;
 
         /* Audio */
         var jumpAudio = document.getElementById("jumpAudio");
         var shootAudio = document.getElementById("shootAudio");
         var enemyDieAudio = document.getElementById("enemyDieAudio");
         var playerDieAudio = document.getElementById("playerDieAudio");
+        var wavePassed = document.getElementById("wavePassed");
         var bgAudio = document.getElementById("bgAudio");
         var collisionAudio = document.getElementById("collisionAudio");
 
@@ -158,18 +164,24 @@
 
         /* Rocks */
         var rocks = [];
-        var timeToInstantiateScenaryObject = [3, 6, 9, 11, 11.1, 14, 16, 31,32,33,34,39,40,40.1,41,44,47,50, 55,56,57,58,58.1,55,57,59,
-        65,67,68,69,70,70.5,71,72,74,79,83,90,90.1,91,91.1,91.2,93,98,99,100,100.1,100.2,101
+        var timeToInstantiateScenaryObject = [3, 6, 9, 11, 11.1, 14, 16, 31, 32, 33, 34, 39, 40, 40.1, 41, 44, 47, 50, 55, 56, 57, 58, 58.1, 55, 57, 59,
+            65, 67, 68, 69, 70, 70.5, 71, 72, 74, 79, 83, 90, 90.1, 91, 91.1, 91.2, 93, 98, 99, 100, 100.1, 100.2, 101
 
         ];
 
         /* Enemies */
         var enemies = [];
-        var timeToInstantiateEnemy = [ 18,21,24,26,27,28,29,30, 35,36,37,38,39, 44,45,46,47,48,49,50, 53,53.5,54,55,56,56.5,57,58,
-        65,66,67,70,71,72,76,77,80,81,84,84.5,85,86,94,95,95.5,95.8,96
+        var timeToInstantiateEnemy = [15, 18, 21, 23, 24, 25, 26, 30, 35, 36, 37, 38, 39, 44, 45, 46, 47, 48, 49, 50, 53, 53.5, 54, 55, 56, 56.5, 57, 58,
+            65, 66, 67, 70, 71, 72, 76, 77, 80, 81, 84, 84.5, 85, 86, 94, 95, 95.5, 95.8, 96
         ];
 
-        /* Fisrt minute */ 
+        var enemiesLeft = timeToInstantiateEnemy.length;
+        var waves = enemiesLeft;
+
+        if (enemiesLeft > 0)
+            waves = Math.ceil(enemiesLeft / 10);
+
+        /* Fisrt minute */
         var firstMinuteLoaded = false;
 
 
@@ -204,7 +216,7 @@
                         break;
 
                     case 69:
-                        if (!shotDown && livesCurrent > 0) {
+                        if (!shotDown && livesCurrent > 0 && !dinoHasAk) {
                             shootAudio.play();
                             dino.shot();
 
@@ -218,6 +230,23 @@
                             }
 
                             shotDown = true;
+                        }
+
+                        if (!shotDown && dinoHasAk && livesCurrent > 0) {
+                            shootAudio.play();
+                            dino.shot();
+                            shotDown = true;
+                            setTimeout(function() {
+                                shotDown = false;
+                            }, 100)
+                            for (i = 0; i < enemies.length; i++) {
+
+                                if (enemies[i].takeShot(dino.state, dino.posX)) {
+
+                                    break;
+                                }
+
+                            }
                         }
                         break;
                 }
@@ -302,16 +331,14 @@
 
             dino.update(delta);
 
-            if (totalTime > 60 && !firstMinuteLoaded){
-                livesCurrent = livesTotal;
-                dino.damageTime = .18;
-                // Tocar um audio
-                firstMinuteLoaded = true;
-            }
+
 
 
 
         }
+
+        var akImage = new Image();
+        akImage.src = "sprites/dino/ak47.png";
 
         var render = function(delta) {
 
@@ -372,9 +399,44 @@
             grass5.render(ctx);
 
             hearts.render(ctx, livesCurrent);
-            
-            
-            ctx.strokeText( (dinosKilled + " / 30" ), canvasWidth - 40, 20);
+
+            ctx.font = "8px 'Press Start 2P'";
+            ctx.fillStyle = '#202020';
+
+
+
+            if (dinosKilled < dinosToAk)
+                ctx.fillText((dinosKilled + "/" + dinosToAk), canvasWidth - 50, 20);
+            else
+                ctx.drawImage(akImage, canvasWidth - 40, 10);
+
+            if (newWaveTime)
+                ctx.fillStyle = '#009bdb';
+            else
+                ctx.fillStyle = '#000';
+
+            ctx.fillText("Waves Left:" + waves, 15, canvasHeight - 10);
+
+            wavesAux = waves;
+            if (enemiesLeft > -1)
+                waves = Math.ceil(enemiesLeft / 10);
+            else
+                waves = 0;
+
+            if (waves != wavesAux && waves > 0) {
+                wavePassed.play();
+                rewardPlayer(waves);
+                newWaveTime = true;
+                setTimeout(function() {
+                    newWaveTime = false;
+                }, 2000 /*fx length*/ )
+            }
+
+
+            if (waves <= 0)
+                alert('vc ganhou');
+
+
 
 
 

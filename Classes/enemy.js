@@ -77,6 +77,7 @@ function CreateNewEnemy(posY, isGrounded, enemyType, sizeX, sizeY, colliderOffse
 
             if (obj.posX < -40) {
                 obj.isAlive = false;
+                enemiesLeft--;
             }
         }
     }
@@ -138,7 +139,12 @@ function CreateNewEnemy(posY, isGrounded, enemyType, sizeX, sizeY, colliderOffse
                 obj.isAlive = false;
                 dinosKilled++;
                 enemyDieAudio.play();
-                //obj.respaw();
+
+                enemiesLeft--;
+
+
+                if (dinosKilled >= dinosToAk)
+                    switchToAk47();
             }
 
 
@@ -156,6 +162,7 @@ function CreateNewEnemy(posY, isGrounded, enemyType, sizeX, sizeY, colliderOffse
                 dinoPosY < obj.posY + obj.sizeY &&
                 dinoPosY + dinoHeight > obj.posY) {
 
+                enemiesLeft--;
                 obj.hitDino = true;
                 collisionAudio.play();
                 hitTaken();
