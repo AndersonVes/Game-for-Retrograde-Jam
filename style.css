@@ -52,6 +52,7 @@ canvas {
     image-rendering: -webkit-crisp-edges;
     image-rendering: pixelated;
     image-rendering: crisp-edges;
+    margin-bottom: 60px;
 }
 
 div#menu button {
