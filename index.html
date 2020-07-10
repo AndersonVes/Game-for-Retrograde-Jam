@@ -418,7 +418,7 @@
             ctx.fillText("Waves Left:" + waves, 15, canvasHeight - 10);
 
             wavesAux = waves;
-            if (enemiesLeft > -1)
+            if (enemiesLeft > 0)
                 waves = Math.ceil(enemiesLeft / 10);
             else
                 waves = 0;
