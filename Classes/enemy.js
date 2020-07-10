@@ -1,4 +1,4 @@
-function CreateNewEnemy(posY, isGrounded, enemyType, sizeX, sizeY, colliderOffsetX , canvasWidth, randomIndex) {
+function CreateNewEnemy(posY, isGrounded, enemyType, sizeX, sizeY, colliderOffsetX, canvasWidth, randomIndex) {
 
     groundDinoLives = 4;
     airDinoLives = 2;
@@ -75,7 +75,7 @@ function CreateNewEnemy(posY, isGrounded, enemyType, sizeX, sizeY, colliderOffse
                 obj.damageTimeCurrent -= delta / 1000;
             }
 
-            if (obj.posX <  -40){                
+            if (obj.posX < -40) {
                 obj.isAlive = false;
             }
         }
@@ -108,14 +108,14 @@ function CreateNewEnemy(posY, isGrounded, enemyType, sizeX, sizeY, colliderOffse
         }
     }
 
-/*
-    obj.respaw = function() {
+    /*
+        obj.respaw = function() {
 
-        obj.restartLives();
-        obj.posX = canvasWidth + (Math.floor(Math.random() * randomIndex) * 10);
-        obj.isAlive = true;
-        obj.hitDino = false;
-    }*/
+            obj.restartLives();
+            obj.posX = canvasWidth + (Math.floor(Math.random() * randomIndex) * 10);
+            obj.isAlive = true;
+            obj.hitDino = false;
+        }*/
 
     obj.shotTook = false;
     //Take shot from dino
@@ -140,7 +140,7 @@ function CreateNewEnemy(posY, isGrounded, enemyType, sizeX, sizeY, colliderOffse
                 //obj.respaw();
             }
 
-            
+
         }
         return obj.shotTook;
     }
@@ -149,12 +149,11 @@ function CreateNewEnemy(posY, isGrounded, enemyType, sizeX, sizeY, colliderOffse
     obj.checkColision = function(dinoPosX, dinoPosY, dinoWidth, dinoHeight) {
 
         if (obj.isAlive && obj.hitDino == false) {
-         
-            if 
-            (dinoPosX < obj.posX + obj.sizeX + obj.colliderOffsetX  &&
-             dinoPosX + dinoWidth > obj.posX &&
-             dinoPosY < obj.posY + obj.sizeY &&
-             dinoPosY + dinoHeight > obj.posY){
+
+            if (dinoPosX < obj.posX + obj.sizeX + obj.colliderOffsetX &&
+                dinoPosX + dinoWidth > obj.posX &&
+                dinoPosY < obj.posY + obj.sizeY &&
+                dinoPosY + dinoHeight > obj.posY) {
 
                 obj.hitDino = true;
                 collisionAudio.play();

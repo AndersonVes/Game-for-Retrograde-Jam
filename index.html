@@ -55,6 +55,7 @@
     <audio id="bgAudio" src="sounds/dinoSong.mp3"></audio>
     <audio id="enemyDieAudio" src="sounds/enemyDie.wav"></audio>
     <audio id="playerDieAudio" src="sounds/dinodead.mp3"></audio>
+    <button type="button" onclick="switchToAk47()">ak</button>
     <script>
         var reloadScenary = false;
         window.onload = function() {
@@ -149,6 +150,8 @@
 
         var flag = "";
 
+        var dinoHasAk = false;
+
         setTimeout(function() {
             createScenary();
         }, 100);
@@ -201,6 +204,7 @@
                                 if (enemies[i].takeShot(dino.state, dino.posX)) {
                                     break;
                                 }
+
                             }
 
                             shotDown = true;
@@ -377,6 +381,12 @@
             // Request to do this again ASAP (Game loop)
             window.requestAnimationFrame(main);
         };
+
+        function switchToAk47() {
+            dinoHasAk = true;
+            dino.switchImageWeapon();
+
+        }
 
         function shakeCanvas() {
             if (!canvasShaking) {
