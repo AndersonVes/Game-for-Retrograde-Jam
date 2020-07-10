@@ -147,7 +147,7 @@
         var tree1 = "";
         var tree2 = "";
 
-        createScenary();
+
 
         /* Rocks */
         var rocks = [];
@@ -169,6 +169,10 @@
 
             main();
             livesCurrent = livesTotal;
+
+            setTimeout(function() {
+                createScenary();
+            }, 100);
 
         }
 
