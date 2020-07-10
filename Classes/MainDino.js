@@ -10,7 +10,7 @@ function CreateNewDino() {
     obj.damageTime = 0.5;
     obj.damageTimeCounter = 0;
 
-    obj.posX = 40;
+    obj.posX = 20;
     obj.posY = 135;
 
     obj.animation = CreateNewAnimation(
@@ -49,7 +49,6 @@ function CreateNewDino() {
     obj.shotSpriteTimeCounter = 0;
 
     /* Jump Vars */
-
     obj.velocityY = 0.0;
     obj.gravity = 40;
     obj.onGround = true;
@@ -141,8 +140,6 @@ obj.shot = function () {
 }
 
 obj.takeDamage = function () {
-
-
     obj.damageTimeCounter = obj.damageTime;
 
 }

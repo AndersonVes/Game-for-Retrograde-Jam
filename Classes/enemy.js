@@ -136,6 +136,7 @@ function CreateNewEnemy(posY, isGrounded, enemyType, sizeX, sizeY, colliderOffse
 
             if (obj.lives < 1) {
                 obj.isAlive = false;
+                dinosKilled++;
                 enemyDieAudio.play();
                 //obj.respaw();
             }
