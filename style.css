@@ -27,7 +27,7 @@ body {
     z-index: 999999;
     width: 100%;
     padding: 20px 0;
-    background: linear-gradient(45deg, #ce1818, #2056e5);
+    background: #000000c1;
 }
 
 .credits {
@@ -59,6 +59,7 @@ div#menu button {
     width: 100%;
     margin: 10px auto;
     outline: none;
+    font-size: 16px;
 }
 
 h1 {
@@ -67,9 +68,9 @@ h1 {
     display: flex;
     text-decoration: none;
     font-size: 60px;
-    text-shadow: 3px 7px 5px #e084c4;
+    text-shadow: 3px 7px 5px #000000;
     text-align: center;
-    margin: 0;
+    margin: 30px 0;
     padding: 30px 0;
 }
 
@@ -116,7 +117,7 @@ div#menu {
 
 .button-icon {
     display: flex;
-    width: 410px;
+    width: 480px;
     align-items: center;
     margin: 0 auto;
 }
