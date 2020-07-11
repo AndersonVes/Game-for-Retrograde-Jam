@@ -63,7 +63,6 @@
     <script>
         var reloadScenary = false;
         window.onload = function() {
-            // play(); //will be removed in the final version
             $('#howtoplay').css('display', 'none');
 
             document.addEventListener("visibilitychange", function() {
@@ -118,7 +117,7 @@
 
 
         /* Lifes */
-        const livesTotal = 6;
+        const livesTotal = 1;
         var livesCurrent;
 
         /* Speeds */
@@ -211,7 +210,7 @@
 
                 showWaveTextTimeCurrent -= delta / 1000;
                 if (showWaveTextTimeCurrent < showWaveTextTime - 2) {
-                    ctx.font = "12px 'Press Start 2P'";
+                    ctx.font = "11px 'Press Start 2P'";
                     ctx.fillStyle = 'white';
                     ctx.fillText("Wave " + waves, canvasWidth / 2 - 30, 50);
                 }
@@ -245,7 +244,10 @@
             document.addEventListener('keydown', (event) => {
 
                 const keyCode = event.keyCode;
+
+
                 switch (keyCode) {
+
                     case 32:
 
                         dino.jump();
