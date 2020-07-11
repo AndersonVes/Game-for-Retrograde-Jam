@@ -1,4 +1,5 @@
 function createScenary() {
+    
     /* Moutains */
     mountain1 = CreateNewScenaryObject(0, moutainYpos, 107, 30, ["sprites/mountain1.png", "sprites/mountain2.png"], canvasWidth, canvasHeight);
     mountain2 = CreateNewScenaryObject(107, moutainYpos, 106, 30, ["sprites/mountain1.png", "sprites/mountain2.png"], canvasWidth, canvasHeight);

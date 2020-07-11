@@ -17,7 +17,7 @@
     <script src="Classes/Rock.js"></script>
     <script src="Classes/Enemy.js"></script>
 
-    <script src="Helpers/scenary.js"></script>
+    <script src="Helpers/Scenary.js"></script>
     <script src="Helpers/player.js"></script>
     <script src="Helpers/animation.js"></script>
     <script src="Helpers/sounds.js"></script>
@@ -31,10 +31,10 @@
 </head>
 
 <body>
-    <div id="menu">
-        <h1>T-rex of Fire <img src="src/js.png" alt=""></h1>
+    <div id="menu" class="menu">
+       <!-- <h1>T-rex of Fire <img src="src/js.png" alt=""></h1> -->
         <div class="button-icon"><img src="sprites/dino/ak47.png" alt=""><button type="button" onclick="play()">Play</button></div>
-        <div class="button-icon"><img src="sprites/dino/ak47.png" alt=""><button class="btn btn-success" onclick=" window.open('https://github.com/Vesguerber/GameJam','_blank')">Info</button></div>
+        <!-- <div class="button-icon"><img src="sprites/dino/ak47.png" alt=""><button class="btn btn-success" onclick=" window.open('https://github.com/Vesguerber/GameJam','_blank')">Info</button></div>
         <div class="button-icon"><img src="sprites/dino/ak47.png" alt=""><button type="button" onclick="$('#howtoplay').css('display','flex');">How to Play</button></div>
         <div class="info" id="howtoplay">
 
@@ -50,7 +50,7 @@
             <p>:)</p>
 
             <img src="./src/controls.png" alt="">
-        </div>
+        </div> -->
     </div>
 
     <audio id="jumpAudio" src="sounds/jump.wav"></audio>
@@ -270,9 +270,10 @@
         var then = "";
 
         function play() {
+            
             $('canvas').css("display", "block");
             $('#menu').css("display", "none");
-
+            $('#devs').css("display", "none");
 
 
             then = Date.now();
@@ -556,10 +557,10 @@
         }
     </script>
 
-    <div class="bottom-total">
+    <div class="bottom-total" id='devs'>
         <div class="credits">
             <a href="https://github.com/vesguerber" target="_blank">Anderson Vesguerber</a>
-            <a href="https://github.com/brunop98" target="_blank">Bruno "vonPotato" Poór</a>
+            <a href="https://github.com/brunop98" target="_blank">Bruno Poór</a>
         </div>
     </div>
 
