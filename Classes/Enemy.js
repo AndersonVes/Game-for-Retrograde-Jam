@@ -115,30 +115,32 @@ function CreateNewEnemy(posY, isGrounded, enemyType, sizeX, sizeY, colliderOffse
     obj.shotTook = false;
     //Take shot from dino
     obj.takeShot = function(dinoState, dinoX) {
-        obj.shotTook = false;;
+
+        obj.shotTook = false;
+
         if (obj.isAlive && dinoX < obj.posX) {
             if (obj.isGrounded && dinoState == "running") {
-                obj.lives--;
+                obj.lives -= 1 * damageMultiplier;
                 obj.damageTimeCurrent = obj.damageTime;
                 obj.shotTook = true;
             } else
 
             if (!obj.isGrounded && dinoState == "jumping") {
-                obj.lives--;
+                obj.lives -= 1 * damageMultiplier;
                 obj.damageTimeCurrent = obj.damageTime;
                 obj.shotTook = true;
             }
 
-            if (obj.lives < 1) {
+            if (obj.lives <= 0) {
+
                 obj.isAlive = false;
                 dinosKilled++;
                 enemyDieAudio.play();
-
                 enemiesLeft--;
 
-
-                if (dinosKilled >= dinosToAk)
+                if (dinosKilled >= dinosToAk){
                     switchToAk47();
+                }
             }
 
 
