@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js" integrity="sha256-eGE6blurk5sHj+rmkfsGYeKyZx3M4bG+ZlFyA7Kns7E=" crossorigin="anonymous"></script>
+
+    <link rel="shortcut icon" href="src/favicon.png" type="image/x-icon">
+
+    <script src="Classes/ScenaryObject.js"></script>
+    <script src="Classes/Animation.js"></script>
+    <script src="Classes/MainDino.js"></script>
+    <script src="Classes/Hearts.js"></script>
+    <script src="Classes/Rock.js"></script>
+    <script src="Classes/Enemy.js"></script>
+
+    <script src="Helpers/scenary.js"></script>
+    <script src="Helpers/player.js"></script>
+    <script src="Helpers/animation.js"></script>
+    <script src="Helpers/sounds.js"></script>
+
+    <link href="https://fonts.googleapis.com/css2?family=MuseoModerno:wght@100;200;300;400;500;531;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style2.css">
+
+    <title>Retrograde Jam</title>
+
+</head>
+
+<body>
+    <div id="menu">
+        <h1>T-rex of Fire <img src="src/js.png" alt=""></h1>
+        <div class="button-icon"><img src="sprites/dino/ak47.png" alt=""><button type="button" onclick="play()">Play</button></div>
+        <div class="button-icon"><img src="sprites/dino/ak47.png" alt=""><button class="btn btn-success" onclick=" window.open('https://github.com/Vesguerber/GameJam','_blank')">Info</button></div>
+        <div class="button-icon"><img src="sprites/dino/ak47.png" alt=""><button type="button" onclick="$('#howtoplay').css('display','flex');">How to Play</button></div>
+        <div class="info" id="howtoplay">
+
+            <p>This game was developed for the game jam "<a target="_blank" href="https://itch.io/jam/retrograde-jam">Retrograde Jam</a>". And it aims to provide an SNES game experience.
+            </p>
+
+            <p>You are a dinosaur and must escape from a meteor shower. That's it, good luck. Ammunition is on us.</p>
+
+            <p>The game's resolution is 256x224, for a more nostalgic experience. And the music, mechanics, programming and sprites are 100% produced by Anderson and Bruno.</p>
+
+            <p>We hope you enjoy the game! A hug from Brazil</p>
+
+            <p>:)</p>
+
+            <img src="./src/controls.png" alt="">
+        </div>
+    </div>
+
+    <audio id="jumpAudio" src="sounds/jump.wav"></audio>
+    <audio id="shootAudio" src="sounds/shot.wav"></audio>
+    <audio id="collisionAudio" src="sounds/collision.wav"></audio>
+    <audio id="bgAudio" src="sounds/dinoSong.mp3"></audio>
+    <audio id="enemyDieAudio" src="sounds/enemyDie.wav"></audio>
+    <audio id="playerDieAudio" src="sounds/dinodead.mp3"></audio>
+    <audio id="dinoWinAudio" src="sounds/dinowin.mp3"></audio>
+    <audio id="wavePassedAudio" src="sounds/dinowave.mp3"></audio>
+    <script>
+        var reloadScenary = false;
+        window.onload = function() {
+            $('#howtoplay').css('display', 'none');
+
+            document.addEventListener("visibilitychange", function() {
+                if (!document.hidden) {
+                    reloadScenary = true;
+                    setTimeout(function() {
+                        destroyScenary();
+                        createScenary();
+                    }, 100)
+                }
+            });
+
+
+        };
+
+        /* Input Controll */
+        var shotDown = false;
+        var newWaveTime = false;
+        var canvasShaking = false;
+        var dinosToAk = 20;
+        var damageMultiplier = 1;
+
+        /* Audio */
+        var jumpAudio = document.getElementById("jumpAudio");
+        var shootAudio = document.getElementById("shootAudio");
+        var enemyDieAudio = document.getElementById("enemyDieAudio");
+        var playerDieAudio = document.getElementById("playerDieAudio");
+        var dinoWinAudio = document.getElementById("dinoWinAudio");
+        var wavePassedAudio = document.getElementById("wavePassedAudio");
+        var bgAudio = document.getElementById("bgAudio");
+        var collisionAudio = document.getElementById("collisionAudio");
+
+        // Cross-browser support for requestAnimationFrame
+        var w = window;
+        requestAnimationFrame = w.requestAnimationFrame || w.webkitRequestAnimationFrame || w.msRequestAnimationFrame || w.mozRequestAnimationFrame;
+
+        /* canvas */
+        var canvas = document.createElement("canvas");
+        var ctx = canvas.getContext("2d");
+        var canvasHeight = 224;
+        var canvasWidth = 256;
+        $('canvas').css("display", "none");
+        canvas.width = 256;
+        canvas.height = 224;
+        document.body.appendChild(canvas);
+
+        /* Game */
+        // p -> playing
+        // g -> gameover
+        var gameState = "n";
+        var totalTime = 0;
+        var dinosKilled = 0;
+
+
+        /* Lifes */
+        const livesTotal = 6;
+        var livesCurrent;
+
+        /* Speeds */
+        var gameSpeed = 1;
+        var mountainSpeed = 30;
+        var cloudSpeed = 50;
+        var grassSpeed = 150;
+        var treeSpeed = grassSpeed - 20;
+        var rockSpeed = grassSpeed - 5;
+        var dinossaurSpeed = rockSpeed + 20;
+
+        /* Positions */
+        var moutainYpos = 90;
+
+        /* Game objects */
+        var akImage = new Image();
+        akImage.src = "sprites/dino/ak47.png";
+
+        /* Playable dino */
+        var dino = CreateNewDino();
+
+        var mountain1 = "";
+        var mountain2 = "";
+        var mountain3 = "";
+        var mountain4 = "";
+        var cloud1 = "";
+        var cloud3 = "";
+        var cloud4 = "";
+        var cloud5 = "";
+        var cloud2 = "";
+        var grass1 = "";
+        var grass2 = "";
+        var grass3 = "";
+        var grass4 = "";
+        var grass5 = "";
+        var tree1 = "";
+        var tree2 = "";
+
+        var flag = "";
+
+        var dinoHasAk = false;
+
+        setTimeout(function() {
+            createScenary();
+        }, 100);
+
+        /* Rocks */
+        var rocks = [];
+        var timeToInstantiateScenaryObject = ['w', 1, 2, 3, 4, 4.1, 'w', 13, 15, 17, 19, 21, 23, 27, 30, 33, 36, 36.1, 37, 37.1, 40, 42, 45, 48, 49, 50,
+            52, 53, 55, 56, 57, 62, 62.1, 63, 64, 67, 70, 75, 76, 78, 78.1, 79, 82, 84, 84.1, 85, 87, 88, 89, 91, 91.1, 'w',
+            94, 96, 96.1, 97, 99, 100
+
+
+        ];
+
+        /* Enemies */
+        var enemies = [];
+        var timeToInstantiateEnemy = [5, 7, 9, 11, 12, 'w', 14, 16, 18, 20, 22, 24, 'w', 25, 26, 28, 29, 31, 32, 34, 35, 'w', 38, 39, 40, 41, 43, 44, 45, 48, 50, 50.5, 'w',
+            52, 53, 54, 56, 57, 58, 59, 60, 60.5, 61, 63, 63.5, 64, 'w', 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 80.5, 81.5, 'w', 82, 82.5, 83, 85, 85.5, 86, 86.5, 87, 87.5, 89, 90, 90.3, 90.6, 90.9,
+            93, 94, 95, 96.5, 97, 97.5, 98, 98.3, 98.6, 98.9, 99.2, 99.6, 100, 102, 'f'
+
+        ];
+
+
+
+        /* Wave system */
+        var firstMinuteLoaded = false;
+        var enemiesLeft = timeToInstantiateEnemy.length;
+        var waves = 0;
+
+        var showWaveTextTime = 4;
+        var showWaveTextTimeCurrent = 0;
+
+        function GetTotalWaves() {
+            t = 0;
+            for (var i = 0; i < timeToInstantiateScenaryObject.length; i++) {
+                if (timeToInstantiateScenaryObject[i] == 'w') t++;
+            }
+            for (var i = 0; i < timeToInstantiateEnemy.length; i++) {
+                if (timeToInstantiateEnemy[i] == 'w') t++;
+            }
+            return t;
+        }
+        var totalWaves = GetTotalWaves();
+
+
+        function CheckIfWaveFinished() {
+
+            if (timeToInstantiateScenaryObject[0] == 'w') {
+
+                waves++;
+                if (waves > 1) wavePassedAudio.play();
+                showWaveTextTimeCurrent = showWaveTextTime;
+                if ((livesCurrent + 1) < livesTotal) livesCurrent++;
+                timeToInstantiateScenaryObject.shift();
+                gameSpeed += 0.04;
+            }
+
+            if (timeToInstantiateEnemy[0] == 'w') {
+
+                if (showWaveTextTimeCurrent != showWaveTextTime) waves++;
+                showWaveTextTimeCurrent = showWaveTextTime;
+                timeToInstantiateEnemy.shift();
+                if ((livesCurrent + 1) < livesTotal) livesCurrent++;
+                gameSpeed += 0.04;
+                if (waves > 1) wavePassedAudio.play();
+
+            }
+        }
+
+        function CheckIfWin() {
+            if (timeToInstantiateScenaryObject[0] == 'f') {
+                setTimeout(function() {
+                    gameState = "g";
+                    youWin();
+                    pauseAudios();
+                    dinoWinAudio.play();
+                }, 0);
+            } else
+            if (timeToInstantiateEnemy[0] == 'f') {
+                setTimeout(function() {
+                    gameState = "g";
+                    youWin();
+                    pauseAudios();
+                    dinoWinAudio.play();
+                }, 0);
+            }
+        }
+
+        function RenderWaveText(delta) {
+
+            if (showWaveTextTimeCurrent > 0) {
+
+                showWaveTextTimeCurrent -= delta / 1000;
+                if (showWaveTextTimeCurrent < showWaveTextTime - 2) {
+                    ctx.font = "11px 'Press Start 2P'";
+                    ctx.fillStyle = 'white';
+                    ctx.fillText("Wave " + waves + "/" + totalWaves, canvasWidth / 2 - 30, 50);
+                }
+            }
+
+        }
+
+
+        /* UI */
+        var hearts = createNewHearts(livesTotal);
+
+        var then = "";
+
+        function play() {
+            $('canvas').css("display", "block");
+            $('#menu').css("display", "none");
+
+
+
+            then = Date.now();
+
+            bgAudio.loop = true;
+            bgAudio.play();
+            gameState = "p";
+
+            main();
+            livesCurrent = livesTotal;
+
+            setTimeout(function() {
+                createScenary();
+            }, 100)
+
+        }
+
+        var Input = function() {
+
+            document.addEventListener('keydown', (event) => {
+
+                const keyCode = event.keyCode;
+
+
+                switch (keyCode) {
+
+                    case 32:
+
+                        dino.jump();
+                        break;
+
+                    case 69:
+                        if (!shotDown && livesCurrent > 0 && !dinoHasAk) {
+                            shootAudio.play();
+                            dino.shot();
+
+                            for (i = 0; i < enemies.length; i++) {
+
+                                if (enemies[i].takeShot(dino.state, dino.posX)) {
+                                    break;
+                                }
+
+                            }
+
+                            shotDown = true;
+                        }
+
+                        if (!shotDown && dinoHasAk && livesCurrent > 0) {
+                            shootAudio.play();
+                            dino.shot();
+                            shotDown = true;
+                            setTimeout(function() {
+                                shotDown = false;
+                            }, 100)
+                            for (i = 0; i < enemies.length; i++) {
+
+                                if (enemies[i].takeShot(dino.state, dino.posX)) {
+
+                                    break;
+                                }
+
+                            }
+                        }
+                        break;
+                }
+            });
+
+            document.addEventListener('keyup', (event) => {
+                const keyCode = event.keyCode;
+                switch (keyCode) {
+                    case 69:
+                        shotDown = false;
+                        break;
+                }
+            });
+        }
+
+        function InstantiateEnemy(type) {
+            if (type == 1) {
+                enemies.push(CreateNewEnemy(150, true, 1, 30, 30, 5, canvasWidth, 15));
+
+            } else if (type == 2) {
+                enemies.push(CreateNewEnemy(90, false, 2, 26, 21, 5, canvasWidth, 15));
+            }
+        }
+
+        function InstantiateRock() {
+            rocks.push(CreateNewCollisionObject(164, 18, 10, canvasWidth, "sprites/rock.png"));
+        }
+
+
+        var update = function(delta) {
+
+            if (gameState == "n") {
+                return;
+            }
+
+            if (gameState == "g") {
+                return;
+            }
+
+            mountain1.move(mountainSpeed * gameSpeed, delta);
+            mountain2.move(mountainSpeed * gameSpeed, delta);
+            mountain3.move(mountainSpeed * gameSpeed, delta);
+            mountain4.move(mountainSpeed * gameSpeed, delta);
+
+            cloud1.move(cloudSpeed * gameSpeed, delta);
+            cloud2.move(cloudSpeed * gameSpeed, delta);
+            cloud3.move(cloudSpeed * gameSpeed, delta);
+            cloud4.move(cloudSpeed * gameSpeed, delta);
+            cloud5.move(cloudSpeed * gameSpeed, delta);
+
+            tree1.move(treeSpeed * gameSpeed, delta);
+            tree2.move(treeSpeed * gameSpeed, delta);
+
+            grass1.move(grassSpeed * gameSpeed, delta);
+            grass2.move(grassSpeed * gameSpeed, delta);
+            grass3.move(grassSpeed * gameSpeed, delta);
+            grass4.move(grassSpeed * gameSpeed, delta);
+            grass5.move(grassSpeed * gameSpeed, delta);
+
+            grass5.move(0, delta);
+
+
+            //Scenary objects with collision
+            if (timeToInstantiateScenaryObject.length >= 1 && totalTime > timeToInstantiateScenaryObject[0]) {
+
+                InstantiateRock();
+                timeToInstantiateScenaryObject.shift();
+
+            }
+
+            for (j = 0; j < rocks.length; j++) {
+                rocks[j].move(rockSpeed * gameSpeed, delta);
+                rocks[j].checkColision(dino.posX, dino.posY, dino.width, dino.height);
+            }
+
+            //Enemies
+            if (timeToInstantiateEnemy.length >= 1 && totalTime > timeToInstantiateEnemy[0]) {
+                InstantiateEnemy((Math.floor(Math.random() * 2) + 1));
+                timeToInstantiateEnemy.shift();
+            }
+
+            for (i = 0; i < enemies.length; i++) {
+                enemies[i].update(delta, dinossaurSpeed * gameSpeed);
+                enemies[i].checkColision(dino.posX, dino.posY, dino.width, dino.height);
+            }
+
+            CheckIfWaveFinished();
+            CheckIfWin();
+
+            dino.update(delta);
+
+        }
+
+        var render = function(delta) {
+
+            //If Game over
+            if (gameState == "g") {
+
+                ctx.fillStyle = "#000000"; // black
+                ctx.fillRect(0, 0, canvas.width, canvasWidth.height);
+
+                return;
+            }
+
+            //"ImageSmoothingEnabled = false" for the pixels not to be smoothed
+            ctx.mozImageSmoothingEnabled = false;
+            ctx.webkitImageSmoothingEnabled = false;
+
+            //Background solid colors
+            ctx.fillStyle = "#e45c10"; // orange
+            ctx.fillRect(0, 0, canvas.width, 136);
+
+            ctx.fillStyle = "#005800"; // green
+            ctx.fillRect(0, 136, canvas.width, 89);
+
+            ctx.fillStyle = "#000000"; // black
+            ctx.fillRect(0, 127, canvas.width, 13);
+
+            ctx.fillStyle = "#503000"; // brown
+            ctx.fillRect(0, 160, canvas.width, 25);
+
+            cloud1.render(ctx);
+            cloud2.render(ctx);
+            cloud3.render(ctx);
+            cloud4.render(ctx);
+            cloud5.render(ctx);
+
+            mountain1.render(ctx);
+            mountain2.render(ctx);
+            mountain3.render(ctx);
+            mountain4.render(ctx);
+
+            tree1.render(ctx);
+            tree2.render(ctx);
+
+            dino.render(ctx, delta);
+
+            for (i = 0; i < rocks.length; i++) {
+                rocks[i].render(ctx);
+            }
+
+            for (i = 0; i < enemies.length; i++) {
+                enemies[i].render(ctx, delta);
+            }
+
+            grass1.render(ctx);
+            grass2.render(ctx);
+            grass3.render(ctx);
+            grass4.render(ctx);
+            grass5.render(ctx);
+
+            hearts.render(ctx, livesCurrent);
+
+
+
+
+            ctx.font = "8px 'Press Start 2P'";
+            ctx.fillStyle = 'white';
+            ctx.fillText((dinosKilled + "/" + dinosToAk), canvasWidth - 50, 20);
+
+            flag.render(ctx);
+
+            RenderWaveText(delta);
+        };
+
+        var main = function() {
+            var now = Date.now();
+            var delta = now - then;
+
+            Input();
+            update(delta);
+            render(delta);
+
+            if (showWaveTextTimeCurrent <= 0)
+                totalTime += delta / 1000;
+
+            then = now;
+
+            // Request to do this again ASAP (Game loop)
+            window.requestAnimationFrame(main);
+        };
+
+        function switchToAk47() {
+            if (!dinoHasAk) {
+                dinoHasAk = true;
+                dino.switchImageWeapon();
+                damageMultiplier = 2;
+            }
+        }
+
+        function shakeCanvas() {
+            if (!canvasShaking) {
+                $('canvas').effect('shake', {
+                    distance: 10
+                }, 100);
+                canvasShaking = true;
+                setTimeout(function() {
+                    canvasShaking = false;
+                }, 2000);
+            }
+        }
+
+        function hitTaken() {
+
+            shakeCanvas();
+
+            livesCurrent--;
+
+            dino.takeDamage();
+
+            if (livesCurrent <= 0 && enemiesLeft > 0) {
+                setTimeout(function() {
+                    gameState = "g";
+                    gameOverAnimation();
+                    pauseAudios();
+                    playerDieAudio.play();
+                }, 0);
+            }
+        }
+    </script>
+
+    <div class="bottom-total">
+        <div class="credits">
+            <a href="https://github.com/vesguerber" target="_blank">Anderson Vesguerber</a>
+            <a href="https://github.com/brunop98" target="_blank">Bruno "vonPotato" Poór</a>
+        </div>
+    </div>
+
+</body>
+
+</html>
