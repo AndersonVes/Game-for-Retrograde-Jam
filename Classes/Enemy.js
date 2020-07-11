@@ -26,6 +26,8 @@ function CreateNewEnemy(posY, isGrounded, enemyType, sizeX, sizeY, colliderOffse
 
     obj.lives = 0;
 
+    obj.remaning = true;
+
     obj.restartLives = function() {
 
         if (enemyType == 1)
@@ -77,7 +79,8 @@ function CreateNewEnemy(posY, isGrounded, enemyType, sizeX, sizeY, colliderOffse
 
             if (obj.posX < -40) {
                 obj.isAlive = false;
-                enemiesLeft--;
+                if (obj.remaning)
+                    enemiesLeft--;
             }
         }
     }
@@ -163,6 +166,7 @@ function CreateNewEnemy(posY, isGrounded, enemyType, sizeX, sizeY, colliderOffse
                 dinoPosY + dinoHeight > obj.posY) {
 
                 enemiesLeft--;
+                obj.remaning = false;
                 obj.hitDino = true;
                 collisionAudio.play();
                 hitTaken();

@@ -50,3 +50,57 @@ function gameOverAnimation() {
 
 
 }
+
+
+function youWin() {
+
+    ctx.font = "20px 'Press Start 2P'";
+
+
+    ctx.fillStyle = '#5252527a';
+    ctx.fillText("YOU WIN", 40, 120);
+
+    setTimeout(function() {
+        ctx.fillStyle = '#5252527b';
+        ctx.fillText("YOU WIN", 40, 120);
+    }, 500)
+
+
+    setTimeout(function() {
+        ctx.fillStyle = '#5252527c';
+        ctx.fillText("YOU WIN", 40, 120);
+    }, 1000)
+
+
+    setTimeout(function() {
+        ctx.fillStyle = '#5252527d';
+        ctx.fillText("YOU WIN", 40, 120);
+    }, 1500)
+
+
+    setTimeout(function() {
+        ctx.fillStyle = '#5252527e';
+        ctx.fillText("YOU WIN", 40, 120);
+    }, 1800)
+
+
+    setTimeout(function() {
+        ctx.fillStyle = '#525252d9';
+        ctx.fillText("YOU WIN", 40, 120);
+    }, 2000)
+
+
+    setTimeout(function() {
+        ctx.fillStyle = '#525252f7';
+        ctx.fillText("YOU WIN", 40, 120);
+    }, 2200)
+
+
+    setTimeout(function() {
+        ctx.fillStyle = '#525252';
+        ctx.fillText("YOU WIN", 40, 120);
+    }, 2500)
+
+
+
+}

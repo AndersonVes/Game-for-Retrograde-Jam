@@ -58,6 +58,7 @@
     <audio id="bgAudio" src="sounds/dinoSong.mp3"></audio>
     <audio id="enemyDieAudio" src="sounds/enemyDie.wav"></audio>
     <audio id="playerDieAudio" src="sounds/dinodead.mp3"></audio>
+    <audio id="dinoWinAudio" src="sounds/dinowin.mp3"></audio>
     <audio id="wavePassedAudio" src="sounds/dinowave.mp3"></audio>
     <script>
         var reloadScenary = false;
@@ -89,6 +90,7 @@
         var shootAudio = document.getElementById("shootAudio");
         var enemyDieAudio = document.getElementById("enemyDieAudio");
         var playerDieAudio = document.getElementById("playerDieAudio");
+        var dinoWinAudio = document.getElementById("dinoWinAudio");
         var wavePassedAudio = document.getElementById("wavePassedAudio");
         var bgAudio = document.getElementById("bgAudio");
         var collisionAudio = document.getElementById("collisionAudio");
@@ -172,9 +174,7 @@
 
         /* Enemies */
         var enemies = [];
-        var timeToInstantiateEnemy = [15, 18, 21, 23, 24, 25, 26, 30, 35, 36, 37, 38, 39, 44, 45, 46, 47, 48, 49, 50, 53, 53.5, 54, 55, 56, 56.5, 57, 58,
-            65, 66, 67, 70, 71, 72, 76, 77, 80, 81, 84, 84.5, 85, 86, 94, 95, 95.5, 95.8, 96
-        ];
+        var timeToInstantiateEnemy = [1, 2, ];
 
 
 
@@ -376,13 +376,7 @@
 
             dino.update(delta);
 
-
-
-
-
         }
-
-
 
         var render = function(delta) {
 
@@ -444,7 +438,18 @@
 
             hearts.render(ctx, livesCurrent);
 
+            if (enemiesLeft <= 0) {
+                setTimeout(function() {
+                    // alert("morreu");
+                    gameState = "g";
+                    youWin();
+                    pauseAudios();
+                    dinoWinAudio.play();
 
+
+                    //  location.reload();
+                }, 0);
+            }
 
 
 
