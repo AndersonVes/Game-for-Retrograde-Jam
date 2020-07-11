@@ -213,7 +213,7 @@
                 waves++;
                 if(waves > 1) wavePassedAudio.play();
                 showWaveTextTimeCurrent = showWaveTextTime;
-                if ((livesCurrent + 1) < livesTotal)livesCurrent++;
+                if ((livesCurrent + 1) <= livesTotal)livesCurrent++;
                 timeToInstantiateScenaryObject.shift();
                 gameSpeed += 0.04;
             }
@@ -223,7 +223,7 @@
                 if (showWaveTextTimeCurrent != showWaveTextTime) waves++;
                 showWaveTextTimeCurrent = showWaveTextTime;
                 timeToInstantiateEnemy.shift();
-                if ((livesCurrent + 1) < livesTotal)livesCurrent++;
+                if ((livesCurrent + 1) <= livesTotal)livesCurrent++;
                 gameSpeed += 0.04;
                 if(waves > 1) wavePassedAudio.play();
 
