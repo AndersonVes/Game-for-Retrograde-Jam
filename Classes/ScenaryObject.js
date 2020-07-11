@@ -35,7 +35,7 @@ function CreateNewScenaryObject(scPosX, posY, sizeX, sizeY, imagePath, canvasWid
 
 
         if (obj.posX < -sizeX) {
-            obj.posX = canvasWidth; //+ Math.floor(Math.random() * 100);  
+            obj.posX = canvasWidth;
             obj.imageIndex = Math.floor(Math.random() * imagePath.length);
         }
 

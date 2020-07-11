@@ -38,7 +38,8 @@
         <div class="button-icon"><img src="sprites/dino/ak47.png" alt=""><button type="button" onclick="$('#howtoplay').css('display','flex');">How to Play</button></div>
         <div class="info" id="howtoplay">
 
-            <p>This game was developed for the game jam "<a target="_blank" href="https://itch.io/jam/retrograde-jam">Retrograde Jam</a>". And it aims to provide an SNES game experience.</p>
+            <p>This game was developed for the game jam "<a target="_blank" href="https://itch.io/jam/retrograde-jam">Retrograde Jam</a>". And it aims to provide an SNES game experience.
+            </p>
 
             <p>You are a dinosaur and must escape from a meteor shower. That's it, good luck. Ammunition is on us.</p>
 
@@ -363,7 +364,6 @@
             }
 
             for (j = 0; j < rocks.length; j++) {
-                //console.log(j + " " + rocks.length);
                 rocks[j].move(rockSpeed, delta);
                 rocks[j].checkColision(dino.posX, dino.posY, dino.width, dino.height);
             }
@@ -448,49 +448,12 @@
 
             if (enemiesLeft <= 0) {
                 setTimeout(function() {
-                    // alert("morreu");
                     gameState = "g";
                     youWin();
                     pauseAudios();
                     dinoWinAudio.play();
-
-
-                    //  location.reload();
                 }, 0);
             }
-
-
-
-            /*
-            if (dinosKilled < dinosToAk)
-                ctx.fillText((dinosKilled + "/" + dinosToAk), canvasWidth - 50, 20);
-            else
-                ctx.drawImage(akImage, canvasWidth - 40, 10);
-
-            if (newWaveTime)
-                ctx.fillStyle = '#009bdb';
-            else
-                ctx.fillStyle = '#000';
-
-            ctx.fillText("Waves Left:" + waves, 15, canvasHeight - 10);
-
-            wavesAux = waves;
-            if (enemiesLeft > 0)
-                waves = Math.ceil(enemiesLeft / 10);
-            else
-                waves = 0;
-
-            if (waves != wavesAux && waves > 0) {
-                wavePassedAudio.play();
-                rewardPlayer(waves);
-                newWaveTime = true;
-                setTimeout(function() {
-                    newWaveTime = false;
-                }, 2000 /*fx length )
-            }
-            if (waves <= 0)
-                alert('vc ganhou');
-                */
 
 
             ctx.font = "8px 'Press Start 2P'";
@@ -513,7 +476,6 @@
             if (showWaveTextTimeCurrent <= 0)
                 totalTime += delta / 1000;
 
-            // console.log(totalTime);
             then = now;
 
             // Request to do this again ASAP (Game loop)
@@ -540,8 +502,6 @@
 
         function hitTaken() {
 
-
-
             shakeCanvas();
 
             livesCurrent--;
@@ -550,14 +510,10 @@
 
             if (livesCurrent <= 0 && enemiesLeft > 0) {
                 setTimeout(function() {
-                    // alert("morreu");
                     gameState = "g";
                     gameOverAnimation();
                     pauseAudios();
                     playerDieAudio.play();
-
-
-                    //  location.reload();
                 }, 0);
             }
         }

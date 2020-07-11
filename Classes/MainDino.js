@@ -104,7 +104,6 @@ function CreateNewDino() {
 
 
             }
-            //alert(obj.frame.src);
 
             if (obj.frame.src.includes("prites/dino/dinoframe2.png")) {
                 obj.offset = -1;

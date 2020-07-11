@@ -48,13 +48,8 @@ function CreateNewCollisionObject(postionY, width, height, canvasWidth, imagePat
 
     obj.render = function(ctx) {
 
-        //if (obj.canRespawn == false){
-
         obj.newImage = new Image();
         obj.newImage.src = "sprites/pedra.png";
-        //     ctx.drawImage(obj.img, obj.posX, obj.posY);
-        // }
-
     }
 
     return obj;

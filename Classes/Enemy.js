@@ -112,15 +112,6 @@ function CreateNewEnemy(posY, isGrounded, enemyType, sizeX, sizeY, colliderOffse
         }
     }
 
-    /*
-        obj.respaw = function() {
-
-            obj.restartLives();
-            obj.posX = canvasWidth + (Math.floor(Math.random() * randomIndex) * 10);
-            obj.isAlive = true;
-            obj.hitDino = false;
-        }*/
-
     obj.shotTook = false;
     //Take shot from dino
     obj.takeShot = function(dinoState, dinoX) {
