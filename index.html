@@ -222,9 +222,15 @@
         /* UI */
         var hearts = createNewHearts(livesTotal);
 
+        var then = "";
+
         function play() {
             $('canvas').css("display", "block");
             $('#menu').css("display", "none");
+
+
+
+            then = Date.now();
 
             bgAudio.loop = true;
             bgAudio.play();
@@ -496,9 +502,6 @@
             RenderWaveText(delta);
         };
 
-
-        var then = Date.now();
-
         var main = function() {
             var now = Date.now();
             var delta = now - then;
@@ -545,7 +548,7 @@
 
             dino.takeDamage();
 
-            if (livesCurrent <= 0) {
+            if (livesCurrent <= 0 && enemiesLeft > 0) {
                 setTimeout(function() {
                     // alert("morreu");
                     gameState = "g";
