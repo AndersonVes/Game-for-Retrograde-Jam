@@ -188,7 +188,7 @@
         function CheckIfWaveFinished() {
 
             if (timeToInstantiateScenaryObject[0] == 'w') {
-                console.log("Wave finished");
+
                 waves++;
                 bgAudio.pause();
                 wavePassedAudio.play();
@@ -198,7 +198,7 @@
             }
 
             if (timeToInstantiateEnemy[0] == 'w') {
-                console.log("Wave finished");
+
                 if (showWaveTextTimeCurrent != showWaveTextTime) waves++;
                 showWaveTextTimeCurrent = showWaveTextTime;
                 timeToInstantiateEnemy.shift();
@@ -317,7 +317,7 @@
         }
 
         function InstantiateRock() {
-            rocks.push(CreateNewCollisionObject(164, 18, 10, canvasWidth, "sprites/pedra.png"));
+            rocks.push(CreateNewCollisionObject(164, 18, 10, canvasWidth, "sprites/rock.png"));
         }
 
 

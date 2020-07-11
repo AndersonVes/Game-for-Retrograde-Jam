@@ -52,7 +52,6 @@ function CreateNewScenaryObject(scPosX, posY, sizeX, sizeY, imagePath, canvasWid
 
             ctx.drawImage(obj.objImage[obj.imageIndex], scPosX, -sizeY + canvasHeight - posY);
             reloadScenary = false;
-            console.log(scPosX);
 
         }
 

@@ -13,11 +13,11 @@ function createScenary() {
     cloud2 = CreateNewScenaryObject(50, 110, 107, 30, ["sprites/cloud1.png", "sprites/cloud2.png"], canvasWidth, canvasHeight);
 
     /* Grasses */
-    grass1 = CreateNewScenaryObject(100, 38, 12, 14, ["sprites/grama.png"], canvasWidth, canvasHeight);
-    grass2 = CreateNewScenaryObject(40, 36, 12, 14, ["sprites/grama.png"], canvasWidth, canvasHeight);
-    grass3 = CreateNewScenaryObject(63, 37, 12, 14, ["sprites/grama.png"], canvasWidth, canvasHeight);
-    grass4 = CreateNewScenaryObject(150, 39, 12, 14, ["sprites/grama.png"], canvasWidth, canvasHeight);
-    grass5 = CreateNewScenaryObject(82, 40, 12, 14, ["sprites/grama.png"], canvasWidth, canvasHeight);
+    grass1 = CreateNewScenaryObject(100, 38, 12, 14, ["sprites/grass.png"], canvasWidth, canvasHeight);
+    grass2 = CreateNewScenaryObject(40, 36, 12, 14, ["sprites/grass.png"], canvasWidth, canvasHeight);
+    grass3 = CreateNewScenaryObject(63, 37, 12, 14, ["sprites/grass.png"], canvasWidth, canvasHeight);
+    grass4 = CreateNewScenaryObject(150, 39, 12, 14, ["sprites/grass.png"], canvasWidth, canvasHeight);
+    grass5 = CreateNewScenaryObject(82, 40, 12, 14, ["sprites/grass.png"], canvasWidth, canvasHeight);
 
     /* Trees */
     tree1 = CreateNewScenaryObject(82, 74, 29 + 30, 51, ["sprites/tree1.png"], canvasWidth, canvasHeight);

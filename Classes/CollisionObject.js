@@ -18,7 +18,6 @@ function CreateNewCollisionObject(postionY, width, height, canvasWidth, imagePat
 
         if (obj.canRespawn) {
             obj.posX -= speed * delta / 1000;
-            console.log(obj.posY + " " + obj.posX)
             if (obj.posX < -obj.sizeX) {
                 obj.canRespawn = true;
             }
@@ -49,7 +48,7 @@ function CreateNewCollisionObject(postionY, width, height, canvasWidth, imagePat
     obj.render = function(ctx) {
 
         obj.newImage = new Image();
-        obj.newImage.src = "sprites/pedra.png";
+        obj.newImage.src = "sprites/rock.png";
     }
 
     return obj;
