@@ -16,9 +16,9 @@ body {
     margin: 0;
     height: 100vh;
     background: #003e00;
-    background-image: url('https://andersonvgb.com/fliesdino/dinoframe1.png');
+    background-image: url('https://onairletreiro.com.br/dino.png');
+    background-size: 80px;
     background-repeat-x: no-repeat;
-    background-position: 5px 0;
 }
 
 .bottom-total {

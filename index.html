@@ -34,24 +34,21 @@
     <div id="menu" class="menu">
         <h1>T-rex of Fire <img src="src/js.png" alt=""></h1>
         <div class="button-icon one"><img src="sprites/dino/ak47.png" alt=""><button type="button" onclick="play()">Play</button></div>
-        <div class="button-icon one"><img src="sprites/dino/ak47.png" alt=""><button class="btn btn-success" onclick=" window.open('https://github.com/Vesguerber/GameJam','_blank')">Info</button></div>
+        <div class="button-icon one"><img src="sprites/dino/ak47.png" alt=""><button class="btn btn-success" onclick=" window.open('https://github.com/AndersonVes/GameJam','_blank')">Info</button></div>
         <div class="button-icon one"><img src="sprites/dino/ak47.png" alt=""><button type="button" onclick="htp()">How to Play</button></div>
         <div class="info" id="howtoplay" style="display: none;">
-
-            <button type="button" class="button-icon two" onclick="htpClose()">Menu</button>
-
-            <p>This game was developed for the game jam "<a target="_blank" href="https://itch.io/jam/retrograde-jam">Retrograde Jam</a>". And it aims to provide an SNES game experience.
-            </p>
-
+            
+            <p>This game was developed for the game jam "<a target="_blank" href="https://itch.io/jam/retrograde-jam">Retrograde Jam</a>". And it aims to provide a SNES game experience.</p>
+            
             <p>You are a dinosaur and must escape from some evil cyborgs-dinos. That's it, good luck. Ammunition is on us.</p>
-
+            
             <p>The game's resolution is 256x224, for a more nostalgic experience. And the music, mechanics, programming and sprites are 100% produced by Anderson and Bruno.</p>
-
-            <p>We hope you enjoy the game! A hug from Brazil</p>
-
-            <p>:)</p>
-
-            <img src="https://andersonvgb.com/fliesdino/controls.png" alt="">
+            
+            <p>We hope you enjoy the game. A hug from Brazil!</p>
+            
+            <p>Space Bar: Jump  -  E: FIRE!!</p>
+            
+            <button type="button" class="button-icon two" onclick="htpClose()">Go back</button>
         </div>
     </div>
 
@@ -89,7 +86,7 @@
         function menuAnimation() {
             setInterval(function() {
                 posBd++;
-                $('body').css('background-position', ' 5px ' + posBd + 'px')
+                $('body').css('background-position', posBd + 'px ' + -posBd + 'px')
             }, 30)
         }
 
@@ -123,6 +120,14 @@
         var wavePassedAudio = document.getElementById("wavePassedAudio");
         var bgAudio = document.getElementById("bgAudio");
         var collisionAudio = document.getElementById("collisionAudio");
+        jumpAudio.volume = 0.6;
+        shootAudio.volume = 0.6;
+        enemyDieAudio.volume = 0.6;
+        playerDieAudio.volume = 0.6;
+        dinoWinAudio.volume = 0.6;
+        wavePassedAudio.volume = 0.6;
+        bgAudio.volume = 0.6;
+        collisionAudio.volume = 0.6;
 
         // Cross-browser support for requestAnimationFrame
         var w = window;
@@ -587,7 +592,7 @@
 
     <div class="bottom-total" id='devs'>
         <div class="credits">
-            <a href="https://github.com/vesguerber" target="_blank">Anderson Vesguerber</a>
+            <a href="https://github.com/AndersonVes" target="_blank">Anderson Vesguerber</a>
             <a href="https://github.com/brunop98" target="_blank">Bruno Poór</a>
         </div>
     </div>
