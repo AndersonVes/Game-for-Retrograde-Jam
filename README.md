@@ -9,3 +9,7 @@ The game's resolution is 256x224, for a more nostalgic experience. And the music
 ## How to play the game:
 - Download the repository
 - Acess /play.html on your browser
+
+or 
+
+[Play on itch.io](https://https://vonpootato.itch.io/trex-of-fire)
