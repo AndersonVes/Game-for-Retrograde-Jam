@@ -13,3 +13,5 @@ The game's resolution is 256x224, for a more nostalgic experience. And the music
 or 
 
 - [Play on itch.io](https://vonpootato.itch.io/trex-of-fire)
+
+![alt game](https://img.itch.zone/aW1hZ2UvNjkzNzYxLzM4MjY0NDQucG5n/347x500/N5Etsk.png)
